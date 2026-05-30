@@ -517,7 +517,7 @@ footer {
   .hero { grid-template-columns: 1fr; gap: 40px; padding: 52px 24px 48px; }
   .hero-info { display: none; }
   .nav-links { display: none; }
-  .nav-inner, .wrap { padding: 0 20px; }
+  .nav-inner, .wrap { padding: 0 0px; }
   .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
   .entry { grid-template-columns: 1fr; }
   .entry-logo { display: none; }
