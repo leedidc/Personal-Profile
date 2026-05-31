@@ -351,7 +351,7 @@ section {
   font-size: 13px;
   color: var(--text-2);
   line-height: 1.75;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
 }
 
 .tags { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -370,6 +370,48 @@ section {
 .tag-green  { background: var(--green-dim);  border-color: rgba(5,150,105,0.2);        color: var(--green);  }
 .tag-amber  { background: var(--amber-dim);  border-color: rgba(217,119,6,0.2);        color: var(--amber);  }
 .tag-purple { background: var(--purple-dim); border-color: rgba(124,58,237,0.2);       color: var(--purple); }
+
+.detail-btn {
+    margin-top: 0px;
+    margin-bottom: 10px;
+
+    border: none;
+    background: none;
+
+    color: #2563eb;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.detail-content {
+    max-height: 0;
+    overflow: hidden;
+
+    transition:
+        max-height 0.4s ease,
+        margin-top 0.4s ease;
+
+    margin-top: 0;
+}
+
+.detail-content ul {
+    margin-left: 20px;
+}
+
+.detail-content.active {
+    max-height: 500px;
+    margin-top: 0px;
+}
+
+.detail-content ul {
+    padding-left: 20px;
+}
+
+.detail-content li {
+    margin-bottom: 10px;
+    line-height: 1.7;
+}
 
 /* ── CERTIFICATIONS ── */
 
