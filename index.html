@@ -6,6 +6,7 @@
   <title>Chanhyeong Lee</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/chatbot.css">
 </head>
 
 <body>
@@ -23,9 +24,51 @@
       <li><a href="#projects">Projects</a></li>
       <li><a href="#activities">Activities</a></li>
       <li><a href="#credentials">Credentials</a></li>
+      <li><a href="html/article.html">Articles</a></li>
     </ul>
   </div>
 </nav>
+
+<!-- chatbot -->
+<div id="chatbot-toggle">
+    💬
+</div>
+
+<div id="chatbot-window">
+
+    <div class="chat-header">
+
+        <span>AI Assistant</span>
+
+        <button id="chat-close">
+            ×
+        </button>
+
+    </div>
+
+    <div id="chat-messages">
+
+        <div class="bot-message">
+            Hello! Ask me about my experience.
+        </div>
+
+    </div>
+
+    <div class="chat-input">
+
+        <input
+            type="text"
+            id="user-input"
+            placeholder="Ask a question..."
+        >
+
+        <button id="send-btn">
+            Send
+        </button>
+
+    </div>
+
+</div>  
 
 <!-- 상단 자기소개 -->
 <div class="hero-outer">
@@ -42,7 +85,7 @@
 
       </p>
       <div class="hero-buttons">
-        <a class="btn-white" href="mailto:leech1227@gmail.com">Contact →</a>
+        <a class="btn-white" href="mailto:leech1227@gmail.com">Contact</a>
         <a class="btn-outline-white" href="https://www.linkedin.com/in/%EC%B0%AC%ED%98%95-%EC%9D%B4-768903276/">LinkedIn</a>
         <a class="btn-outline-white" href="https://github.com/leedidc">GitHub</a>
         <a class="btn-outline-white" href="#">CV ↓</a>
@@ -57,7 +100,7 @@
       </div>
       <div class="info-list">
         <div class="info-row">
-          <span class="ikey">affiliation</span>
+          <span class="ikey">Affiliation</span>
           <span class="ival"><span class="hi">ETRI</span> Information Security Office</span>
         </div>
         <div class="info-row">
@@ -65,15 +108,15 @@
           <span class="ival">Technical Staff</span>
         </div>
         <div class="info-row">
-          <span class="ikey">degree</span>
+          <span class="ikey">Degree</span>
           <span class="ival">Master's course</span>
         </div>
         <div class="info-row">
-          <span class="ikey">expected</span>
+          <span class="ikey">Expected</span>
           <span class="ival">2027</span>
         </div>
         <div class="info-row">
-          <span class="ikey">location</span>
+          <span class="ikey">Location</span>
           <span class="ival">Daejeon, Korea</span>
         </div>
         <div class="info-row">
@@ -81,7 +124,7 @@
           <span class="ival">Privacy Impact Assessment</span>
         </div>
         <div class="info-row">
-          <span class="ikey">research</span>
+          <span class="ikey">Research Interest</span>
           <span class="ival">N2SF · ZeroTrust · ISMS</span>
         </div>
       </div>
@@ -160,6 +203,19 @@
       <p class="e-org">ETRI · Daejeon, Korea</p>
       <p class="e-desc">• Institutional Information Security Activities Based on the Guidelines of the Ministry of Science and ICT and the National Information Security Guidelines of the National Intelligence Service.</p>
       <p class="e-desc">• ETRI AI Computing Center Task Force (Construction of a Cloud-Based AI Computing Infrastructure)</p>
+      <button class="detail-btn">
+        See Details ▼
+      </button>
+        <div class="detail-content">
+          <ul>
+              <li>Managed and operated enterprise security platforms (IPS, Firewall, WAF, SIEM, WIPS, NAC, EDR, EPP) and participated in cybersecurity incident response activities.</li>
+              <li>Developed, maintained, and continuously improved the organization's Information Security Management System (ISMS) to strengthen governance and compliance.</li>
+              <li>Provided information security support and coordinated security initiatives with government agencies, research institutions, and external partners.</li>
+              <li>Performed vulnerability assessments and security reviews of information systems, establishing remediation plans and security improvement measures.</li>
+              <li>Contributed to the development of AI security policies, controls, and response strategies for organizational AI environments.</li>
+              <li>Participated in the architecture design, deployment support, and proof-of-concept (PoC) activities for a cloud-based shared GPU infrastructure supporting large-scale AI workloads.</li>
+          </ul>
+        </div>  
       <div class="tags">
         <span class="tag">Security Governance</span>
         <span class="tag">Security Platforms</span>
@@ -167,6 +223,8 @@
         <span class="tag">Cloud Security</span>
       </div>
     </div>
+    
+    
   </div>
 
   <div class="entry">
@@ -543,6 +601,58 @@
       </div>
 
     </div>
+
+    <!-- Certification Card -->
+    <div class="cert-card">
+
+      <div class="cert-card-inner">
+
+        <!-- Front -->
+        <div class="cert-front">
+
+          <img
+            src="issuer/ireb.png"
+            alt="IREB"
+            class="cert-logo"
+            style="width:auto; height:90px;"
+          
+          >
+
+          <h3 class="cert-name">
+            Certified Professional for Requirements Engineering
+          </h3>
+
+          <p class="cert-org">
+            International Requirements Engineering Board
+          </p>
+
+        </div>
+
+        <!-- Back -->
+        <div class="cert-back">
+
+          <h3>Certification Details</h3>
+
+          <ul class="cert-info">
+            <li><strong>Issuer:</strong> IREB</li>
+            <li><strong>Issued:</strong> Oct 2024</li>
+            <li><strong>ID:</strong> #KSTQB-CPRE-FL-20****</li>
+          </ul>
+
+          <a
+            href="https://cpre.ireb.org/en"
+            target="_blank"
+            class="cert-verify"
+          >
+            Certification Info
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
     <!-- Certification Card -->
     <div class="cert-card">
 
@@ -642,7 +752,6 @@
 
     </div>
 
-
     <!-- Certification Card -->
     <div class="cert-card">
 
@@ -691,6 +800,101 @@
 
     </div>
 
+    <!-- Certification Card -->
+    <div class="cert-card">
+
+      <div class="cert-card-inner">
+
+        <div class="cert-front">
+
+          <img
+            src="issuer/kiot.jpg"
+            alt="KIOT"
+            class="cert-logo"
+            style="height: 90px; width: auto;"
+          >
+
+          <h3 class="cert-name">
+            RFID Specialist
+          </h3>
+
+          <p class="cert-org">
+            Korea Intelligent IoT Association
+          </p>
+
+        </div>
+
+        <div class="cert-back">
+
+          <h3>Certification Details</h3>
+
+          <ul class="cert-info">
+            <li><strong>Issuer:</strong> KIOT</li>
+            <li><strong>Issued:</strong> Nov 2023</li>
+            <li><strong>ID:</strong> 2023-11-30****</li>
+          </ul>
+
+          <a
+            href="https://cp.kiot.or.kr/cms/html?CM_CODE=0tme3m"
+            target="_blank"
+            class="cert-verify"
+          >
+            Certification Info
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+    <!-- Certification Card -->
+    <div class="cert-card">
+
+      <div class="cert-card-inner">
+
+        <div class="cert-front">
+
+          <img
+            src="issuer/ms.png"
+            alt="MS"
+            class="cert-logo"
+            style="height: 90px; width: auto;"
+          >
+
+          <h3 class="cert-name">
+            Microsoft Security Fundamentals
+          </h3>
+
+          <p class="cert-org">
+            Microsoft
+          </p>
+
+        </div>
+
+        <div class="cert-back">
+
+          <h3>Certification Details</h3>
+
+          <ul class="cert-info">
+            <li><strong>Issuer:</strong> Microsoft</li>
+            <li><strong>Issued:</strong> May 2026</li>
+            <li><strong>ID:</strong> 30B746C3BE03****</li>
+          </ul>
+
+          <a
+            href="https://learn.microsoft.com/ko-kr/credentials/certifications/resources/study-guides/sc-900"
+            target="_blank"
+            class="cert-verify"
+          >
+            Certification Info
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>    
+    
   </div>
 
 </section>
@@ -699,7 +903,7 @@
 <!-- PUBLICATIONS -->
 <div class="wrap"><section id="publications">
   <div class="sec-head">
-    <span class="sec-num">03</span>
+    <span class="sec-num">04</span>
     <h2 class="sec-title">Publications</h2>
     <div class="sec-line"></div>
   </div>
@@ -721,7 +925,7 @@
 <!-- PROJECTS -->
 <div class="wrap"><section id="projects">
   <div class="sec-head">
-    <span class="sec-num">04</span>
+    <span class="sec-num">05</span>
     <h2 class="sec-title">Projects</h2>
     <div class="sec-line"></div>
   </div>
@@ -747,7 +951,7 @@
 <!-- ACTIVITIES -->
 <div class="wrap"><section id="activities">
   <div class="sec-head">
-    <span class="sec-num">05</span>
+    <span class="sec-num">06</span>
     <h2 class="sec-title">Activities &amp; Service</h2>
     <div class="sec-line"></div>
   </div>
@@ -782,7 +986,7 @@
 <!-- CREDENTIALS -->
 <div class="wrap"><section id="credentials">
   <div class="sec-head">
-    <span class="sec-num">06</span>
+    <span class="sec-num">07</span>
     <h2 class="sec-title">Credentials &amp; Awards</h2>
     <div class="sec-line"></div>
   </div>
@@ -814,6 +1018,8 @@
 </footer>
 
 <script src="js/certificate.js"></script>
+<script src="js/experience.js"></script>
+<script src="js/chatbot.js"></script>
 
 </body>
 </html>
