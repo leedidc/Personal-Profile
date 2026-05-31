@@ -46,8 +46,8 @@
     right: 30px;
     bottom: 110px;
 
-    width: 300px;
-    height: 400px;
+    width: 400px;
+    height: 500px;
 
     background: white;
 
@@ -91,7 +91,29 @@
 }
 
 #chat-close {
+    width: 20px;
+    height: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 50%;
+
+    background: #fff;
+    color: #111;
+
+    font-size: 14px;
+    font-weight: 600;
+
     cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#chat-close:hover {
+    background: #f3f4f6;
 }
 
 /* =========================

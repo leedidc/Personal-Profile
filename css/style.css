@@ -384,6 +384,36 @@ section {
     cursor: pointer;
 }
 
+.cert-detail-btn {
+    margin-top: 15px;
+    margin-bottom: 0px;
+
+    border: 1px solid #e5e7eb;
+    background-color: #ffffff;
+
+    color: #000000;
+    font-weight: 600;
+
+    padding: 10px 16px;
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease-in-out;
+    margin-left: auto;
+    margin-right: auto;
+    
+    display: block;
+    width: fit-content;
+
+    margin: 15px auto 0 auto;
+}
+
+.cert-detail-btn:hover {
+    background-color: #f3f4f6;
+    transform: translateY(-1px);
+}
+
 .detail-content {
     max-height: 0;
     overflow: hidden;
