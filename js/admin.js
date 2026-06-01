@@ -1,17 +1,16 @@
 const API = "https://profile-article-database.leedidc1227.workers.dev/articles";
 
-
+// ========================
+// QUILL INIT
+// ========================
 const quill = new Quill("#editor", {
-  theme: "snow",
-  modules: {
-    toolbar: "#toolbar"
-  }
+  theme: "snow"
 });
 
 // ========================
-// LOGIN
+// LOGIN (SERVER VERIFY)
 // ========================
-function login() {
+async function login() {
   const token = document.getElementById("tokenInput").value;
 
   if (!token) {
@@ -19,11 +18,24 @@ function login() {
     return;
   }
 
-  localStorage.setItem("admin_token", token);
+  const res = await fetch(API.replace("/articles", "/verify-admin"), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ token })
+  });
 
+  if (!res.ok) {
+    alert("Invalid token");
+    return;
+  }
+
+  localStorage.setItem("admin_token", token);
   checkAuth();
 }
 
+// ========================
 function logout() {
   localStorage.removeItem("admin_token");
   location.reload();
@@ -62,9 +74,8 @@ function headers() {
 // CREATE
 // ========================
 async function createArticle() {
-  const title = document.getElementById("title").value;
 
-  // ✅ Quill 에디터 내용
+  const title = document.getElementById("title").value;
   const content = quill.root.innerHTML;
 
   const res = await fetch(API, {
@@ -77,32 +88,26 @@ async function createArticle() {
     alert("Created!");
 
     document.getElementById("title").value = "";
-
-    // 🔥 Quill 초기화 (중요)
     quill.setContents([]);
 
     loadArticles();
   } else {
-    alert("Failed (check token)");
+    alert("Failed");
   }
 }
 
 // ========================
-// READ (LIST)
+// READ
 // ========================
 async function loadArticles() {
   const res = await fetch(API);
   const data = await res.json();
 
-  const list = document.getElementById("list");
-
-  list.innerHTML = data.map(a => `
+  document.getElementById("list").innerHTML = data.map(a => `
     <div class="card">
       <h3>${a.title}</h3>
       <small>${a.created_at}</small>
-
       <br><br>
-
       <button onclick="editArticle(${a.id})">Edit</button>
       <button onclick="deleteArticle(${a.id})">Delete</button>
     </div>
@@ -114,7 +119,7 @@ async function loadArticles() {
 // ========================
 async function editArticle(id) {
   const title = prompt("New title");
-  const content = prompt("New content");
+  const content = prompt("New content (HTML)");
 
   if (!title || !content) return;
 
@@ -131,7 +136,7 @@ async function editArticle(id) {
 // DELETE
 // ========================
 async function deleteArticle(id) {
-  if (!confirm("Delete this article?")) return;
+  if (!confirm("Delete?")) return;
 
   await fetch(`${API}/${id}`, {
     method: "DELETE",
@@ -141,7 +146,5 @@ async function deleteArticle(id) {
   loadArticles();
 }
 
-// ========================
-// INIT
 // ========================
 checkAuth();
