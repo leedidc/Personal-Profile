@@ -1,73 +1,33 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const sliders = document.querySelectorAll('.cert-grid');
-
-    sliders.forEach((slider) => {
-        slider.addEventListener(
-            'wheel',
-            (e) => {
-                e.preventDefault();
-
-                slider.scrollBy({
-                    left: e.deltaY * 3,
-                    behavior: 'auto'
-                });
-            },
-            { passive: false }
-        );
-    });
-});
-
-document.querySelectorAll(".cvx-card").forEach(card => {
-
-    const created = new Date(card.dataset.date);
-    const base = card.dataset.lastUpdate
-        ? new Date(card.dataset.lastUpdate)
-        : created;
-
-    const years = parseInt(card.dataset.years);
+function renderCertificates() {
+  const text = (ko, en) => window.portfolioI18n.text(ko, en);
+  document.querySelectorAll('.cvx-card').forEach(card => {
+    card.querySelectorAll('.cvx-badge,.cvx-bar,.cvx-dates').forEach(element => element.remove());
+    const created = new Date(card.dataset.date + 'T00:00:00');
+    const baseString = card.dataset.lastUpdate || card.dataset.date;
+    const base = new Date(baseString + 'T00:00:00');
+    const years = Number(card.dataset.years);
     const now = new Date();
-
-    const badge = document.createElement("div");
-    const bar = document.createElement("div");
-    const fill = document.createElement("div");
-    const info = document.createElement("div");
-
-    badge.className = "cvx-badge";
-    bar.className = "cvx-bar";
-    fill.className = "cvx-fill";
-    info.className = "cvx-dates";
-
-    const fmt = d => d.toISOString().split("T")[0];
-
-    info.innerHTML = `
-        <div>First: ${fmt(created)}</div>
-        <div>Base: ${fmt(base)}</div>
-    `;
-
-    if (years === 0) {
-        badge.innerText = "PERMANENT";
-        badge.classList.add("perm");
-        fill.style.width = "100%";
-    } else {
-
-        const expiry = new Date(base);
-        expiry.setFullYear(expiry.getFullYear() + years);
-
-        const total = expiry - base;
-        const passed = now - base;
-
-        const percent = Math.min(100, (passed / total) * 100);
-        fill.style.width = percent + "%";
-
-        const left =
-            Math.max(0, (expiry - now) / (365 * 24 * 60 * 60 * 1000));
-
-        badge.innerText = `${years}Y · ${left.toFixed(1)} left`;
+    const badge = document.createElement('div'); badge.className = 'cvx-badge';
+    const info = document.createElement('div'); info.className = 'cvx-dates';
+    const first = document.createElement('div'); first.textContent = text('최초 취득: ', 'First issued: ') + card.dataset.date;
+    const updated = document.createElement('div'); updated.textContent = text('갱신 기준: ', 'Validity base: ') + baseString;
+    info.append(first, updated);
+    if (years === 0) { badge.textContent = text('유효기간 없음', 'No expiry'); badge.classList.add('perm'); }
+    else {
+      const expiry = new Date(base); expiry.setFullYear(expiry.getFullYear() + years);
+      const expired = now >= expiry;
+      const remaining = Math.max(0, Math.ceil((expiry - now) / 86400000));
+      badge.textContent = expired ? text('갱신 확인 필요', 'Renewal due') : text(remaining + '일 남음', remaining + ' days left');
+      const bar = document.createElement('div'); bar.className = 'cvx-bar';
+      const fill = document.createElement('div'); fill.className = 'cvx-fill';
+      fill.style.width = Math.max(0, Math.min(100, (now - base) / (expiry - base) * 100)) + '%';
+      bar.append(fill); card.append(bar);
+      const end = document.createElement('div');
+      end.textContent = text('만료 예정: ', 'Expires: ') + expiry.getFullYear() + '-' + String(expiry.getMonth() + 1).padStart(2, '0') + '-' + String(expiry.getDate()).padStart(2, '0');
+      info.append(end);
     }
-
-    bar.appendChild(fill);
-
-    card.appendChild(badge);
-    card.appendChild(bar);
-    card.appendChild(info);
-});
+    card.append(badge, info);
+  });
+}
+document.addEventListener('languagechange', renderCertificates);
+renderCertificates();

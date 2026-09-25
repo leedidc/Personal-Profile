@@ -1,45 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Technical Notes</title>
-
-    <link rel="stylesheet" href="../css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Technical Notes | Chanhyeong Lee</title>
+    <link rel="stylesheet" href="../css/portfolio.css">
     <link rel="stylesheet" href="../css/article.css">
-</head>
-
-<body>
-
-    <div class="wrap">
-
-        <!-- HEADER -->
-        <section class="article-hero">
-
-            <a href="../index.html" class="back-link">
-                ← Back to MainPage
-            </a>
-
-            <div class="sec-head">
-                <span class="sec-num">04</span>
-                <h1 class="sec-title">Technical Notes</h1>
-                <div class="sec-line"></div>
-            </div>
-
-            <p class="article-subtitle">
-                A place where I document security research, technical interests, 
-                and insights gained through continuous learning.
-            </p>
-
-        </section>
-
-        <!-- ARTICLE LIST -->
-        <section class="article-list" id="article-list">
-        </section>
-
-    </div>
-<script src="../js/article.js"></script>
-</body>
-
+    <script src="../js/i18n.js" defer>
+    </script>
+    <script src="../js/article.js" defer>
+    </script>
+  </head>
+  <body>
+    <main class="subpage">
+      <div class="page-toolbar">
+        <a href="../index.html" data-ko="← 포트폴리오로">← Back to portfolio</a>
+        <div class="language-switch" role="group" aria-label="Language">
+          <button type="button" data-language="ko" lang="ko">한국어</button>
+          <button type="button" data-language="en" lang="en">EN</button>
+        </div>
+      </div>
+      <p class="eyebrow">RESEARCH & WRITING</p>
+      <h1 data-ko="기술 글">Technical notes</h1>
+      <p class="page-description" data-ko="보안 연구와 기술적 관심사, 실무와 학습 과정의 기록입니다. 게시글은 작성된 언어로 표시됩니다.">Security research, technical interests, and notes from practice and learning. Articles are shown in their original language.</p>
+      <section class="article-list" id="article-list" aria-live="polite">
+      </section>
+      <noscript>JavaScript is required to load articles. / 게시글을 불러오려면 JavaScript가 필요합니다.</noscript>
+    </main>
+  </body>
 </html>
