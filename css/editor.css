@@ -133,6 +133,20 @@
   border-radius: 10px;
   overflow: hidden;
 }
+.editor-help {
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.order-select {
+  min-height: 34px;
+  padding: 5px 7px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  color: var(--ink);
+  font-size: 12px;
+}
 .editor-row {
   display: flex;
   align-items: center;
@@ -282,6 +296,8 @@ dialog::backdrop {
   }
   .editor-actions {
     align-self: flex-end;
+    flex-shrink: 1;
+    max-width: 100%;
   }
   .editor-row .row-name {
     font-size: 13px;

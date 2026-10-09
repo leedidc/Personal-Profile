@@ -211,6 +211,37 @@ p {
   width: 100%;
   text-align: right;
 }
+.profile-overview {
+  display: grid;
+  gap: 24px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+}
+.profile-overview h2 {
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+.profile-introduction p {
+  max-width: 900px;
+  color: #56515f;
+  line-height: 1.9;
+  white-space: pre-line;
+}
+.profile-interests .tags {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.profile-interests li {
+  padding: 5px 11px;
+  border-radius: 6px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 12px;
+}
+.summary-english {
+  margin-top: 3px;
+}
 /* 목록과 표 */
 .resume-section {
   padding-top: 42px;
@@ -277,16 +308,16 @@ p {
 .resume-table thead th:nth-child(2) {
   width: 20%;
 }
-.resume-table.certifications-table thead th:nth-child(1) {
+.resume-table.credential-table thead th:nth-child(1) {
   width: 36%;
 }
-.resume-table.certifications-table thead th:nth-child(2) {
+.resume-table.credential-table thead th:nth-child(2) {
   width: 16%;
 }
-.resume-table.certifications-table thead th:nth-child(3) {
+.resume-table.credential-table thead th:nth-child(3) {
   width: 28%;
 }
-.resume-table.certifications-table thead th:nth-child(4) {
+.resume-table.credential-table thead th:nth-child(4) {
   width: 20%;
 }
 .credential-label {
@@ -365,7 +396,7 @@ p {
 }
 .period {
   display: block;
-  white-space: nowrap;
+  white-space: normal;
   font-size: 12px;
   color: #615c6d;
   font-variant-numeric: tabular-nums;
@@ -599,7 +630,7 @@ p {
     order: 3;
     width: 100%;
     justify-content: space-between;
-    gap: 12px;
+    gap: 8px;
     margin-top: 8px;
   }
   .site-header nav a {
@@ -675,7 +706,7 @@ p {
   .resume-table .name-cell {
     grid-column: 1/-1;
   }
-  .resume-table.certifications-table .credential-cell {
+  .resume-table.credential-table .credential-cell {
     grid-column: 1/-1;
     display: flex;
     align-items: baseline;

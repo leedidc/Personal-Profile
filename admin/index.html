@@ -77,6 +77,7 @@
           <h2 id="section-title">학력</h2>
           <button class="button primary" id="add-item" type="button">+ 추가</button>
         </div>
+        <p class="editor-help">표시 순서를 선택하거나 ↑·↓ 버튼으로 항목을 이동할 수 있습니다.</p>
         <div class="editor-list" id="editor-list"></div>
       </section>
     </main>
@@ -104,6 +105,10 @@
             <div class="field full">
               <label for="subtitle" id="subtitle-label">보조 이름</label
               ><input id="subtitle" name="subtitle" maxlength="300" />
+              <small id="name-help" hidden
+                >한글 자격은 정식 명칭과 영문 전체 명칭을 입력합니다. 영문 자격은 위에 전체 명칭만
+                입력하고 이 칸은 비워 둡니다.</small
+              >
             </div>
             <div class="field">
               <label for="period" id="period-label">기간</label
@@ -122,19 +127,28 @@
               <label for="summary" id="summary-label">내용</label
               ><input id="summary" name="summary" maxlength="500" />
             </div>
-            <div class="field full" id="certificate-number-field" hidden>
-              <label for="certificate-number">자격증 번호</label>
+            <div class="field full" id="summary-english-field" hidden>
+              <label for="summary-english" id="summary-english-label">영문 전공 · 학위</label>
+              <input id="summary-english" name="summaryEnglish" maxlength="500" />
+            </div>
+            <div class="field full" id="credential-number-field" hidden>
+              <label for="credential-number" id="credential-number-label">자격증 번호</label>
               <input
-                id="certificate-number"
+                id="credential-number"
                 name="maskedNumber"
                 maxlength="100"
                 autocomplete="off"
                 spellcheck="false"
-                aria-describedby="certificate-number-help"
+                aria-describedby="credential-number-help"
               />
-              <small id="certificate-number-help"
+              <small id="credential-number-help"
                 >뒤쪽을 ***로 가리고, 가린 번호만 저장합니다.</small
               >
+            </div>
+            <div class="field full" id="education-courses" hidden>
+              <label for="courses">이수과목</label>
+              <textarea id="courses" name="courses" rows="5" maxlength="20000"></textarea>
+              <small>한 줄에 한 과목씩 입력합니다. 과목 코드도 함께 적을 수 있습니다.</small>
             </div>
             <div class="field full">
               <label for="details">상세 내용</label
@@ -215,6 +229,29 @@
             <div class="field full">
               <label for="profile-linkedin">LinkedIn</label
               ><input id="profile-linkedin" name="linkedin" type="url" maxlength="500" />
+            </div>
+            <div class="field full">
+              <label for="profile-introduction">자기소개</label>
+              <textarea
+                id="profile-introduction"
+                name="introduction"
+                rows="5"
+                maxlength="3000"
+              ></textarea>
+              <small>비워 두면 자기소개는 사이트에 표시하지 않습니다.</small>
+            </div>
+            <div class="field full">
+              <label for="profile-interests">관심분야</label>
+              <textarea
+                id="profile-interests"
+                name="interests"
+                rows="4"
+                maxlength="3030"
+              ></textarea>
+              <small
+                >한 줄에 한 항목씩 입력합니다. 항목당 100자, 최대 30개이며 비워 두면 표시하지
+                않습니다.</small
+              >
             </div>
           </div>
           <p class="dialog-error" id="profile-error" role="alert"></p>

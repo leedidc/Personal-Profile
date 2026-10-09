@@ -65,11 +65,27 @@ try:
         context.on("page", lambda page: page.on("pageerror", lambda error: errors.append(str(error))))
         page = context.new_page()
         page.goto(BASE)
-        expect(page.locator(".resume-section")).to_have_count(6)
+        expect(page.locator('#profile-links a[href^="mailto:"]')).to_have_attribute("href", "mailto:" + original["profile"]["email"])
+        expect(page.locator(".profile-introduction p")).to_have_text(original["profile"]["introduction"])
+        expect(page.locator(".profile-interests li")).to_have_text(original["profile"]["interests"])
+        expect(page.locator("#education .summary-english").first).to_have_text(original["education"][0]["summaryEnglish"])
+        expect(page.locator("#experience .row-subtitle").first).to_have_text(original["experience"][0]["subtitle"])
+        expect(page.locator(".resume-section")).to_have_count(7)
         expect(page.locator("#certifications tbody tr")).to_have_count(len(original["certifications"]))
         expect(page.locator("#certifications thead th")).to_have_count(4)
         expect(page.locator("#certifications .credential-number")).to_have_count(20)
         expect(page.locator("#certifications .credential-number").filter(has_text="***")).to_have_count(18)
+        expect(page.locator("#languages tbody tr")).to_have_count(1)
+        expect(page.locator("#languages")).to_contain_text("800점")
+        expect(page.locator("#languages .period")).to_have_text("2026.08.30")
+        expect(page.locator("#languages .credential-number")).to_have_text(original["languages"][0]["maskedNumber"])
+        expect(page.locator("#education .course-details")).to_have_count(2)
+        expect(page.locator("#education .course-details").first.locator("li")).to_have_count(2)
+        school_courses = page.locator("#education .course-details").nth(1)
+        school_courses.locator("summary").click()
+        expect(school_courses.locator("li")).to_have_count(10)
+        expect(school_courses).to_contain_text("융합보안프로젝트1")
+        school_courses.locator("summary").click()
         expect(page.locator("#projects .project-group")).to_have_count(2)
         expect(page.locator("#awards tbody tr")).to_have_count(4)
         expect(page.locator("#awards tbody tr").first).to_contain_text("행정안전부 장관상")
@@ -79,14 +95,14 @@ try:
         page.locator("#experience details summary").first.click()
         page.evaluate("document.querySelectorAll('img').forEach(img => img.loading = 'eager')")
         page.wait_for_function("Array.from(document.images).every(img => img.complete)")
-        assert page.locator(".org-logo img").count() == sum(len(original[s]) for s in ["education","experience","certifications","projects","activities","awards"]), "Missing or failed organization logo"
+        assert page.locator(".org-logo img").count() == sum(len(original[s]) for s in ["education","experience","certifications","languages","projects","activities","awards"]), "Missing or failed organization logo"
         assert page.evaluate("Array.from(document.images).every(img => img.naturalWidth > 0)")
         no_overflow(page)
         page.screenshot(path=str(ARTIFACTS / "desktop.png"), full_page=True)
         for width in [390, 320]:
             page.set_viewport_size({"width": width, "height": 844})
             page.goto(BASE)
-            expect(page.locator(".resume-section")).to_have_count(6)
+            expect(page.locator(".resume-section")).to_have_count(7)
             no_overflow(page)
         page.set_viewport_size({"width": 390, "height": 844})
         page.screenshot(path=str(ARTIFACTS / "mobile.png"), full_page=True)
@@ -106,6 +122,11 @@ try:
         admin.locator("#subtitle").fill("새 학교")
         admin.locator("#period").fill("2026.10 – 현재")
         admin.locator("#summary").fill("정보보안 전공")
+        admin.locator("#summary-english").fill("Information Security")
+        expect(admin.locator("#education-courses")).to_be_visible()
+        expect(admin.locator("#credential-number-field")).to_be_hidden()
+        synthetic_courses = ["TEST 101 — 검증용 과목", "<img src=x onerror=alert(1)>"]
+        admin.locator("#courses").fill("\n".join(synthetic_courses))
         admin.locator("#logo-file").set_input_files(str(ROOT / "image/ssu.png"))
         admin.wait_for_function("document.querySelector('#logo-preview').src.startsWith('data:image/png')")
         admin.locator("#apply-item").click()
@@ -118,21 +139,51 @@ try:
         synthetic_number = "TEST-2026-987654"
         masked_number = "TEST-2026-98***"
         admin.get_by_role("button", name="자격", exact=True).click()
+        first_certificate = original["certifications"][0]
+        expect(admin.locator(".editor-row").first).to_contain_text(first_certificate["subtitle"])
+        admin.get_by_label(first_certificate["name"] + " 표시 순서", exact=True).select_option("2")
+        expected_certificate_ids = [row["id"] for row in original["certifications"]]
+        expected_certificate_ids.insert(2, expected_certificate_ids.pop(0))
+        expect(admin.locator(".editor-row .row-name").nth(2)).to_have_text(first_certificate["name"])
+        assert state["writes"] == 0
         admin.get_by_role("button", name="자격 추가", exact=True).click()
-        expect(admin.locator("#certificate-number-field")).to_be_visible()
+        expect(admin.locator("#subtitle-label")).to_have_text("영문 전체 명칭 (한글 자격만)")
+        expect(admin.locator("#credential-number-field")).to_be_visible()
         admin.locator("#item-name").fill("번호 마스킹 검증용 자격")
         admin.locator("#period").fill("2026.10.09")
         admin.locator("#summary").fill("검증용 기관")
-        admin.locator("#certificate-number").fill(synthetic_number)
+        admin.locator("#credential-number").fill(synthetic_number)
         admin.locator("#apply-item").click()
-        expect(admin.locator("#certificate-number")).to_have_value("")
+        expect(admin.locator("#credential-number")).to_have_value("")
         admin.get_by_role("button", name="번호 마스킹 검증용 자격 수정", exact=True).click()
-        expect(admin.locator("#certificate-number")).to_have_value(masked_number)
+        expect(admin.locator("#credential-number")).to_have_value(masked_number)
+        admin.locator("#apply-item").click()
+
+        # 어학 등록번호도 추가·재편집·저장 과정에서 같은 마스킹 기준을 적용합니다.
+        synthetic_registration = "EXAM-654321"
+        masked_registration = "EXAM-654***"
+        admin.get_by_role("button", name="어학", exact=True).click()
+        admin.get_by_role("button", name="어학 추가", exact=True).click()
+        expect(admin.locator("#education-courses")).to_be_hidden()
+        expect(admin.locator("#credential-number-label")).to_have_text("등록번호")
+        admin.locator("#item-name").fill("검증용 어학시험")
+        admin.locator("#summary").fill("B2")
+        admin.locator("#period").fill("2026.10.09")
+        admin.locator("#credential-number").fill(synthetic_registration)
+        admin.locator("#apply-item").click()
+        expect(admin.locator("#credential-number")).to_have_value("")
+        admin.get_by_role("button", name="검증용 어학시험 수정", exact=True).click()
+        expect(admin.locator("#credential-number")).to_have_value(masked_registration)
         admin.locator("#apply-item").click()
 
         # Edit existing career details.
         admin.get_by_role("button", name="경력", exact=True).click()
+        admin.get_by_role("button", name=original["experience"][1]["name"] + " 위로 이동", exact=True).click()
+        expected_experience_ids = [row["id"] for row in original["experience"]]
+        expected_experience_ids[0], expected_experience_ids[1] = expected_experience_ids[1], expected_experience_ids[0]
+        expect(admin.locator(".editor-row .row-name").first).to_have_text(original["experience"][1]["name"])
         admin.get_by_role("button", name="한국전자통신연구원 수정", exact=True).click()
+        expect(admin.locator("#subtitle")).to_have_value(original["experience"][0]["subtitle"])
         admin.locator("#details").fill("검증용 상세 업무 1\n검증용 상세 업무 2")
         admin.locator("#apply-item").click()
 
@@ -167,14 +218,35 @@ try:
         expect(admin.locator(".editor-row")).to_have_count(3)
 
         admin.locator("#edit-profile").click()
+        expect(admin.locator("#profile-email")).to_have_value(original["profile"]["email"])
+        expect(admin.locator("#profile-introduction")).to_have_value(original["profile"]["introduction"])
+        expect(admin.locator("#profile-interests")).to_have_value("\n".join(original["profile"]["interests"]))
         admin.locator("#profile-name-input").fill("이찬형 검증")
+        admin.locator("#profile-english").fill("Example Person")
+        admin.locator("#profile-email").fill("editor@example.test")
+        admin.locator("#profile-github").fill("https://github.com/example")
+        admin.locator("#profile-linkedin").fill("https://www.linkedin.com/in/example/")
+        introduction = '검증용 자기소개\n<img src=x onerror=alert(1)>'
+        interests = ["보안 검증", "<script>alert(1)</script>"]
+        admin.locator("#profile-introduction").fill(introduction)
+        admin.locator("#profile-interests").fill("\n".join(interests))
+        admin.set_viewport_size({"width": 320, "height": 844})
+        no_overflow(admin)
+        admin.set_viewport_size({"width": 1440, "height": 1000})
         admin.locator("#profile-form").get_by_role("button", name="적용", exact=True).click()
         admin.locator("#preview").click()
         expect(admin.locator("#preview-education tbody tr")).to_have_count(3)
         expect(admin.locator("#preview-awards tbody tr")).to_have_count(4)
         expect(admin.locator("#preview-certifications .credential-number").last).to_have_text(masked_number)
         assert synthetic_number not in admin.locator("#preview-content").inner_html()
+        expect(admin.locator("#preview-languages .credential-number").last).to_have_text(masked_registration)
+        expect(admin.locator("#preview-education .course-details").last.locator("li")).to_have_text(synthetic_courses)
+        assert synthetic_registration not in admin.locator("#preview-content").inner_html()
         expect(admin.locator("#preview-dialog h1")).to_contain_text("이찬형 검증")
+        expect(admin.locator("#preview-dialog .profile-introduction p")).to_have_text(introduction)
+        expect(admin.locator("#preview-dialog .profile-interests li")).to_have_text(interests)
+        expect(admin.locator('#preview-profile-links a[href^="mailto:"]')).to_have_attribute("href", "mailto:editor@example.test")
+        assert admin.locator("#preview-content script").count() == 0
         assert admin.locator('#preview-dialog img[src="x"]').count() == 0
         admin.locator("#preview-dialog").get_by_role("button", name="닫기", exact=True).click()
 
@@ -193,23 +265,48 @@ try:
         assert state["writes"] == 1
         assert state["data"]["certifications"][-1]["maskedNumber"] == masked_number
         assert synthetic_number not in json.dumps(state["data"])
+        assert synthetic_registration not in json.dumps(state["data"])
+        assert state["data"]["languages"][-1]["maskedNumber"] == masked_registration
+        assert state["data"]["education"][-1]["courses"] == synthetic_courses
+        assert state["data"]["education"][-1]["summaryEnglish"] == "Information Security"
+        assert [row["id"] for row in state["data"]["certifications"][:-1]] == expected_certificate_ids
+        assert [row["id"] for row in state["data"]["experience"]] == expected_experience_ids
         assert state["data"]["awards"][0]["details"] == ["검증용 수상 내용"]
         assert state["data"]["profile"]["name"] == "이찬형 검증"
         assert state["data"]["education"][-1]["logo"].startswith("data:image/png;base64,")
-        assert state["data"]["experience"][0]["details"] == ["검증용 상세 업무 1", "검증용 상세 업무 2"]
+        assert next(row for row in state["data"]["experience"] if row["id"] == "exp-etri")["details"] == ["검증용 상세 업무 1", "검증용 상세 업무 2"]
+        assert state["data"]["profile"]["introduction"] == introduction
+        assert state["data"]["profile"]["interests"] == interests
 
         # Public rendering uses the same persisted payload.
         saved = context.new_page()
         saved.route(BASE + "/data/portfolio.json", lambda route: route.fulfill(json=state["data"]))
         saved.goto(BASE)
         expect(saved.locator("#profile-name")).to_contain_text("이찬형 검증")
+        expect(saved.locator("#profile-name span")).to_have_text("Example Person")
+        expect(saved.locator(".brand-mark")).to_have_text("EP")
+        expect(saved.locator(".site-footer > span")).to_have_text("이찬형 검증")
+        expect(saved.locator(".header-github")).to_have_attribute("href", "https://github.com/example")
+        expect(saved.locator('#profile-links a[href^="mailto:"]')).to_have_attribute("href", "mailto:editor@example.test")
+        expect(saved.locator('#profile-links a[href^="https://www.linkedin.com"]')).to_have_attribute("href", "https://www.linkedin.com/in/example/")
+        expect(saved.locator(".profile-introduction p")).to_have_text(introduction)
+        expect(saved.locator(".profile-interests li")).to_have_text(interests)
+        assert saved.locator('#profile img[src="x"], #profile script').count() == 0
+        expect(saved.locator("#certifications .row-name")).to_have_text([row["name"] for row in state["data"]["certifications"]])
+        expect(saved.locator("#experience .row-name")).to_have_text([row["name"] for row in state["data"]["experience"]])
         expect(saved.locator("#education tbody tr")).to_have_count(3)
         expect(saved.locator("#certifications .credential-number").last).to_have_text(masked_number)
         assert synthetic_number not in saved.content()
+        assert synthetic_registration not in saved.content()
+        expect(saved.locator("#languages .credential-number").last).to_have_text(masked_registration)
+        expect(saved.locator("#education .course-details").last.locator("li")).to_have_text(synthetic_courses)
 
         admin.screenshot(path=str(ARTIFACTS / "admin.png"), full_page=True)
         admin.set_viewport_size({"width": 390, "height": 844})
         no_overflow(admin)
+        admin.set_viewport_size({"width": 320, "height": 844})
+        no_overflow(admin)
+        admin.set_viewport_size({"width": 390, "height": 844})
         admin.locator("#add-item").click()
         expect(admin.locator("#item-dialog")).to_be_visible()
         no_overflow(admin)
@@ -219,6 +316,30 @@ try:
         expect(admin.locator("#editor-panel")).to_be_hidden()
         expect(admin.locator("#login-form")).to_be_visible()
         assert admin.evaluate("localStorage.length === 0 && sessionStorage.length === 0")
+
+        # 저장 후 다시 로그인해도 순서와 프로필이 유지됩니다.
+        login(admin)
+        admin.get_by_role("button", name="자격", exact=True).click()
+        expect(admin.locator(".editor-row .row-name")).to_have_text([row["name"] for row in state["data"]["certifications"]])
+        admin.locator("#edit-profile").click()
+        expect(admin.locator("#profile-introduction")).to_have_value(introduction)
+        expect(admin.locator("#profile-interests")).to_have_value("\n".join(interests))
+        admin.locator("#profile-introduction").fill("")
+        admin.locator("#profile-interests").fill("")
+        admin.locator("#profile-form").get_by_role("button", name="적용", exact=True).click()
+        admin.locator("#preview").click()
+        expect(admin.locator("#preview-content .profile-overview")).to_have_count(0)
+        admin.locator("#preview-dialog").get_by_role("button", name="닫기", exact=True).click()
+
+        # 새 프로필 필드가 없는 기존 데이터도 공개 화면에서 열립니다.
+        legacy_data = copy.deepcopy(original)
+        del legacy_data["profile"]["introduction"]
+        del legacy_data["profile"]["interests"]
+        legacy = context.new_page()
+        legacy.route(BASE + "/data/portfolio.json", lambda route: route.fulfill(json=legacy_data))
+        legacy.goto(BASE)
+        expect(legacy.locator(".resume-section")).to_have_count(7)
+        expect(legacy.locator(".profile-overview")).to_have_count(0)
 
         # A non-writer cannot enter the editing panel.
         denied = context.new_page()

@@ -6,7 +6,7 @@
     validatePortfolio,
     createLogo,
     getSafeUrl,
-    maskCertificateNumber,
+    maskCredentialNumber,
   } = Portfolio;
   const getElement = (id) => document.getElementById(id);
   // 토큰과 저장 전 변경사항은 현재 페이지의 메모리에만 유지합니다.
@@ -56,6 +56,38 @@
     return button;
   }
 
+  function moveItem(id, targetIndex) {
+    const rows = data[sectionKey];
+    const currentIndex = rows.findIndex((row) => row.id === id);
+    if (
+      currentIndex < 0 ||
+      targetIndex < 0 ||
+      targetIndex >= rows.length ||
+      currentIndex === targetIndex
+    ) {
+      return;
+    }
+    const [row] = rows.splice(currentIndex, 1);
+    rows.splice(targetIndex, 0, row);
+    setDirty();
+    renderEditorList();
+    getElement('editor-list').children[targetIndex].querySelector('.order-select').focus();
+    showStatus(row.name + ' 항목을 ' + (targetIndex + 1) + '번째로 이동했습니다.');
+  }
+
+  function createOrderSelect(row, index, count) {
+    const select = createElement('select', 'order-select');
+    select.setAttribute('aria-label', row.name + ' 표시 순서');
+    for (let position = 0; position < count; position++) {
+      const option = createElement('option', '', position + 1 + '번째');
+      option.value = String(position);
+      select.append(option);
+    }
+    select.value = String(index);
+    select.addEventListener('change', () => moveItem(row.id, Number(select.value)));
+    return select;
+  }
+
   function renderEditorList() {
     const section = sections.find((item) => item.key === sectionKey);
     getElement('section-title').textContent = section.title + ' · ' + data[sectionKey].length;
@@ -70,9 +102,17 @@
       const identity = createElement('div', 'identity');
       const text = createElement('div', 'identity-text');
       text.append(createElement('span', 'row-name', row.name));
+      if (row.subtitle) {
+        text.append(createElement('span', 'row-subtitle', row.subtitle));
+      }
+      if (row.summary) {
+        text.append(createElement('span', 'row-summary', row.summary));
+      }
+      if (row.summaryEnglish) {
+        text.append(createElement('span', 'row-subtitle summary-english', row.summaryEnglish));
+      }
       const meta = [
         row.period,
-        row.subtitle,
         sectionKey === 'projects' ? (row.category === 'personal' ? '개인' : '회사') : '',
       ]
         .filter(Boolean)
@@ -80,17 +120,13 @@
       text.append(createElement('span', 'row-subtitle', meta));
       identity.append(createLogo(row, '../'), text);
       const actions = createElement('div', 'editor-actions');
-      const move = (direction) => {
-        const target = index + direction;
-        [rows[index], rows[target]] = [rows[target], rows[index]];
-        setDirty();
-        renderEditorList();
-      };
+      const move = (direction) => moveItem(row.id, index + direction);
       const up = createActionButton('↑', row.name + ' 위로 이동', () => move(-1), 'icon');
       up.disabled = index === 0;
       const down = createActionButton('↓', row.name + ' 아래로 이동', () => move(1), 'icon');
       down.disabled = index === rows.length - 1;
       actions.append(
+        createOrderSelect(row, index, rows.length),
         up,
         down,
         createActionButton('수정', row.name + ' 수정', () => openItemDialog(row)),
@@ -223,10 +259,15 @@
     ['name-label', 'subtitle-label', 'summary-label'].forEach((id, i) => {
       getElement(id).textContent = labels[i];
     });
-    const isSingleDate = ['certifications', 'awards'].includes(sectionKey);
+    getElement('name-help').hidden = sectionKey !== 'certifications';
+    getElement('summary-english-field').hidden = !['education', 'experience'].includes(sectionKey);
+    getElement('summary-english-label').textContent =
+      sectionKey === 'education' ? '영문 전공 · 학위' : '영문 부서 · 직책';
+    getElement('summary-english').value = row?.summaryEnglish || '';
+    const isSingleDate = Boolean(section.numberLabel) || sectionKey === 'awards';
     getElement('period-label').textContent = section.columns[1];
     getElement('period').placeholder = isSingleDate ? '2026.10' : '2026.01 – 현재';
-    if (sectionKey === 'certifications') {
+    if (section.numberLabel) {
       getElement('period').placeholder = '2026.10.09';
     }
     getElement('status-label').textContent = sectionKey === 'awards' ? '부문' : '상태';
@@ -235,8 +276,11 @@
     ['project-category', 'project-technologies', 'project-link'].forEach((id) => {
       getElement(id).hidden = sectionKey !== 'projects';
     });
-    getElement('certificate-number-field').hidden = sectionKey !== 'certifications';
-    getElement('certificate-number').value = row?.maskedNumber || '';
+    getElement('credential-number-field').hidden = !section.numberLabel;
+    getElement('credential-number-label').textContent = section.numberLabel || '';
+    getElement('education-courses').hidden = sectionKey !== 'education';
+    getElement('courses').value = row?.courses?.join('\n') || '';
+    getElement('credential-number').value = row?.maskedNumber || '';
     for (const key of ['name', 'subtitle', 'period', 'status', 'summary', 'link']) {
       form.elements.namedItem(key).value = row?.[key] || '';
     }
@@ -253,7 +297,7 @@
   }
   getElement('add-item').addEventListener('click', () => openItemDialog(null));
   getElement('item-dialog').addEventListener('close', () => {
-    getElement('certificate-number').value = '';
+    getElement('credential-number').value = '';
   });
   getElement('logo-select').addEventListener('change', () => {
     uploadVersion++;
@@ -332,6 +376,15 @@
     for (const key of ['name', 'subtitle', 'period', 'status', 'summary']) {
       row[key] = String(fields.get(key)).trim();
     }
+    if (['education', 'experience'].includes(sectionKey)) {
+      row.summaryEnglish = String(fields.get('summaryEnglish')).trim();
+    }
+    if (sectionKey === 'education') {
+      row.courses = String(fields.get('courses'))
+        .split('\n')
+        .map((course) => course.trim())
+        .filter(Boolean);
+    }
     if (sectionKey === 'projects') {
       row.category = fields.get('category');
       row.link = String(fields.get('link')).trim();
@@ -341,9 +394,10 @@
         .filter(Boolean);
     }
     try {
-      if (sectionKey === 'certifications') {
-        row.maskedNumber = maskCertificateNumber(String(fields.get('maskedNumber') || ''));
-        getElement('certificate-number').value = row.maskedNumber;
+      const section = sections.find((item) => item.key === sectionKey);
+      if (section.numberLabel) {
+        row.maskedNumber = maskCredentialNumber(String(fields.get('maskedNumber') || ''));
+        getElement('credential-number').value = row.maskedNumber;
       }
       const next = structuredClone(data);
       const index = next[sectionKey].findIndex((item) => item.id === editingId);
@@ -363,10 +417,11 @@
     }
   });
   getElement('edit-profile').addEventListener('click', () => {
+    getElement('profile-form').reset();
     for (const [key, value] of Object.entries(data.profile)) {
       const input = getElement('profile-form').elements.namedItem(key);
       if (input) {
-        input.value = value;
+        input.value = Array.isArray(value) ? value.join('\n') : value;
       }
     }
     getElement('profile-error').textContent = '';
@@ -379,6 +434,10 @@
       next.profile = Object.fromEntries(
         [...new FormData(event.currentTarget)].map(([key, value]) => [key, value.trim()]),
       );
+      next.profile.interests = next.profile.interests
+        .split('\n')
+        .map((interest) => interest.trim())
+        .filter(Boolean);
       validatePortfolio(next);
       data = next;
       setDirty();
@@ -396,10 +455,8 @@
   getElement('preview').addEventListener('click', () => {
     const root = getElement('preview-content');
     Portfolio.renderPortfolio(root, data, '../', 'preview-');
-    const profile = createElement('div', 'profile');
-    const heading = createElement('h1', '', data.profile.name);
-    heading.append(createElement('span', '', data.profile.englishName));
-    profile.append(heading, createElement('p', '', data.profile.email));
+    const profile = createElement('div');
+    Portfolio.renderProfile(profile, data.profile, 'preview-');
     root.prepend(profile);
     getElement('preview-dialog').showModal();
   });

@@ -2,36 +2,23 @@
   'use strict';
   const root = document.getElementById('portfolio');
 
-  function renderProfile(profile) {
-    const { createElement, getSafeUrl } = Portfolio;
-    const heading = document.getElementById('profile-name');
-    heading.replaceChildren(
-      document.createTextNode(profile.name),
-      createElement('span', '', profile.englishName),
-    );
+  function updatePageProfile(profile) {
+    const { getSafeUrl } = Portfolio;
+    Portfolio.renderProfile(document.getElementById('profile'), profile);
     document.querySelector('.brand > span:last-child').textContent = profile.name;
+    document.querySelector('.brand-mark').textContent = profile.englishName.trim()
+      ? profile.englishName
+          .trim()
+          .split(/\s+/)
+          .map((part) => part[0])
+          .join('')
+          .slice(0, 2)
+          .toUpperCase()
+      : profile.name.slice(0, 1);
     document.querySelector('.site-footer > span').textContent = profile.name;
     document.title = profile.name + ' | 포트폴리오';
-    const links = document.getElementById('profile-links');
-    links.replaceChildren();
-    if (profile.email) {
-      const a = createElement('a', '', profile.email);
-      a.href = 'mailto:' + profile.email;
-      links.append(a);
-    }
-    for (const [key, label] of [
-      ['github', 'GitHub ↗'],
-      ['linkedin', 'LinkedIn ↗'],
-    ]) {
-      const url = getSafeUrl(profile[key]);
-      if (url) {
-        const a = createElement('a', '', label);
-        a.href = url;
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
-        links.append(a);
-      }
-    }
+    document.querySelector('meta[name="description"]').content =
+      profile.introduction || profile.name + '의 포트폴리오';
     const github = document.querySelector('.header-github');
     github.hidden = !getSafeUrl(profile.github);
     if (!github.hidden) {
@@ -46,7 +33,7 @@
         throw new Error();
       }
       const data = Portfolio.validatePortfolio(await response.json());
-      renderProfile(data.profile);
+      updatePageProfile(data.profile);
       Portfolio.renderPortfolio(root, data);
       if (location.hash) {
         document.getElementById(location.hash.slice(1))?.scrollIntoView();
