@@ -35,7 +35,7 @@ def check_training(browser, base, root, artifacts):
     expect(page.locator('#training .section-heading')).to_contain_text('교육 이수현황')
     for index, item in enumerate(original['training']):
         row = page.locator('#training tbody tr').nth(index)
-        for field, selector in [('name', '.row-name'), ('subtitle', '.row-subtitle'), ('period', '.period'), ('summary', '.row-summary')]:
+        for field, selector in [('subtitle', '.row-name'), ('name', '.row-subtitle'), ('period', '.period'), ('summary', '.row-summary')]:
             expect(row.locator(selector)).to_have_text(item[field])
         expect(row.locator('.training-details li')).to_have_text(item['details'])
         for line in row.locator('.training-details li').all():
@@ -82,7 +82,8 @@ def check_training(browser, base, root, artifacts):
     admin.locator('#preview').click()
     preview = admin.locator('#preview-training tbody tr').first
     expect(preview.locator('.row-summary')).to_have_text('12시간')
-    expect(preview.locator('.row-subtitle')).to_have_text('<img src=x onerror=alert(1)>')
+    expect(preview.locator('.row-name')).to_have_text('<img src=x onerror=alert(1)>')
+    expect(preview.locator('.row-subtitle')).to_have_text('검증 교육기관')
     expect(preview.locator('img[src="x"]')).to_have_count(0)
     assert admin.locator('#preview-dialog').evaluate('(el) => el.scrollWidth <= el.clientWidth')
     admin.locator('#preview-dialog').get_by_role('button', name='닫기', exact=True).click()
@@ -95,7 +96,8 @@ def check_training(browser, base, root, artifacts):
         if key != 'training':
             assert state['data'][key] == original[key], key
     page.goto(base)
-    expect(page.locator('#training .row-name').first).to_have_text('검증 교육기관')
+    expect(page.locator('#training .row-name').first).to_have_text('<img src=x onerror=alert(1)>')
+    expect(page.locator('#training .row-subtitle').first).to_have_text('검증 교육기관')
     admin.on('dialog', lambda dialog: dialog.accept())
     admin.get_by_role('button', name='검증 교육기관 삭제', exact=True).click()
     admin.locator('#publish').click()

@@ -7,7 +7,7 @@
     {
       key: 'training',
       title: '교육 이수현황',
-      columns: ['교육기관 · 과정', '이수기간', '이수시간 · 교육내용'],
+      columns: ['교육명 · 교육기관', '이수기간', '이수시간 · 교육내용'],
       optional: true,
     },
     { key: 'experience', title: '경력', columns: ['회사', '기간', '부서 · 업무'] },

@@ -366,9 +366,12 @@
     nameCell.scope = 'row';
     const identity = createElement('div', 'identity');
     const text = createElement('div', 'identity-text');
-    text.append(createElement('span', 'row-name', row.name));
-    if (row.subtitle) {
-      text.append(createElement('span', 'row-subtitle', row.subtitle));
+    const courseFirst = section.key === 'training' && row.subtitle;
+    const primaryName = courseFirst ? row.subtitle : row.name;
+    const secondaryName = courseFirst ? row.name : row.subtitle;
+    text.append(createElement('span', 'row-name', primaryName));
+    if (secondaryName) {
+      text.append(createElement('span', 'row-subtitle', secondaryName));
     }
     identity.append(createLogo(row, base), text);
     nameCell.append(identity);
