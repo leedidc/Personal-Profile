@@ -1,6 +1,36 @@
 (() => {
   'use strict';
   const { sections } = PortfolioConfig;
+  const certificateNumberPrefixLength = 12;
+
+  function maskCertificateNumber(value) {
+    if (typeof value !== 'string' || value.length > 100) {
+      throw new Error('자격증 번호를 확인해 주세요.');
+    }
+
+    const number = value.trim();
+    if (!number) {
+      return '';
+    }
+    if (!/^(?:[#A-Za-z0-9-]+|[#A-Za-z0-9-]*\*{3})$/.test(number)) {
+      throw new Error('자격증 번호에는 영문, 숫자, #, - 또는 끝의 ***만 입력해 주세요.');
+    }
+
+    // 이미 가린 번호는 유지하고, 원문은 최소 끝 3자리를 제거합니다.
+    const prefix = number.endsWith('***')
+      ? number.slice(0, -3)
+      : number.slice(0, Math.max(0, number.length - 3));
+    return prefix.slice(0, certificateNumberPrefixLength) + '***';
+  }
+
+  function preparePortfolioForPublication(data) {
+    // 공개 저장소에 보내기 전에 번호 원문을 제거합니다.
+    const publicData = structuredClone(data);
+    for (const certificate of publicData.certifications || []) {
+      certificate.maskedNumber = maskCertificateNumber(certificate.maskedNumber ?? '');
+    }
+    return validatePortfolio(publicData);
+  }
 
   function createElement(tag, className, text) {
     const node = document.createElement(tag);
@@ -80,6 +110,13 @@
         if (!row.name.trim()) {
           throw new Error(section.title + ' 이름을 입력해 주세요.');
         }
+        if (
+          section.key === 'certifications' &&
+          row.maskedNumber !== undefined &&
+          maskCertificateNumber(row.maskedNumber) !== row.maskedNumber
+        ) {
+          throw new Error('공개 데이터에는 마스킹된 자격증 번호만 저장할 수 있습니다.');
+        }
         if (typeof row.logo !== 'string' || (row.logo && !getSafeUrl(row.logo, 'image'))) {
           throw new Error('로고 주소를 확인해 주세요.');
         }
@@ -135,7 +172,19 @@
     return wrap;
   }
 
-  function rowElement(row, base) {
+  function createCertificateNumberCell(maskedNumber = '') {
+    const cell = createElement('td', 'credential-cell');
+    const label = createElement('span', 'credential-label', '자격증 번호');
+    const number = createElement(
+      'span',
+      'credential-number',
+      maskCertificateNumber(maskedNumber) || '—',
+    );
+    cell.append(label, number);
+    return cell;
+  }
+
+  function rowElement(row, base, sectionKey) {
     const tr = createElement('tr');
     const nameCell = createElement('th', 'name-cell');
     nameCell.scope = 'row';
@@ -190,12 +239,18 @@
       content.append(a);
     }
     tr.append(nameCell, period, content);
+    if (sectionKey === 'certifications') {
+      tr.append(createCertificateNumberCell(row.maskedNumber));
+    }
     return tr;
   }
 
   function table(section, rows, base, caption) {
     const wrap = createElement('div', 'table-wrap');
     const table = createElement('table', 'resume-table');
+    if (section.key === 'certifications') {
+      table.classList.add('certifications-table');
+    }
     table.append(createElement('caption', 'sr-only', caption || section.title));
     const head = createElement('thead');
     const headRow = createElement('tr');
@@ -206,11 +261,11 @@
     });
     head.append(headRow);
     const body = createElement('tbody');
-    rows.forEach((row) => body.append(rowElement(row, base)));
+    rows.forEach((row) => body.append(rowElement(row, base, section.key)));
     if (!rows.length) {
       const tr = createElement('tr');
       const td = createElement('td', 'empty-row', '등록된 항목이 없습니다.');
-      td.colSpan = 3;
+      td.colSpan = section.columns.length;
       tr.append(td);
       body.append(tr);
     }
@@ -262,6 +317,8 @@
     sections,
     createElement,
     getSafeUrl,
+    maskCertificateNumber,
+    preparePortfolioForPublication,
     validatePortfolio,
     createLogo,
     renderPortfolio,

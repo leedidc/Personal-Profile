@@ -93,6 +93,17 @@
   ],
   "certifications": [
     {
+      "status": "",
+      "details": [],
+      "id": "cert-ise",
+      "name": "산업보안관리사",
+      "subtitle": "ISE",
+      "maskedNumber": "ISE202301-0***",
+      "period": "2026.07.01",
+      "summary": "한국산업기술보호협회",
+      "logo": "issuer/kait.png"
+    },
+    {
       "id": "cert-ccsk",
       "name": "CCSK",
       "subtitle": "Certificate of Cloud Security Knowledge",
@@ -100,7 +111,8 @@
       "period": "2026.06",
       "status": "",
       "summary": "Cloud Security Alliance",
-      "details": []
+      "details": [],
+      "maskedNumber": ""
     },
     {
       "id": "cert-sc900",
@@ -110,137 +122,195 @@
       "period": "2026.05",
       "status": "",
       "summary": "Microsoft",
-      "details": []
+      "details": [],
+      "maskedNumber": ""
     },
     {
-      "id": "cert-security",
-      "name": "정보보안기사",
-      "subtitle": "",
-      "logo": "issuer/kca.png",
-      "period": "2025.12",
       "status": "",
-      "summary": "한국방송통신전파진흥원",
-      "details": []
-    },
-    {
+      "details": [],
       "id": "cert-processing",
       "name": "정보처리기사",
       "subtitle": "",
-      "logo": "issuer/hrdk.png",
-      "period": "2025.12",
-      "status": "",
+      "maskedNumber": "252030712***",
+      "period": "2025.12.24",
       "summary": "한국산업인력공단",
-      "details": []
+      "logo": "issuer/hrdk.png"
     },
     {
+      "status": "",
+      "details": [],
       "id": "cert-bigdata",
       "name": "빅데이터분석기사",
       "subtitle": "",
-      "logo": "issuer/kdata.png",
-      "period": "2025.12",
-      "status": "",
+      "maskedNumber": "BAE-011002***",
+      "period": "2025.12.19",
       "summary": "한국데이터산업진흥원",
-      "details": []
+      "logo": "issuer/kdata.png"
     },
     {
+      "status": "",
+      "details": [],
+      "id": "cert-security",
+      "name": "정보보안기사",
+      "subtitle": "",
+      "maskedNumber": "250A1100***",
+      "period": "2025.12.19",
+      "summary": "한국방송통신전파진흥원",
+      "logo": "issuer/kca.png"
+    },
+    {
+      "status": "",
+      "details": [],
       "id": "cert-pia",
       "name": "개인정보영향평가 전문인력",
       "subtitle": "PIA",
-      "logo": "issuer/kisa.png",
-      "period": "2025.06",
-      "status": "",
-      "summary": "한국인터넷진흥원",
-      "details": []
+      "maskedNumber": "2025-***",
+      "period": "2025.06.30",
+      "summary": "한국인터넷진흥원 · 개인정보보호위원회",
+      "logo": "issuer/kisa.png"
     },
     {
+      "status": "",
+      "details": [],
       "id": "cert-ste",
-      "name": "ISTQB Security Test Engineer",
+      "name": "ISTQB Certified Security Test Engineer",
       "subtitle": "",
-      "logo": "issuer/ISTQB_STE.png",
-      "period": "2025.03",
-      "status": "",
-      "summary": "ISTQB",
-      "details": []
+      "maskedNumber": "Brightest202***",
+      "period": "2025.03.18",
+      "summary": "ISTQB (국제소프트웨어테스팅자격위원회)",
+      "logo": "issuer/ISTQB_STE.png"
     },
     {
+      "status": "",
+      "details": [],
       "id": "cert-cpre",
-      "name": "CPRE 요구공학 전문가",
-      "subtitle": "",
-      "logo": "issuer/ireb.png",
-      "period": "2024.10",
-      "status": "",
-      "summary": "IREB",
-      "details": []
+      "name": "Certified Professional for Requirement Engineering",
+      "subtitle": "CPRE",
+      "maskedNumber": "#KSTQB-CPRE-***",
+      "period": "2024.10.15",
+      "summary": "IREB (국제요구공학위원회)",
+      "logo": "issuer/ireb.png"
     },
     {
+      "status": "",
+      "details": [],
       "id": "cert-ai",
       "name": "ISTQB Certified AI Tester",
       "subtitle": "",
-      "logo": "issuer/istqb.svg",
-      "period": "2024.08",
-      "status": "",
-      "summary": "ISTQB",
-      "details": []
+      "maskedNumber": "#KSTQBKr-CT-***",
+      "period": "2024.08.20",
+      "summary": "ISTQB (국제소프트웨어테스팅자격위원회)",
+      "logo": "issuer/istqb.svg"
     },
     {
+      "status": "",
+      "details": [],
+      "id": "cert-pc",
+      "name": "PC정비사 1급",
+      "subtitle": "",
+      "maskedNumber": "PC1006***",
+      "period": "2024.06.04",
+      "summary": "한국정보통신자격협회",
+      "logo": "issuer/icqa.png"
+    },
+    {
+      "status": "",
+      "details": [],
+      "id": "cert-home",
+      "name": "지능형홈관리사",
+      "subtitle": "",
+      "maskedNumber": "AH0001***",
+      "period": "2024.04.09",
+      "summary": "한국정보통신자격협회",
+      "logo": "issuer/icqa.png"
+    },
+    {
+      "status": "",
+      "details": [],
       "id": "cert-network",
       "name": "네트워크관리사 1급",
       "subtitle": "",
-      "logo": "issuer/icqa.png",
-      "period": "2023.12",
-      "status": "",
+      "maskedNumber": "NT1002***",
+      "period": "2023.12.19",
       "summary": "한국정보통신자격협회",
-      "details": []
+      "logo": "issuer/icqa.png"
     },
     {
+      "status": "",
+      "details": [],
       "id": "cert-rfid",
       "name": "RFID-SL",
       "subtitle": "",
-      "logo": "issuer/kiot.jpg",
-      "period": "2023.12",
-      "status": "",
+      "maskedNumber": "2023-11-300***",
+      "period": "2023.12.18",
       "summary": "한국지능형사물인터넷협회",
-      "details": []
+      "logo": "issuer/kiot.jpg"
     },
     {
-      "id": "cert-ise",
-      "name": "산업보안관리사",
-      "subtitle": "ISE",
-      "logo": "issuer/kait.png",
-      "period": "2023.06",
       "status": "",
-      "summary": "한국산업기술보호협회",
-      "details": []
-    },
-    {
-      "id": "cert-csts",
-      "name": "CSTS Foundation Level",
+      "details": [],
+      "id": "cert-sam",
+      "name": "소프트웨어자산관리사",
       "subtitle": "",
-      "logo": "issuer/tta.jpg",
-      "period": "2023.03",
-      "status": "",
-      "summary": "한국정보통신기술협회",
-      "details": []
+      "maskedNumber": "SM2302G200***",
+      "period": "2023.11.12",
+      "summary": "한국소프트웨어저작권협회",
+      "logo": "issuer/spc.png"
     },
     {
+      "status": "",
+      "details": [],
+      "id": "cert-adsp",
+      "name": "ADsP",
+      "subtitle": "",
+      "maskedNumber": "ADsP-036005***",
+      "period": "2023.03.24",
+      "summary": "한국데이터산업진흥원",
+      "logo": "issuer/kdata.png"
+    },
+    {
+      "status": "",
+      "details": [],
+      "id": "cert-csts",
+      "name": "CSTS",
+      "subtitle": "Foundation Level",
+      "maskedNumber": "23-NC01-5001***",
+      "period": "2023.03.18",
+      "summary": "한국정보통신기술협회",
+      "logo": "issuer/tta.jpg"
+    },
+    {
+      "status": "",
+      "details": [],
+      "id": "cert-sqld",
+      "name": "SQLD",
+      "subtitle": "",
+      "maskedNumber": "SQLD-046000***",
+      "period": "2022.09.30",
+      "summary": "한국데이터산업진흥원",
+      "logo": "issuer/kdata.png"
+    },
+    {
+      "status": "",
+      "details": [],
       "id": "cert-cppg",
       "name": "개인정보관리사",
       "subtitle": "CPPG",
-      "logo": "issuer/cpo.jpg",
-      "period": "2022.08",
-      "status": "",
+      "maskedNumber": "G22-036-02-0***",
+      "period": "2022.09.14",
       "summary": "한국CPO포럼",
-      "details": []
+      "logo": "issuer/cpo.jpg"
     },
     {
+      "status": "",
+      "details": [],
       "id": "cert-linux",
       "name": "리눅스마스터 1급",
       "subtitle": "",
-      "logo": "issuer/kait_ict.png",
-      "period": "2022.06",
-      "status": "",
+      "maskedNumber": "LMF-2201-002***",
+      "period": "2022.06.10",
       "summary": "한국정보통신진흥협회",
-      "details": []
+      "logo": "issuer/kait_ict.png"
     }
   ],
   "projects": [

@@ -1,6 +1,13 @@
 (() => {
   'use strict';
-  const { sections, createElement, validatePortfolio, createLogo, getSafeUrl } = Portfolio;
+  const {
+    sections,
+    createElement,
+    validatePortfolio,
+    createLogo,
+    getSafeUrl,
+    maskCertificateNumber,
+  } = Portfolio;
   const getElement = (id) => document.getElementById(id);
   // 토큰과 저장 전 변경사항은 현재 페이지의 메모리에만 유지합니다.
   let token = '';
@@ -219,12 +226,17 @@
     const isSingleDate = ['certifications', 'awards'].includes(sectionKey);
     getElement('period-label').textContent = section.columns[1];
     getElement('period').placeholder = isSingleDate ? '2026.10' : '2026.01 – 현재';
+    if (sectionKey === 'certifications') {
+      getElement('period').placeholder = '2026.10.09';
+    }
     getElement('status-label').textContent = sectionKey === 'awards' ? '부문' : '상태';
     getElement('item-status').placeholder =
       sectionKey === 'awards' ? '논문 부문 등' : '재직, 재학, 졸업 등';
     ['project-category', 'project-technologies', 'project-link'].forEach((id) => {
       getElement(id).hidden = sectionKey !== 'projects';
     });
+    getElement('certificate-number-field').hidden = sectionKey !== 'certifications';
+    getElement('certificate-number').value = row?.maskedNumber || '';
     for (const key of ['name', 'subtitle', 'period', 'status', 'summary', 'link']) {
       form.elements.namedItem(key).value = row?.[key] || '';
     }
@@ -240,6 +252,9 @@
     getElement('item-dialog').showModal();
   }
   getElement('add-item').addEventListener('click', () => openItemDialog(null));
+  getElement('item-dialog').addEventListener('close', () => {
+    getElement('certificate-number').value = '';
+  });
   getElement('logo-select').addEventListener('change', () => {
     uploadVersion++;
     if (getElement('logo-select').value === '__custom__') {
@@ -326,6 +341,10 @@
         .filter(Boolean);
     }
     try {
+      if (sectionKey === 'certifications') {
+        row.maskedNumber = maskCertificateNumber(String(fields.get('maskedNumber') || ''));
+        getElement('certificate-number').value = row.maskedNumber;
+      }
       const next = structuredClone(data);
       const index = next[sectionKey].findIndex((item) => item.id === editingId);
       if (index < 0) {

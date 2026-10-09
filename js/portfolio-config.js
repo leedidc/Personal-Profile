@@ -5,7 +5,11 @@
   const sections = [
     { key: 'education', title: '학력', columns: ['학교', '기간', '전공 · 학위'] },
     { key: 'experience', title: '경력', columns: ['회사', '기간', '부서 · 업무'] },
-    { key: 'certifications', title: '자격', columns: ['자격명', '취득', '발급기관'] },
+    {
+      key: 'certifications',
+      title: '자격',
+      columns: ['자격명', '취득일', '발급기관', '자격증 번호'],
+    },
     { key: 'projects', title: '프로젝트', columns: ['프로젝트', '기간', '내용'] },
     { key: 'activities', title: '대외활동', columns: ['기관 · 활동', '기간', '내용'] },
     { key: 'awards', title: '수상', columns: ['수상명', '수상일', '수여기관'] },
@@ -35,6 +39,7 @@
     ['한국정보통신진흥협회', 'issuer/kait_ict.png'],
     ['한국정보통신자격협회', 'issuer/icqa.png'],
     ['한국지능형사물인터넷협회', 'issuer/kiot.jpg'],
+    ['한국소프트웨어저작권협회', 'issuer/spc.png'],
     ['Microsoft', 'issuer/ms.png'],
     ['Cloud Security Alliance', 'issuer/csa.svg'],
     ['개인정보 확장 프로그램', 'image/extension.jpg'],

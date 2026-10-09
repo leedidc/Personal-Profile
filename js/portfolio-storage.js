@@ -85,14 +85,14 @@
   }
 
   async function savePortfolio(token, data, sha) {
-    Portfolio.validatePortfolio(data);
+    const publicData = Portfolio.preparePortfolioForPublication(data);
 
     // 마지막으로 읽은 SHA를 전달하면 다른 편집자의 변경을 덮어쓰지 않습니다.
     const saved = await requestGitHub(contentEndpoint, token, {
       method: 'PUT',
       body: JSON.stringify({
         message: 'Update portfolio from admin',
-        content: encodePortfolio(data),
+        content: encodePortfolio(publicData),
         sha,
         branch,
       }),

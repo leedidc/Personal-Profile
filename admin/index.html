@@ -122,6 +122,20 @@
               <label for="summary" id="summary-label">내용</label
               ><input id="summary" name="summary" maxlength="500" />
             </div>
+            <div class="field full" id="certificate-number-field" hidden>
+              <label for="certificate-number">자격증 번호</label>
+              <input
+                id="certificate-number"
+                name="maskedNumber"
+                maxlength="100"
+                autocomplete="off"
+                spellcheck="false"
+                aria-describedby="certificate-number-help"
+              />
+              <small id="certificate-number-help"
+                >뒤쪽을 ***로 가리고, 가린 번호만 저장합니다.</small
+              >
+            </div>
             <div class="field full">
               <label for="details">상세 내용</label
               ><textarea id="details" name="details" rows="5" maxlength="20000"></textarea

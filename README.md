@@ -23,6 +23,8 @@ GitHub Pages는 /admin을 /admin/으로 연결합니다. 저장소의 기존 CNA
 
 토큰은 열린 관리자 페이지 메모리에만 유지합니다. 파일, 쿠키, localStorage, sessionStorage에 저장하지 않으므로 새로고침하면 다시 로그인해야 합니다. **적용**만 누른 내용은 아직 저장되지 않았으며, 저장하지 않고 페이지를 떠나면 브라우저가 확인합니다.
 
+자격 편집에는 **자격증 번호** 입력란이 있습니다. 입력한 번호의 마지막 3자리 이상을 제거하고, 앞부분은 최대 12자까지만 남겨 뒤에 \*\*\*를 붙입니다. 이미 마스킹된 번호는 그대로 유지됩니다. 짧은 번호는 전부 가립니다. 공개 JSON과 GitHub 저장 요청에는 마스킹된 값만 포함하며, 원문 번호는 보관하지 않습니다. 번호를 입력하지 않은 자격은 번호 열에 `—`로 표시합니다.
+
 저장은 GitHub Contents API와 기존 파일 SHA를 사용합니다. 다른 편집으로 파일이 변경되면 덮어쓰지 않고 충돌을 표시합니다. 이때 편집 내용을 별도로 보관한 후 **새로 불러오기**로 최신 내용을 받아 수정합니다. API 오류가 나도 화면의 편집 내용은 유지됩니다. 쓰기 권한·토큰 만료·브랜치 보호 정책은 GitHub가 검사합니다. GitHub에 저장한 이력은 저장소의 커밋 내역에서 확인할 수 있습니다.
 
 API 계약: [GitHub 저장소 콘텐츠 API](https://docs.github.com/en/rest/repos/contents#create-or-update-file-contents).
@@ -37,9 +39,9 @@ API 계약: [GitHub 저장소 콘텐츠 API](https://docs.github.com/en/rest/rep
 - js/portfolio-storage.js: GitHub 접근 확인·불러오기·저장 및 오류 처리.
 - css/resume.css, css/editor.css: 공개 화면과 관리자 화면 스타일.
 
-PDF 이력서의 경력·학력·자격·활동·수상·회사 프로젝트를 반영했습니다. PDF에 없는 개인정보 확장 프로그램, IREB 자격, 개인정보보호위원회 국민평가단, DIDC 배치 기간은 기존 사이트 내용을 유지했습니다. PDF와 기존 사이트의 자격 취득일이 다른 경우 PDF의 연·월을 우선했습니다. 회사 프로젝트의 정확한 기간은 원문에 없어 비워 두었습니다. 수상 4건의 명칭·수상일·수여기관과 관련 논문명은 PDF를 기준으로 작성했습니다.
+PDF 이력서의 경력·학력·자격·활동·수상·회사 프로젝트를 반영했습니다. PDF에 없는 개인정보 확장 프로그램, IREB 자격, 개인정보보호위원회 국민평가단, DIDC 배치 기간은 기존 사이트 내용을 유지했습니다. 자격명·취득일·발급기관은 사용자가 마지막으로 제공한 자격 목록을 우선하며, 번호를 제공하지 않은 기존 CCSK·SC-900도 유지합니다. 회사 프로젝트의 정확한 기간은 원문에 없어 비워 두었습니다. 수상 4건의 명칭·수상일·수여기관과 관련 논문명은 PDF를 기준으로 작성했습니다.
 
-PDF 원본, 연봉, 집 주소, 전화번호, 자격 식별번호는 저장소에 추가하지 않았습니다.
+PDF 원본, 연봉, 집 주소, 전화번호, 자격증 번호 원문은 저장소에 추가하지 않았습니다. 자격증 번호는 `maskedNumber` 필드에 마스킹된 값만 저장합니다.
 
 학교·회사·기존 자격 발급기관 로고는 저장소의 image/, issuer/를 사용합니다. 추가 로고의 출처:
 
@@ -49,6 +51,7 @@ PDF 원본, 연봉, 집 주소, 전화번호, 자격 식별번호는 저장소�
 - 행정안전부: [공식 사이트](https://www.mois.go.kr/frt/sub/a07/miBanner/screen.do)의 로고 → image/mois.png
 - 한국정보보호학회: [공식 사이트](https://kiisc.or.kr/)의 로고 → image/kiisc.png
 - DB김준기문화재단: [공식 사이트](https://www.dbfoundation.or.kr/intro/summary)의 로고 → image/db-foundation.png
+- 한국소프트웨어저작권협회: [공식 사이트](https://www.spc.or.kr/ko/introduction/sw_sub17)의 로고 → issuer/spc.png
 
 ## 로컬 확인
 
@@ -59,6 +62,12 @@ python -m http.server 8000
 ```
 
 http://localhost:8000/ 과 http://localhost:8000/admin/ 을 확인합니다.
+
+번호 마스킹 및 GitHub 전송 검증(Node.js):
+
+```sh
+node --test tests/certificate-number.test.cjs
+```
 
 브라우저 검증:
 

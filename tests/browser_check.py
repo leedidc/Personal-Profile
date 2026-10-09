@@ -67,6 +67,9 @@ try:
         page.goto(BASE)
         expect(page.locator(".resume-section")).to_have_count(6)
         expect(page.locator("#certifications tbody tr")).to_have_count(len(original["certifications"]))
+        expect(page.locator("#certifications thead th")).to_have_count(4)
+        expect(page.locator("#certifications .credential-number")).to_have_count(20)
+        expect(page.locator("#certifications .credential-number").filter(has_text="***")).to_have_count(18)
         expect(page.locator("#projects .project-group")).to_have_count(2)
         expect(page.locator("#awards tbody tr")).to_have_count(4)
         expect(page.locator("#awards tbody tr").first).to_contain_text("행정안전부 장관상")
@@ -111,6 +114,22 @@ try:
         expect(admin.locator("#publish")).to_be_enabled()
         assert admin.locator(".editor-row").last.locator("img").count() == 1
 
+        # 가상 번호로 원문이 편집 결과·미리보기·저장 요청에 남지 않는지 확인합니다.
+        synthetic_number = "TEST-2026-987654"
+        masked_number = "TEST-2026-98***"
+        admin.get_by_role("button", name="자격", exact=True).click()
+        admin.get_by_role("button", name="자격 추가", exact=True).click()
+        expect(admin.locator("#certificate-number-field")).to_be_visible()
+        admin.locator("#item-name").fill("번호 마스킹 검증용 자격")
+        admin.locator("#period").fill("2026.10.09")
+        admin.locator("#summary").fill("검증용 기관")
+        admin.locator("#certificate-number").fill(synthetic_number)
+        admin.locator("#apply-item").click()
+        expect(admin.locator("#certificate-number")).to_have_value("")
+        admin.get_by_role("button", name="번호 마스킹 검증용 자격 수정", exact=True).click()
+        expect(admin.locator("#certificate-number")).to_have_value(masked_number)
+        admin.locator("#apply-item").click()
+
         # Edit existing career details.
         admin.get_by_role("button", name="경력", exact=True).click()
         admin.get_by_role("button", name="한국전자통신연구원 수정", exact=True).click()
@@ -153,6 +172,8 @@ try:
         admin.locator("#preview").click()
         expect(admin.locator("#preview-education tbody tr")).to_have_count(3)
         expect(admin.locator("#preview-awards tbody tr")).to_have_count(4)
+        expect(admin.locator("#preview-certifications .credential-number").last).to_have_text(masked_number)
+        assert synthetic_number not in admin.locator("#preview-content").inner_html()
         expect(admin.locator("#preview-dialog h1")).to_contain_text("이찬형 검증")
         assert admin.locator('#preview-dialog img[src="x"]').count() == 0
         admin.locator("#preview-dialog").get_by_role("button", name="닫기", exact=True).click()
@@ -170,6 +191,8 @@ try:
         expect(admin.locator("#status")).to_contain_text("저장했습니다")
         expect(admin.locator("#publish")).to_be_disabled()
         assert state["writes"] == 1
+        assert state["data"]["certifications"][-1]["maskedNumber"] == masked_number
+        assert synthetic_number not in json.dumps(state["data"])
         assert state["data"]["awards"][0]["details"] == ["검증용 수상 내용"]
         assert state["data"]["profile"]["name"] == "이찬형 검증"
         assert state["data"]["education"][-1]["logo"].startswith("data:image/png;base64,")
@@ -181,6 +204,8 @@ try:
         saved.goto(BASE)
         expect(saved.locator("#profile-name")).to_contain_text("이찬형 검증")
         expect(saved.locator("#education tbody tr")).to_have_count(3)
+        expect(saved.locator("#certifications .credential-number").last).to_have_text(masked_number)
+        assert synthetic_number not in saved.content()
 
         admin.screenshot(path=str(ARTIFACTS / "admin.png"), full_page=True)
         admin.set_viewport_size({"width": 390, "height": 844})

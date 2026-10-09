@@ -277,6 +277,27 @@ p {
 .resume-table thead th:nth-child(2) {
   width: 20%;
 }
+.resume-table.certifications-table thead th:nth-child(1) {
+  width: 36%;
+}
+.resume-table.certifications-table thead th:nth-child(2) {
+  width: 16%;
+}
+.resume-table.certifications-table thead th:nth-child(3) {
+  width: 28%;
+}
+.resume-table.certifications-table thead th:nth-child(4) {
+  width: 20%;
+}
+.credential-label {
+  display: none;
+}
+.credential-number {
+  color: var(--muted);
+  font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
 .resume-table th,
 .resume-table td {
   vertical-align: top;
@@ -653,6 +674,20 @@ p {
   }
   .resume-table .name-cell {
     grid-column: 1/-1;
+  }
+  .resume-table.certifications-table .credential-cell {
+    grid-column: 1/-1;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .credential-label {
+    display: inline;
+    color: var(--muted);
+    font-size: 10px;
+  }
+  .credential-number {
+    font-size: 11px;
   }
   .org-logo {
     width: 42px;
