@@ -30,9 +30,11 @@ API 계약: [GitHub 저장소 콘텐츠 API](https://docs.github.com/en/rest/rep
 ## 내용과 파일
 
 - data/portfolio.json: 프로필과 다섯 목록의 단일 데이터 원본.
+- js/portfolio-config.js: 화면 분류, 편집 필드 이름, 기본 로고, GitHub 저장 위치.
 - js/portfolio-core.js: 데이터 검증, 안전한 URL·텍스트 처리, 공통 표 표시.
 - js/portfolio.js: 공개 화면과 현재 메뉴 표시.
-- js/portfolio-editor.js: 편집, 로고 업로드, GitHub 인증·저장.
+- js/portfolio-editor.js: 편집 화면, 로고 업로드, 미리보기.
+- js/portfolio-storage.js: GitHub 접근 확인·불러오기·저장 및 오류 처리.
 - css/resume.css, css/editor.css: 공개 화면과 관리자 화면 스타일.
 
 PDF 이력서의 경력·학력·자격·활동·회사 프로젝트를 반영했습니다. PDF에 없는 개인정보 확장 프로그램, IREB 자격, 개인정보보호위원회 국민평가단, DIDC 배치 기간은 기존 사이트 내용을 유지했습니다. PDF와 기존 사이트의 자격 취득일이 다른 경우 PDF의 연·월을 우선했습니다. 회사 프로젝트의 정확한 기간은 원문에 없어 비워 두었습니다.
@@ -49,16 +51,29 @@ PDF 원본, 연봉, 집 주소, 전화번호, 자격 식별번호는 저장소�
 
 저장소 루트에서 정적 서버를 실행합니다. 파일을 직접 여는 file:// 방식은 JSON 요청을 차단하므로 사용하지 않습니다.
 
-~~~sh
+```sh
 python -m http.server 8000
-~~~
+```
 
 http://localhost:8000/ 과 http://localhost:8000/admin/ 을 확인합니다.
 
 브라우저 검증:
 
-~~~sh
+```sh
 uv run --with playwright python -X utf8 tests/browser_check.py
-~~~
+```
 
 Windows에 설치된 Chrome을 우선 사용하며, 그 외 환경에서는 Playwright Chromium이 필요합니다. 테스트는 GitHub 응답을 모의하므로 실제 저장소를 변경하지 않습니다. 공개 목록·이미지, 1440/390/320px 화면, 상세 펼치기, 관리자 접근, 추가·수정·삭제·순서 변경, 로고 업로드, 미리보기, 권한 오류·충돌 시 편집 유지, UTF-8 저장, 로그아웃을 확인합니다. 캡처는 Git에서 제외한 .test-artifacts/에 저장됩니다.
+
+## 코드 편집 기준
+
+파일 역할과 작업 규칙은 [AGENTS.md](AGENTS.md)에 정리했습니다. HTML·CSS·JavaScript는 2칸, Python은 4칸 들여쓰기와 UTF-8·LF를 사용합니다. CSS 속성과 JavaScript 문장은 한 줄씩 작성하고 함수·변수 이름에 역할을 드러냅니다.
+
+문구·경력 등 내용은 data/portfolio.json, 메뉴·로고·저장소 설정은 js/portfolio-config.js에서 수정합니다. 화면 스타일은 css/resume.css와 css/editor.css에서 수정합니다. 화면 표시와 GitHub 통신은 별도 파일로 관리합니다.
+
+[Prettier 설정](https://prettier.io/docs/configuration)은 .prettierrc.json, 편집기 기본 규칙은 .editorconfig에 있습니다. Node.js/npm을 사용할 수 있는 환경에서 수정한 파일에 다음 명령을 실행합니다. 서식 도구는 개발할 때만 사용하며 사이트 실행에는 필요하지 않습니다.
+
+```sh
+npx prettier@3.6.2 --write index.html admin/index.html "js/portfolio*.js" css/resume.css css/editor.css
+npx prettier@3.6.2 --check index.html admin/index.html "js/portfolio*.js" css/resume.css css/editor.css
+```

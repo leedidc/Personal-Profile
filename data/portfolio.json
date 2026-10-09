@@ -26,9 +26,7 @@
       "period": "2021.03 – 2026.08",
       "status": "졸업",
       "summary": "소프트웨어학부 · 정보보호 융합전공",
-      "details": [
-        "학점 3.94 / 4.5"
-      ]
+      "details": ["학점 3.94 / 4.5"]
     }
   ],
   "experience": [
@@ -255,13 +253,8 @@
       "status": "",
       "category": "personal",
       "summary": "웹 서비스 회원가입 과정의 개인정보 탐지·모니터링",
-      "details": [
-        "웹 서비스에 제출하는 개인정보를 확인하고 관리하는 Chrome 확장 프로그램 개발"
-      ],
-      "technologies": [
-        "JavaScript",
-        "Chrome Extension"
-      ],
+      "details": ["웹 서비스에 제출하는 개인정보를 확인하고 관리하는 Chrome 확장 프로그램 개발"],
+      "technologies": ["JavaScript", "Chrome Extension"],
       "link": ""
     },
     {
@@ -277,13 +270,7 @@
         "NVD·KISA RSS를 활용한 취약점 정보 수집 및 대응 현황 관리",
         "DMZ 정보시스템·주요 기관 서버 등을 대상으로 약 100건의 CVE·CCE 기반 취약점 진단 및 조치 관리"
       ],
-      "technologies": [
-        "Python",
-        "FastAPI",
-        "SQLite",
-        "JavaScript",
-        "Uvicorn"
-      ],
+      "technologies": ["Python", "FastAPI", "SQLite", "JavaScript", "Uvicorn"],
       "link": ""
     },
     {
@@ -300,13 +287,7 @@
         "수기·Excel 기반 점검을 시스템으로 전환해 자산 누락과 관리 미흡 개선",
         "점검기간 약 60% 이상 단축 및 점검 누락 약 90% 이상 감소"
       ],
-      "technologies": [
-        "Python",
-        "FastAPI",
-        "PostgreSQL",
-        "JavaScript",
-        "Locust"
-      ],
+      "technologies": ["Python", "FastAPI", "PostgreSQL", "JavaScript", "Locust"],
       "link": ""
     }
   ],
