@@ -28,17 +28,40 @@
     ]
   },
   "skillCategories": [
-    { "value": "office", "label": "OA", "groups": [] },
-    { "value": "languages", "label": "언어", "groups": [] },
+    {
+      "value": "office",
+      "label": "OA",
+      "groups": []
+    },
+    {
+      "value": "languages",
+      "label": "언어",
+      "groups": []
+    },
     {
       "value": "engineering",
       "label": "공학 도구",
       "groups": [
-        { "value": "development", "label": "개발 · 협업" },
-        { "value": "security-analysis", "label": "보안 분석 · 진단" },
-        { "value": "security-solutions", "label": "보안 솔루션" },
-        { "value": "systems", "label": "시스템 · 가상화" },
-        { "value": "cloud-data", "label": "클라우드 · 데이터" }
+        {
+          "value": "development",
+          "label": "개발 · 협업"
+        },
+        {
+          "value": "security-analysis",
+          "label": "보안 분석 · 진단"
+        },
+        {
+          "value": "security-solutions",
+          "label": "보안 솔루션"
+        },
+        {
+          "value": "systems",
+          "label": "시스템 · 가상화"
+        },
+        {
+          "value": "cloud-data",
+          "label": "클라우드 · 데이터"
+        }
       ]
     }
   ],
@@ -270,7 +293,9 @@
       "status": "재학",
       "summary": "정보기술 석사 · 사이버보안 트랙",
       "summaryEnglish": "Master of Science in Information Technology · Cybersecurity",
-      "details": ["Ira A. Fulton Schools of Engineering"],
+      "details": [
+        "Ira A. Fulton Schools of Engineering"
+      ],
       "courses": [
         "IFT 510 — Principles of Computer and Information Technology Architecture",
         "IFT 520 — Advanced Information Systems Security"
@@ -285,7 +310,9 @@
       "status": "졸업",
       "summary": "소프트웨어학부 · 정보보호 융합전공",
       "summaryEnglish": "School of Software · Interdisciplinary Major in Information Security",
-      "details": ["학점 3.94 / 4.5"],
+      "details": [
+        "학점 3.94 / 4.5"
+      ],
       "courses": [
         "네트워크보안 — A+",
         "융합보안프로젝트1 — A+",
@@ -309,7 +336,9 @@
       "period": "2024.09.27",
       "status": "이수",
       "summary": "4시간",
-      "details": ["와이어샤크를 통한 네트워크 패킷 분석 및 Snort 규칙 기반 공격 대응 방법 실습"]
+      "details": [
+        "와이어샤크를 통한 네트워크 패킷 분석 및 Snort 규칙 기반 공격 대응 방법 실습"
+      ]
     },
     {
       "id": "training-privacy-impact-2025",
@@ -489,6 +518,17 @@
       "maskedNumber": "1AE123-25B***"
     },
     {
+      "id": "cert-enterprise-disaster-manager",
+      "name": "기업재난관리사",
+      "subtitle": "Enterprise Disaster Manager",
+      "logo": "image/mois.png",
+      "period": "2026.08.18",
+      "status": "",
+      "summary": "행정안전부",
+      "details": [],
+      "maskedNumber": "2026-***"
+    },
+    {
       "status": "",
       "details": [],
       "id": "cert-ste",
@@ -597,17 +637,6 @@
       "period": "2023.12.18",
       "summary": "한국지능형사물인터넷협회",
       "logo": "issuer/kiot.jpg"
-    },
-    {
-      "id": "cert-enterprise-disaster-manager",
-      "name": "기업재난관리사",
-      "subtitle": "Enterprise Disaster Manager",
-      "logo": "image/mois.png",
-      "period": "2026.08.18",
-      "status": "",
-      "summary": "행정안전부",
-      "details": [],
-      "maskedNumber": "2026-***"
     }
   ],
   "languages": [
@@ -633,8 +662,13 @@
       "status": "",
       "category": "personal",
       "summary": "웹 서비스 회원가입 과정의 개인정보 탐지·모니터링",
-      "details": ["웹 서비스에 제출하는 개인정보를 확인하고 관리하는 Chrome 확장 프로그램 개발"],
-      "technologies": ["JavaScript", "Chrome Extension"],
+      "details": [
+        "웹 서비스에 제출하는 개인정보를 확인하고 관리하는 Chrome 확장 프로그램 개발"
+      ],
+      "technologies": [
+        "JavaScript",
+        "Chrome Extension"
+      ],
       "link": ""
     },
     {
@@ -650,7 +684,13 @@
         "NVD·KISA RSS를 활용한 취약점 정보 수집 및 대응 현황 관리",
         "DMZ 정보시스템·주요 기관 서버 등을 대상으로 약 100건의 CVE·CCE 기반 취약점 진단 및 조치 관리"
       ],
-      "technologies": ["Python", "FastAPI", "SQLite", "JavaScript", "Uvicorn"],
+      "technologies": [
+        "Python",
+        "FastAPI",
+        "SQLite",
+        "JavaScript",
+        "Uvicorn"
+      ],
       "link": ""
     },
     {
@@ -667,7 +707,13 @@
         "수기·Excel 기반 점검을 시스템으로 전환해 자산 누락과 관리 미흡 개선",
         "점검기간 약 60% 이상 단축 및 점검 누락 약 90% 이상 감소"
       ],
-      "technologies": ["Python", "FastAPI", "PostgreSQL", "JavaScript", "Locust"],
+      "technologies": [
+        "Python",
+        "FastAPI",
+        "PostgreSQL",
+        "JavaScript",
+        "Locust"
+      ],
       "link": ""
     }
   ],
@@ -710,7 +756,9 @@
       "period": "2025.07.25 – 2025.12.31",
       "status": "기타사회활동",
       "summary": "개인정보 처리방침의 가독성·적합성 평가 및 개선안 제안",
-      "details": ["대기업·중견기업·중소기업의 개인정보처리방침 가독성·적합성 평가 및 개선안 제안"]
+      "details": [
+        "대기업·중견기업·중소기업의 개인정보처리방침 가독성·적합성 평가 및 개선안 제안"
+      ]
     },
     {
       "id": "act-police",
@@ -720,7 +768,9 @@
       "period": "2025.04.18 – 2026.04.17",
       "status": "기타사회활동",
       "summary": "정보통신망법 위반 등 사이버 범죄 모니터링 및 신고",
-      "details": ["악성코드 유포·피싱사이트 등 사이버 범죄 모니터링 및 신고활동 수행"]
+      "details": [
+        "악성코드 유포·피싱사이트 등 사이버 범죄 모니터링 및 신고활동 수행"
+      ]
     },
     {
       "id": "act-blockchain",
@@ -730,7 +780,10 @@
       "period": "2025.07.02 – 2025.12.19",
       "status": "기타사회활동",
       "summary": "신규 블록체인 서비스 평가 및 개선안 제안",
-      "details": ["신규 블록체인 서비스 체험·평가", "블록체인 관련 기술 학습 및 세미나 참석"]
+      "details": [
+        "신규 블록체인 서비스 체험·평가",
+        "블록체인 관련 기술 학습 및 세미나 참석"
+      ]
     },
     {
       "id": "act-ssis",
@@ -755,7 +808,9 @@
       "period": "2026.10",
       "status": "",
       "summary": "행정안전부",
-      "details": ["공공기관의 효율적인 국가망보안체계(N²SF) 도입을 위한 의사결정 프레임워크"],
+      "details": [
+        "공공기관의 효율적인 국가망보안체계(N²SF) 도입을 위한 의사결정 프레임워크"
+      ],
       "research": {
         "title": "공공기관의 효율적인 국가망보안체계(N²SF) 도입을 위한 의사결정 프레임워크",
         "slides": [
