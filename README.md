@@ -100,6 +100,7 @@ PDF 원본, 연봉, 집 주소, 전화번호, 자격증 번호·어학 등록번
 학교·회사·기존 자격 발급기관 로고는 저장소의 image/, issuer/를 사용합니다. 추가 로고의 출처:
 
 - TOEIC: [ETS 공식 사이트](https://www.ets.org/toeic.html)의 TOEIC 로고 → issuer/toeic.svg
+- YBM: [YBM 공식 사이트](https://www.ybm.co.kr/)의 [상단 로고 원본](https://imagesisa.ybmnet.co.kr/platform/www_ybmnet/201705/logo_fix.png) → issuer/ybm.png. 사용자 요청에 따라 TOEIC 항목에는 이 로고를 사용합니다.
 - 경찰청: [공식 사이트](https://www.police.go.kr/index.do)의 헤더 로고 → image/police.png
 - CSA: [공식 사이트](https://cloudsecurityalliance.org/)의 CSA RGB 로고 → issuer/csa.svg
 - ICQA: [공식 사이트](https://www.icqa.or.kr/cn/)의 로고 → issuer/icqa.png

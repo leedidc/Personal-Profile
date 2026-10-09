@@ -30,6 +30,7 @@
     ['한국산업은행', 'image/kdb.png'],
     ['국방통합데이터센터', 'image/didc.jpg'],
     ['ETS · TOEIC', 'issuer/toeic.svg'],
+    ['YBM · TOEIC', 'issuer/ybm.png'],
     ['경찰청', 'image/police.png'],
     ['개인정보보호위원회', 'image/pipc.png'],
     ['한국정보보호산업협회', 'image/kisia.png'],
