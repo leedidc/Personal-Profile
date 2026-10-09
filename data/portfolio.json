@@ -286,16 +286,16 @@
   "education": [
     {
       "id": "edu-asu",
-      "name": "애리조나주립대학교",
-      "subtitle": "Arizona State University",
       "logo": "image/asu.webp",
-      "period": "2026.08 – 현재",
-      "status": "재학",
-      "summary": "정보기술 석사 · 사이버보안 트랙",
-      "summaryEnglish": "Master of Science in Information Technology · Cybersecurity",
       "details": [
         "Ira A. Fulton Schools of Engineering"
       ],
+      "name": "애리조나주립대학교",
+      "subtitle": "Arizona State University",
+      "period": "2026.08 – 현재",
+      "status": "재학",
+      "summary": "정보기술 석사 · 사이버보안 트랙",
+      "summaryEnglish": "Master of Science in Information Technology · Cybersecurity Track",
       "courses": [
         "IFT 510 — Principles of Computer and Information Technology Architecture",
         "IFT 520 — Advanced Information Systems Security"
@@ -303,16 +303,16 @@
     },
     {
       "id": "edu-ssu",
+      "logo": "image/ssu.png",
+      "details": [
+        "학점 3.94 / 4.5"
+      ],
       "name": "숭실대학교",
       "subtitle": "Soongsil University",
-      "logo": "image/ssu.png",
       "period": "2021.03 – 2026.08",
       "status": "졸업",
       "summary": "소프트웨어학부 · 정보보호 융합전공",
       "summaryEnglish": "School of Software · Interdisciplinary Major in Information Security",
-      "details": [
-        "학점 3.94 / 4.5"
-      ],
       "courses": [
         "네트워크보안 — A+",
         "융합보안프로젝트1 — A+",
