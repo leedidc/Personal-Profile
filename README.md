@@ -64,13 +64,28 @@ API 계약: [GitHub 저장소 콘텐츠 API](https://docs.github.com/en/rest/rep
 
 ### 파일 역할
 
+직접 편집할 때는 아래 표에서 수정할 부분에 맞는 파일을 찾으면 됩니다. 파일명은 기능 이름(`portfolio`, `posts`)과 역할(`config`, `editor`, `github`, `drafts`)을 조합합니다. JSON 배열의 순서가 화면 순서이므로 이름·날짜를 수정할 때 배열을 정렬하지 않습니다.
+
+| 수정할 부분                       | 열 파일                                    | 찾을 항목                                        |
+| --------------------------------- | ------------------------------------------ | ------------------------------------------------ |
+| 이름·연락처·자기소개              | data/portfolio.json                        | profile                                          |
+| 자격·어학·대외활동 내용과 순서    | data/portfolio.json                        | certifications, languages, activities            |
+| 메뉴 이름·관리자 필드·로고 선택지 | js/portfolio-config.js                     | sections, editorLabels, logoOptions              |
+| 색상·글꼴·상단 메뉴·포트폴리오 표 | css/site-common.css                        | :root와 각 화면 클래스                           |
+| 관리자 로그인·입력란·편집 창      | css/admin-common.css                       | .login-card, .field, dialog                      |
+| 포트폴리오 편집 동작              | js/portfolio-editor.js                     | 항목 편집·순서 변경·미리보기 함수                |
+| GitHub 불러오기·저장              | js/portfolio-github.js, js/posts-github.js | loadPortfolio, savePortfolio, loadSnapshot, save |
+| 글 읽기·글 편집 화면              | css/posts.css, css/posts-editor.css        | 본문과 편집기 스타일                             |
+
+세부 역할은 다음과 같습니다.
+
 - data/portfolio.json: 프로필과 일곱 목록의 단일 데이터 원본. 자기소개는 `profile.introduction`, 관심분야는 `profile.interests` 배열, 영문 전공·학위는 학력 항목의 `summaryEnglish`에서 관리합니다.
 - js/portfolio-config.js: 화면 분류, 편집 필드 이름, 기본 로고, GitHub 저장 위치.
 - js/portfolio-core.js: 데이터 검증, 안전한 URL·텍스트 처리, 공개 화면과 미리보기의 공통 프로필·표 표시.
 - js/portfolio.js: 공개 화면과 현재 메뉴 표시.
 - js/portfolio-editor.js: 편집 화면, 로고 업로드, 미리보기.
-- js/portfolio-storage.js: GitHub 접근 확인·불러오기·저장 및 오류 처리.
-- css/resume.css, css/editor.css: 공개 화면과 관리자 화면 스타일.
+- js/portfolio-github.js: GitHub 접근 확인·불러오기·저장 및 오류 처리.
+- css/site-common.css: 사이트 공통 색상·글꼴·헤더와 포트폴리오 표. css/admin-common.css: 포트폴리오·글 관리자가 공유하는 로그인·입력란·편집 창 스타일.
 - data/posts/index.json: 분류 `{id, name}`와 글 목록 `{id, title, date, categoryId}`. 분류 ID가 빈 문자열이면 미분류입니다.
 - data/posts/{id}.json: 글 본문 `{version: 1, id, content: {ops: [...]}}`. 글 목록은 본문과 이미지를 내려받지 않으므로 가볍게 열립니다.
 - js/posts-core.js: 글 데이터·URL·서식 검증과 본문 표시.
@@ -78,7 +93,7 @@ API 계약: [GitHub 저장소 콘텐츠 API](https://docs.github.com/en/rest/rep
 - js/posts-editor.js: 관리자 분류·초안·게시 흐름.
 - js/posts-rich-editor.js: Quill 설정, 링크·이미지 편집, 붙여넣기 처리.
 - js/posts-drafts.js: 이 브라우저의 IndexedDB 초안 보관.
-- js/posts-storage.js: GitHub 접근 확인과 여러 글 파일의 동시 저장.
+- js/posts-github.js: GitHub 접근 확인과 여러 글 파일의 동시 저장.
 - js/posts-redirect.js: 이전 글 ID를 새 주소로 연결.
 - css/posts.css, css/posts-editor.css: 글 읽기와 글 관리 스타일.
 - vendor/quill/: 고정 버전의 편집기와 라이선스. CDN 연결 없이 동작합니다.
@@ -86,6 +101,8 @@ API 계약: [GitHub 저장소 콘텐츠 API](https://docs.github.com/en/rest/rep
 PDF 이력서의 경력·학력·자격·활동·수상·회사 프로젝트를 반영했습니다. 개인정보 확장 프로그램, IREB 자격, DIDC 배치 기간은 기존 사이트 내용을 유지했습니다. 자격명·취득일·발급기관은 사용자가 마지막으로 제공한 자격 목록을 우선하며, 번호를 제공하지 않은 기존 CCSK·SC-900도 유지합니다. 회사 프로젝트의 정확한 기간은 원문에 없어 비워 두었습니다. 수상 4건의 명칭·수상일·수여기관과 관련 논문명은 PDF를 기준으로 작성했습니다.
 
 숭실대 이수과목 10개와 자문단·개인정보 처리방침 평가단·사이버 명예경찰·블록체인 누리단의 기간·활동 내용, IBK기업은행·한국산업은행 인턴 기간은 사용자가 제공한 「ETRI 기술직-정보보호.pdf」를 참고했습니다. 문서에 날짜가 있는 항목은 `YYYY.MM.DD – YYYY.MM.DD`로 표기하고, 월만 확인되는 기존 활동은 월 단위를 유지합니다. 기존에 반영한 최신 학점·졸업 상태·자격 취득일은 이전 지원서 내용으로 덮어쓰지 않습니다. TOEIC 800점과 취득일 2026.08.30은 사용자가 마지막으로 제공한 정보를 따릅니다.
+
+사이버 명예경찰(`act-police`)의 소속은 사용자 정정에 따라 **경기남부경찰청**으로 표기합니다. 제공한 지원서에서 활동명과 기간(2025.04.18 – 2026.04.17)을 다시 확인했으며, 기관명은 [경기남부경찰청 공식 사이트](https://www.ggpolice.go.kr/main/)의 표기와 맞췄습니다. 기존 경찰 로고를 사용합니다.
 
 ASU 과목명은 [공식 MS Information Technology 교육과정](https://degrees.asu.edu/masters-phd/major/ASU00/TSIFTMS/information-technology-ms)에서 확인했습니다. 사용자가 IFT 501을 IFT 510으로 정정한 내용을 반영해 `IFT 510 — Principles of Computer and Information Technology Architecture`, `IFT 520 — Advanced Information Systems Security`를 기록합니다. 학력의 `courses` 배열에서 과목을 편집할 수 있습니다.
 
@@ -141,11 +158,11 @@ Windows에 설치된 Chrome을 우선 사용하며, 그 외 환경에서는 Play
 
 파일 역할과 작업 규칙은 [AGENTS.md](AGENTS.md)에 정리했습니다. HTML·CSS·JavaScript는 2칸, Python은 4칸 들여쓰기와 UTF-8·LF를 사용합니다. CSS 속성과 JavaScript 문장은 한 줄씩 작성하고 함수·변수 이름에 역할을 드러냅니다.
 
-문구·경력 등 내용은 data/portfolio.json, 메뉴·로고·저장소 설정은 js/portfolio-config.js에서 수정합니다. 화면 스타일은 css/resume.css와 css/editor.css에서 수정합니다. 화면 표시와 GitHub 통신은 별도 파일로 관리합니다.
+문구·경력 등 내용은 data/portfolio.json, 메뉴·로고·저장소 설정은 js/portfolio-config.js에서 수정합니다. 화면 스타일은 css/site-common.css와 css/admin-common.css에서 수정합니다. 화면 표시와 GitHub 통신은 별도 파일로 관리합니다.
 
 [Prettier 설정](https://prettier.io/docs/configuration)은 .prettierrc.json, 편집기 기본 규칙은 .editorconfig에 있습니다. Node.js/npm을 사용할 수 있는 환경에서 수정한 파일에 다음 명령을 실행합니다. 서식 도구는 개발할 때만 사용하며 사이트 실행에는 필요하지 않습니다.
 
 ```sh
-npx prettier@3.6.2 --write index.html admin/index.html "js/portfolio*.js" css/resume.css css/editor.css
-npx prettier@3.6.2 --check index.html admin/index.html "js/portfolio*.js" css/resume.css css/editor.css
+npx prettier@3.6.2 --write index.html admin/index.html "js/portfolio*.js" css/site-common.css css/admin-common.css
+npx prettier@3.6.2 --check index.html admin/index.html "js/portfolio*.js" css/site-common.css css/admin-common.css
 ```

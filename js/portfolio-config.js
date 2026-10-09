@@ -31,7 +31,7 @@
     ['국방통합데이터센터', 'image/didc.jpg'],
     ['ETS · TOEIC', 'issuer/toeic.svg'],
     ['YBM · TOEIC', 'issuer/ybm.png'],
-    ['경찰청', 'image/police.png'],
+    ['경찰청 · 경기남부경찰청', 'image/police.png'],
     ['개인정보보호위원회', 'image/pipc.png'],
     ['한국정보보호산업협회', 'image/kisia.png'],
     ['행정안전부', 'image/mois.png'],

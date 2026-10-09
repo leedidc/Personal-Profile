@@ -15,7 +15,7 @@ function loadScripts(fetch) {
     fetch,
   });
   context.window = context;
-  for (const filename of ['portfolio-config.js', 'posts-core.js', 'posts-storage.js']) {
+  for (const filename of ['portfolio-config.js', 'posts-core.js', 'posts-github.js']) {
     vm.runInContext(fs.readFileSync(path.join(__dirname, '../js', filename), 'utf8'), context);
   }
   return context;
