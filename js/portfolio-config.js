@@ -74,5 +74,12 @@
     requestTimeoutMs: 20000,
   };
 
-  window.PortfolioConfig = { sections, logoOptions, editorLabels, github };
+  const chatbot = {
+    endpoint: 'https://chatbot.leedidc1227.workers.dev',
+    requestTimeoutMs: 30000,
+    maxQuestionLength: 1000,
+    historyTurns: 4,
+  };
+
+  window.PortfolioConfig = { sections, logoOptions, editorLabels, github, chatbot };
 })();

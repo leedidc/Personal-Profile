@@ -10,6 +10,7 @@ from functools import partial
 from playwright.sync_api import sync_playwright, expect
 from posts_browser_check import check_posts
 from award_research_browser_check import check_research_reader, edit_research_slides, check_research_preview
+from ai_chatbot_browser_check import check_chatbot
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACTS = ROOT / ".test-artifacts"
@@ -387,6 +388,7 @@ try:
         expect(denied.locator("#editor-panel")).to_be_hidden()
 
         check_posts(browser, BASE, ROOT, ARTIFACTS)
+        check_chatbot(browser, BASE, ARTIFACTS)
         assert not errors, errors
         browser.close()
         print("PASS: public tables, logos, responsive layouts, expandable details, admin access, add/edit/delete/reorder, logo upload, preview, failed save, conflict, Unicode persistence, logout and read-only access.")

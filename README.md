@@ -50,6 +50,20 @@ GitHub Pages는 /admin을 /admin/으로 연결합니다. 저장소의 기존 CNA
 
 API 계약: [GitHub 저장소 콘텐츠 API](https://docs.github.com/en/rest/repos/contents#create-or-update-file-contents).
 
+## AI 챗봇
+
+첫 화면 오른쪽 아래의 **포트폴리오에 대해 질문**을 누르면 AI 안내 창이 열립니다. 현재 하는 일·보유 자격증·연구와 수상·주요 프로젝트를 추천 질문으로 제공하며, 직접 입력한 후속 질문도 최근 네 차례의 대화를 참고합니다. Enter로 보내고 Shift+Enter로 줄바꿈하며, Esc로 닫습니다. **새 대화**는 진행 중인 요청을 취소하고 이 화면의 대화 기록을 지웁니다.
+
+답변 자료는 현재 페이지에서 불러온 `data/portfolio.json`입니다. 공개된 소개·학력·경력·자격·어학·프로젝트·활동·연구 슬라이드를 전달하며 연락처, 로고, 자격·어학 번호는 제외합니다. 관리자가 저장한 최신 내용·목록 순서는 페이지를 다시 불러오면 챗봇에도 반영됩니다. 질문과 공개 이력은 AI 서비스로 전송됩니다. 프런트엔드는 대화를 메모리에만 보관하고 브라우저 저장소에 남기지 않으며, AI 서비스의 보관 정책은 별도입니다.
+
+기존 Cloudflare Worker `https://chatbot.leedidc1227.workers.dev`에 `POST {message}`로 요청하고 `{reply}`를 받습니다. 주소·30초 제한·질문 길이·대화 범위는 `js/portfolio-config.js`의 `chatbot`에서 설정합니다. 질문은 1,000자 이내, 답변은 12,000자 이내이며 자료와 대화가 합쳐 60,000자를 넘으면 전송하지 않습니다. 답변은 HTML로 해석하지 않고 텍스트로 표시합니다.
+
+2026.10.09 확인에서 기존 서버는 공개 사이트에서 정상 응답했지만, 현재 페이지에는 챗봇 UI와 스크립트 연결이 없었습니다. 새 연결로 자격 목록 앞부분의 순서, TOEIC 800점, 사이버 명예경찰의 경기남부경찰청 소속을 실제 질의해 최신 자료가 답변에 반영되는 것을 확인했습니다. 이전 서버 소개보다 요청에 담긴 최신 이력을 우선하도록 안내하지만, 생성된 답변의 정확성은 포트폴리오 본문과 함께 확인해야 합니다.
+
+API 키와 Worker 서버 코드는 이 저장소에 없습니다. [Google의 API 키 지침](https://ai.google.dev/gemini-api/docs/api-key)에 따라 키를 HTML·JavaScript·공개 JSON에 넣지 않고 기존 서버를 통해 호출합니다. Worker의 키·모델·사용량 제한 설정은 이번 변경에서 수정하지 않았습니다. 서버를 관리할 때는 Cloudflare의 해당 Worker 설정에서 비밀 값을 관리합니다. 키를 바꿔도 이 정적 사이트에는 키를 저장하지 않습니다.
+
+오류가 재발하면 브라우저 Network에서 Worker 응답 상태를 확인합니다. 401/403은 서버 인증·접근 설정, 429는 요청·사용량 제한, 5xx는 서버 장애를 확인할 단서입니다. 네트워크 오류는 연결과 Worker의 허용 Origin을 확인합니다. 방문자에게는 서버의 원문 오류나 설정 값을 표시하지 않고 재시도 버튼을 제공합니다. 로컬 브라우저 검사는 실제 AI 호출 대신 모의 응답을 사용합니다.
+
 ## 내용과 파일
 
 ### 글 작성과 게시
@@ -86,9 +100,11 @@ API 계약: [GitHub 저장소 콘텐츠 API](https://docs.github.com/en/rest/rep
 세부 역할은 다음과 같습니다.
 
 - data/portfolio.json: 프로필과 일곱 목록의 단일 데이터 원본. 자기소개는 `profile.introduction`, 관심분야는 `profile.interests` 배열, 영문 전공·학위는 학력 항목의 `summaryEnglish`에서 관리합니다.
-- js/portfolio-config.js: 화면 분류, 편집 필드 이름, 기본 로고, GitHub 저장 위치.
+- js/portfolio-config.js: 화면 분류, 편집 필드 이름, 기본 로고, GitHub 저장 위치, 챗봇 연결 설정.
 - js/portfolio-core.js: 데이터 검증, 안전한 URL·텍스트 처리, 공개 화면과 미리보기의 공통 프로필·표 표시.
 - js/portfolio.js: 공개 화면과 현재 메뉴 표시.
+- js/ai-chatbot.js, css/ai-chatbot.css: 챗봇 창, 추천 질문, 대화 표시, 초기화와 모바일 레이아웃.
+- js/ai-chatbot-service.js: 공개 이력 선별, 질문·대화 구성, 기존 AI 서버 통신과 오류 처리.
 - js/portfolio-editor.js: 편집 화면, 로고 업로드, 미리보기.
 - js/award-research.js, css/award-research.css: 공개 화면과 관리자 미리보기에서 공유하는 연구 슬라이드 창과 넘김 동작.
 - js/award-research-editor.js: 관리자에서 연구 제목·슬라이드·원문 링크를 편집하는 화면.
@@ -106,7 +122,7 @@ API 계약: [GitHub 저장소 콘텐츠 API](https://docs.github.com/en/rest/rep
 - css/posts.css, css/posts-editor.css: 글 읽기와 글 관리 스타일.
 - vendor/quill/: 고정 버전의 편집기와 라이선스. CDN 연결 없이 동작합니다.
 
-현재 화면에서 불러오지 않던 이전 디자인·챗봇·3D 스킬·언어 전환용 CSS와 JavaScript는 정리했습니다. 스타일은 위의 공통·글·관리자 CSS에서 수정합니다. `html/`의 네 페이지와 `js/posts-redirect.js`는 예전 주소와 글 ID를 연결하므로 유지합니다. 관리자 로고 선택지와 글에 사용될 수 있는 `image/`·`issuer/` 파일도 보존합니다.
+현재 화면에서 불러오지 않던 이전 디자인·3D 스킬·언어 전환용 CSS와 JavaScript는 정리했습니다. 이전 챗봇 파일은 새 `ai-chatbot` 파일들로 대체했습니다. 스타일은 위의 공통·글·관리자·챗봇 CSS에서 수정합니다. `html/`의 네 페이지와 `js/posts-redirect.js`는 예전 주소와 글 ID를 연결하므로 유지합니다. 관리자 로고 선택지와 글에 사용될 수 있는 `image/`·`issuer/` 파일도 보존합니다.
 
 PDF 이력서의 경력·학력·자격·활동·수상·회사 프로젝트를 반영했습니다. 개인정보 확장 프로그램, IREB 자격, DIDC 배치 기간은 기존 사이트 내용을 유지했습니다. 자격명·취득일·발급기관은 사용자가 마지막으로 제공한 자격 목록을 우선하며, 번호를 제공하지 않은 기존 CCSK·SC-900도 유지합니다. 회사 프로젝트의 정확한 기간은 원문에 없어 비워 두었습니다. 수상 4건의 명칭·수상일·수여기관과 관련 논문명은 PDF를 기준으로 작성했습니다.
 
@@ -159,6 +175,7 @@ http://localhost:8000/ 과 http://localhost:8000/admin/ 을 확인합니다.
 node --test tests/credential-number.test.cjs
 node --test tests/posts.test.cjs
 node --test tests/award-research.test.cjs
+node --test tests/ai-chatbot.test.cjs
 ```
 
 브라우저 검증:
@@ -168,6 +185,8 @@ uv run --with playwright python -X utf8 tests/browser_check.py
 ```
 
 Windows에 설치된 Chrome을 우선 사용하며, 그 외 환경에서는 Playwright Chromium이 필요합니다. 테스트는 GitHub 응답을 모의하므로 실제 저장소를 변경하지 않습니다. 공개 목록·이미지, 1440/390/320px 화면, 이수과목·상세 펼치기, 어학 등록번호 마스킹, 관리자 접근, 추가·수정·삭제·순서 선택, 로고 업로드, 프로필 전체 편집, 미리보기, 권한 오류·충돌 시 편집 유지, UTF-8 저장, 로그아웃·재로그인 후 순서와 프로필 유지를 확인합니다. 자기소개·관심분야의 HTML 입력을 텍스트로 표시하는지, 빈 항목을 숨기는지, 새 필드가 없는 이전 데이터도 열리는지 검증합니다. 캡처는 Git에서 제외한 .test-artifacts/에 저장됩니다.
+
+챗봇 검사는 `tests/ai_chatbot_browser_check.py`에서 추천 질문·후속 질문·HTML 입력의 텍스트 표시·429 오류·재시도·요청 중 초기화·한글 입력·모바일 너비·대화 기록을 확인합니다. `tests/ai-chatbot.test.cjs`는 최신 자료의 전달·연락처와 번호 제외·대화 길이·오류 구분·취소·시간 제한을 검사합니다. 자동 검사에서는 AI 서버를 모의하므로 API 사용량이 발생하지 않습니다.
 
 ## 코드 편집 기준
 
