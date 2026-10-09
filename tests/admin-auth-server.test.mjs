@@ -174,6 +174,7 @@ test('서버는 기존 SHA와 고정 콘텐츠 경로만 사용하고 토큰·�
       'https://api.github.com/repos/leedidc/Personal-Profile/contents/data/portfolio.json',
     );
     assert.equal(options.headers.Authorization, 'Bearer synthetic-github-token');
+    assert.equal(options.headers['User-Agent'], 'Personal-Profile-Admin');
     const body = JSON.parse(options.body);
     assert.equal(body.sha, 'a'.repeat(40));
     assert.equal(body.branch, 'main');

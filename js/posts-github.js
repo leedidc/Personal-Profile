@@ -13,6 +13,7 @@
           Accept: 'application/vnd.github+json',
           'X-GitHub-Api-Version': apiVersion,
           Authorization: 'Bearer ' + token,
+          ...(typeof window === 'undefined' ? { 'User-Agent': 'Personal-Profile-Admin' } : {}),
           ...(options.body ? { 'Content-Type': 'application/json' } : {}),
         },
         cache: 'no-store',

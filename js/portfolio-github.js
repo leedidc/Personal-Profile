@@ -43,6 +43,8 @@
           Accept: 'application/vnd.github+json',
           'X-GitHub-Api-Version': apiVersion,
           Authorization: `Bearer ${token}`,
+          // 서버 요청에도 GitHub가 요구하는 클라이언트 식별자를 전달합니다.
+          ...(typeof window === 'undefined' ? { 'User-Agent': 'Personal-Profile-Admin' } : {}),
           ...(options.body ? { 'Content-Type': 'application/json' } : {}),
         },
         cache: 'no-store',
