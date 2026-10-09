@@ -319,17 +319,32 @@
     return cell;
   }
 
+  function createCourseItem(course) {
+    const item = createElement('li');
+    const gradedCourse = course.match(/^(.*?)(\s+—\s+)([A-D][+0-]?|F|P|NP|PASS|FAIL)$/);
+    if (gradedCourse) {
+      item.append(
+        createElement('span', 'course-name', gradedCourse[1]),
+        createElement('span', 'sr-only', gradedCourse[2]),
+        createElement('span', 'course-grade', gradedCourse[3]),
+      );
+    } else {
+      item.append(createElement('span', 'course-name', course));
+    }
+    return item;
+  }
+
   function createCourses(row) {
     const details = createElement('details', 'row-details course-details');
     details.open = row.courses.length <= 3;
     const summary = createElement('summary');
     summary.setAttribute('aria-label', row.name + ' 이수과목');
-    summary.append(
-      createElement('span', '', '이수과목 (' + row.courses.length + ')'),
-      createElement('span', 'chevron', '⌄'),
-    );
-    const list = createElement('ul');
-    row.courses.forEach((course) => list.append(createElement('li', '', course)));
+    const count = createElement('span', 'course-count', row.courses.length + '과목');
+    const chevron = createElement('span', 'chevron', '⌄');
+    chevron.setAttribute('aria-hidden', 'true');
+    summary.append(createElement('span', '', '이수과목'), count, chevron);
+    const list = createElement('ul', 'course-list');
+    row.courses.forEach((course) => list.append(createCourseItem(course)));
     details.append(summary, list);
     return details;
   }
@@ -364,14 +379,11 @@
     if (row.summaryEnglish) {
       content.append(createElement('p', 'row-subtitle summary-english', row.summaryEnglish));
     }
-    if (section.key === 'education' && row.courses?.length) {
-      content.append(createCourses(row));
-    }
     if (row.details.length) {
       const list = createElement('ul');
       row.details.forEach((line) => list.append(createElement('li', '', line)));
-      if (section.key === 'awards') {
-        list.className = 'award-details';
+      if (section.key === 'awards' || section.key === 'education') {
+        list.className = section.key === 'education' ? 'education-details' : 'award-details';
         content.append(list);
       } else {
         const details = createElement('details', 'row-details');
@@ -385,6 +397,9 @@
         details.append(summary, list);
         content.append(details);
       }
+    }
+    if (section.key === 'education' && row.courses?.length) {
+      content.append(createCourses(row));
     }
     if (row.technologies?.length) {
       const tags = createElement('div', 'tags');
@@ -422,6 +437,9 @@
     }
     if (section.key === 'awards') {
       table.classList.add('award-table');
+    }
+    if (section.key === 'education') {
+      table.classList.add('education-table');
     }
     table.append(createElement('caption', 'sr-only', caption || section.title));
     const head = createElement('thead');

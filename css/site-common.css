@@ -488,6 +488,79 @@ p {
 .award-details li::marker {
   color: var(--accent);
 }
+/* 학력의 기본 정보는 바로 표시하고 과목 목록만 펼칩니다. */
+.education-details {
+  display: grid;
+  gap: 4px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.7;
+}
+.course-details {
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--white);
+}
+.row-details.course-details summary {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.course-details summary:hover {
+  background: var(--surface-hover);
+}
+.course-count {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--muted);
+}
+.course-details .chevron {
+  margin-left: 4px;
+  color: var(--accent);
+}
+.course-details .course-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  column-gap: 18px;
+  margin: 0;
+  padding: 0 12px 4px;
+  list-style: none;
+  line-height: 1.6;
+}
+.course-list li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+.course-list li + li {
+  margin-top: 0;
+}
+.course-name {
+  min-width: 0;
+}
+.course-grade {
+  flex-shrink: 0;
+  min-width: 30px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+}
 .tags {
   display: flex;
   flex-wrap: wrap;
@@ -730,8 +803,19 @@ p {
   .resume-table .name-cell {
     grid-column: 1/-1;
   }
-  .resume-table.award-table .content-cell {
+  .resume-table.award-table .content-cell,
+  .resume-table.education-table .content-cell {
     grid-column: 1/-1;
+  }
+  .resume-table.education-table .period-cell {
+    grid-column: 1/-1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .resume-table.education-table .period,
+  .resume-table.education-table .badge {
+    margin-top: 0;
   }
   .resume-table.credential-table .credential-cell {
     grid-column: 1/-1;
