@@ -3,6 +3,31 @@
   const { sections } = PortfolioConfig;
   const credentialNumberPrefixLength = 12;
 
+  function validateSectionOrder(order) {
+    if (order === undefined) {
+      return;
+    }
+    const keys = new Set(sections.map((section) => section.key));
+    if (
+      !Array.isArray(order) ||
+      order.length > keys.size ||
+      order.some((key) => !keys.has(key)) ||
+      new Set(order).size !== order.length
+    ) {
+      throw new Error('섹션 순서에 중복되거나 알 수 없는 항목이 있습니다.');
+    }
+  }
+
+  function getSections(data) {
+    validateSectionOrder(data.sectionOrder);
+    const order = data.sectionOrder || [];
+    // 이전 데이터에 순서가 없거나 새 섹션이 생기면 기본 목록에서 보완합니다.
+    return [
+      ...order.map((key) => sections.find((section) => section.key === key)),
+      ...sections.filter((section) => !order.includes(section.key)),
+    ];
+  }
+
   function maskCredentialNumber(value) {
     if (typeof value !== 'string' || value.length > 100) {
       throw new Error('자격증 번호 또는 등록번호를 확인해 주세요.');
@@ -73,6 +98,7 @@
     if (!data || data.version !== 1 || !data.profile || typeof data.profile !== 'object') {
       throw new Error('포트폴리오 데이터 형식이 올바르지 않습니다.');
     }
+    validateSectionOrder(data.sectionOrder);
     for (const key of ['name', 'englishName', 'email', 'github', 'linkedin']) {
       if (typeof data.profile[key] !== 'string' || data.profile[key].length > 500) {
         throw new Error('프로필 내용을 확인해 주세요.');
@@ -481,7 +507,7 @@
   function renderPortfolio(root, data, base = './', prefix = '') {
     validatePortfolio(data);
     root.replaceChildren();
-    sections.forEach((section) => {
+    getSections(data).forEach((section) => {
       const rows = data[section.key] || [];
       if (section.optional && !rows.length) {
         return;
@@ -525,6 +551,8 @@
   }
   globalThis.Portfolio = {
     sections,
+    getSections,
+    validateSectionOrder,
     createElement,
     getSafeUrl,
     maskCredentialNumber,

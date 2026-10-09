@@ -94,8 +94,13 @@
     getElement('section-title').textContent = section.title + ' · ' + rows.length;
     getElement('add-item').setAttribute('aria-label', section.title + ' 추가');
     getElement('manage-skill-categories').hidden = sectionKey !== 'skills';
-    for (const button of getElement('editor-tabs').children) {
+    const tabs = getElement('editor-tabs');
+    for (const [index, section] of Portfolio.getSections(data).entries()) {
+      const button = tabs.querySelector('[data-section="' + section.key + '"]');
       button.setAttribute('aria-pressed', String(button.dataset.section === sectionKey));
+      if (tabs.children[index] !== button) {
+        tabs.insertBefore(button, tabs.children[index]);
+      }
     }
     const list = getElement('editor-list');
     list.replaceChildren();
@@ -210,6 +215,7 @@
       if (remote) {
         data = remote.data;
         sha = remote.sha;
+        sectionKey = Portfolio.getSections(data)[0].key;
         setDirty(false);
       }
       getElement('token').value = '';
@@ -272,6 +278,16 @@
       setDirty();
       renderEditorList();
       showStatus('분류를 적용했습니다. 사이트에 저장하면 공개 화면에도 반영됩니다.');
+    });
+  });
+
+  getElement('edit-section-order').addEventListener('click', () => {
+    SectionOrderEditor.open(data, (order) => {
+      validatePortfolio({ ...data, sectionOrder: order });
+      data.sectionOrder = order;
+      setDirty();
+      renderEditorList();
+      showStatus('섹션 순서를 적용했습니다. 사이트에 저장하면 공개 화면에도 반영됩니다.');
     });
   });
 

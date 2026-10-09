@@ -21,6 +21,7 @@
     <script src="../js/portfolio-skills.js" defer></script>
     <script src="../js/skills-editor.js" defer></script>
     <script src="../js/skill-categories-editor.js" defer></script>
+    <script src="../js/section-order-editor.js" defer></script>
     <script src="../js/award-research.js" defer></script>
     <script src="../js/award-research-editor.js" defer></script>
     <script src="../js/admin-auth.js" defer></script>
@@ -121,7 +122,10 @@
       <section id="editor-panel" hidden aria-label="포트폴리오 편집">
         <div class="editor-toolbar">
           <div class="editor-tabs" id="editor-tabs" role="group" aria-label="편집할 항목"></div>
-          <button class="button small" id="edit-profile" type="button">프로필 수정</button>
+          <div class="editor-heading-actions">
+            <button class="button small" id="edit-section-order" type="button">섹션 순서</button>
+            <button class="button small" id="edit-profile" type="button">프로필 수정</button>
+          </div>
         </div>
         <div class="editor-heading">
           <h2 id="section-title">학력</h2>
@@ -347,6 +351,32 @@
         </div>
         <div class="dialog-actions">
           <button class="button" type="button" data-close="skill-categories-dialog">취소</button>
+          <button class="button primary" type="submit">적용</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="section-order-dialog" aria-labelledby="section-order-title">
+      <form id="section-order-form">
+        <div class="dialog-header">
+          <h2 id="section-order-title">섹션 순서</h2>
+          <button
+            class="button icon"
+            type="button"
+            data-close="section-order-dialog"
+            aria-label="닫기"
+          >
+            ×
+          </button>
+        </div>
+        <div class="dialog-body">
+          <p class="editor-help">
+            순서를 선택하거나 ↑·↓ 버튼으로 이동하세요. 상단 메뉴와 본문에 함께 반영됩니다.
+          </p>
+          <div id="section-order-list"></div>
+          <p id="section-order-error" class="dialog-error" role="alert"></p>
+        </div>
+        <div class="dialog-actions">
+          <button class="button" type="button" data-close="section-order-dialog">취소</button>
           <button class="button primary" type="submit">적용</button>
         </div>
       </form>

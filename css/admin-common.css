@@ -189,6 +189,18 @@
   color: var(--muted);
   font-size: 12px;
 }
+.section-order-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-block: 12px;
+  border-bottom: 1px solid var(--line);
+}
+.section-order-row .editor-actions {
+  margin-left: auto;
+}
 .order-select {
   min-height: 34px;
   padding: 5px 7px;

@@ -1,5 +1,16 @@
 {
   "version": 1,
+  "sectionOrder": [
+    "education",
+    "experience",
+    "certifications",
+    "awards",
+    "languages",
+    "skills",
+    "projects",
+    "activities",
+    "training"
+  ],
   "profile": {
     "name": "이찬형",
     "englishName": "Chanhyeong Lee",

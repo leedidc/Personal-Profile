@@ -165,6 +165,7 @@ test('서버는 기존 SHA와 고정 콘텐츠 경로만 사용하고 토큰·�
     groups: [{ value: 'custom-group', label: '직접 만든 세부 분류' }],
   });
   Object.assign(portfolio.skills[0], { category: 'custom-tools', group: 'custom-group' });
+  portfolio.sectionOrder = portfolio.sectionOrder.toReversed();
   const oldFetch = globalThis.fetch;
   let called = 0;
   globalThis.fetch = async (url, options) => {
@@ -181,6 +182,7 @@ test('서버는 기존 SHA와 고정 콘텐츠 경로만 사용하고 토큰·�
     const content = JSON.parse(Buffer.from(body.content, 'base64').toString('utf8'));
     assert.notEqual(content.certifications[0].maskedNumber, 'SYNTHETIC-98765');
     assert.deepEqual(content.skillCategories, portfolio.skillCategories);
+    assert.deepEqual(content.sectionOrder, portfolio.sectionOrder);
     assert.equal(content.skills[0].category, 'custom-tools');
     return Response.json({ content: { sha: 'b'.repeat(40) } });
   };
@@ -192,6 +194,18 @@ test('서버는 기존 SHA와 고정 콘텐츠 경로만 사용하고 토큰·�
     });
     assert.equal(response.status, 200);
     assert.deepEqual(await response.json(), { sha: 'b'.repeat(40) });
+    assert.equal(called, 1);
+    const invalidOrder = { ...portfolio, sectionOrder: ['education', 'education'] };
+    assert.equal(
+      (
+        await call(auth, '/portfolio', {
+          ...session,
+          method: 'PUT',
+          body: { data: invalidOrder, sha: 'a'.repeat(40) },
+        })
+      ).status,
+      400,
+    );
     assert.equal(called, 1);
     const invalidCategories = structuredClone(portfolio);
     invalidCategories.skillCategories.pop();

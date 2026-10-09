@@ -16,6 +16,7 @@ from mobile_layout_check import check_mobile_layout
 from visual_effects_browser_check import check_visual_effects
 from admin_auth_browser_check import check_admin_auth
 from training_browser_check import check_training
+from section_order_browser_check import check_section_order
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACTS = ROOT / ".test-artifacts"
@@ -402,6 +403,7 @@ try:
         check_visual_effects(browser, BASE, ARTIFACTS)
         check_admin_auth(browser, BASE, ROOT, ARTIFACTS)
         check_training(browser, BASE, ROOT, ARTIFACTS)
+        check_section_order(browser, BASE, ROOT, ARTIFACTS)
         assert not errors, errors
         browser.close()
         print("PASS: public tables, logos, responsive layouts, expandable details, admin access, add/edit/delete/reorder, logo upload, preview, failed save, conflict, Unicode persistence, logout and read-only access.")
