@@ -442,10 +442,10 @@
     },
     {
       "id": "cert-ccsk",
-      "name": "Certificate of Cloud Security Knowledge",
+      "name": "Certificate of Cloud Security Knowledge v5",
       "subtitle": "",
       "logo": "issuer/csa.svg",
-      "period": "2026.06",
+      "period": "2026.06.20",
       "status": "",
       "summary": "Cloud Security Alliance",
       "details": [],
@@ -456,11 +456,11 @@
       "name": "Microsoft Certified: Security, Compliance, and Identity Fundamentals",
       "subtitle": "",
       "logo": "issuer/ms.png",
-      "period": "2026.05",
+      "period": "2026.05.30",
       "status": "",
       "summary": "Microsoft",
       "details": [],
-      "maskedNumber": ""
+      "maskedNumber": "1AE123-25B***"
     },
     {
       "status": "",
@@ -471,7 +471,7 @@
       "maskedNumber": "Brightest202***",
       "period": "2025.03.18",
       "summary": "ISTQB (국제소프트웨어테스팅자격위원회)",
-      "logo": "issuer/ISTQB_STE.png"
+      "logo": "issuer/istqb.svg"
     },
     {
       "status": "",
@@ -481,6 +481,17 @@
       "subtitle": "",
       "maskedNumber": "#KSTQBKr-CT-***",
       "period": "2024.08.20",
+      "summary": "ISTQB (국제소프트웨어테스팅자격위원회)",
+      "logo": "issuer/istqb.svg"
+    },
+    {
+      "status": "",
+      "details": [],
+      "id": "cert-mbt",
+      "name": "Certified Tester Model-Based Tester",
+      "subtitle": "",
+      "maskedNumber": "#ISTQBKr-MBT***",
+      "period": "2025.01.22",
       "summary": "ISTQB (국제소프트웨어테스팅자격위원회)",
       "logo": "issuer/istqb.svg"
     },
