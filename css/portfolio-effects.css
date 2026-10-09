@@ -13,6 +13,25 @@
   transform: scaleX(0);
   transform-origin: left;
 }
+.portfolio-header nav.has-moving-indicator {
+  position: relative;
+  overflow: clip;
+}
+.portfolio-header nav.has-moving-indicator a:focus-visible {
+  outline-offset: -3px;
+}
+.portfolio-header nav.has-moving-indicator a[aria-current]::after {
+  display: none;
+}
+.nav-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--on-dark-accent);
+  pointer-events: none;
+}
 .portfolio-page .profile-overview.has-network-visual {
   grid-template-columns: minmax(0, 1fr) 300px;
   column-gap: 40px;
@@ -83,6 +102,21 @@
   stroke-dasharray: none;
   opacity: 0.45;
 }
+.network-radar {
+  transform-origin: 180px 120px;
+  animation: network-scan 16s linear infinite;
+  animation-play-state: paused;
+}
+.network-radar-trail {
+  fill: var(--accent);
+  opacity: 0.08;
+}
+.network-radar-beam {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1;
+  opacity: 0.35;
+}
 .network-connections {
   fill: none;
   stroke: var(--accent-line);
@@ -129,8 +163,14 @@
   stroke-linecap: round;
 }
 .network-visual.is-animating .network-packets path,
-.network-visual.is-animating .network-halo {
+.network-visual.is-animating .network-halo,
+.network-visual.is-animating .network-radar {
   animation-play-state: running;
+}
+@keyframes network-scan {
+  to {
+    transform: rotate(360deg);
+  }
 }
 @keyframes network-travel {
   to {
@@ -144,6 +184,11 @@
   }
 }
 @media (prefers-reduced-motion: no-preference) {
+  .nav-indicator {
+    transition:
+      transform 280ms cubic-bezier(0.2, 0.7, 0.3, 1),
+      width 280ms cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
   .portfolio-page .section-arrived .section-heading,
   .portfolio-page .section-arrived > .table-wrap,
   .portfolio-page .section-arrived > .project-group,
@@ -187,12 +232,21 @@
   }
 }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .network-visual.is-animating .network-art {
+    transform: perspective(600px) rotateX(var(--network-tilt-x, 0deg))
+      rotateY(var(--network-tilt-y, 0deg));
+    transition: transform 220ms ease-out;
+  }
   .portfolio-page .profile-interests li:hover,
   .portfolio-page .research-open:hover {
     transform: translateY(-2px);
   }
 }
 @media (max-width: 950px) {
+  .portfolio-header nav.has-moving-indicator {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
   .portfolio-page .profile-overview.has-network-visual {
     grid-template-columns: minmax(0, 1fr) 240px;
     column-gap: 24px;
@@ -215,7 +269,8 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .network-packets path,
-  .network-halo {
+  .network-halo,
+  .network-radar {
     animation: none;
   }
 }
