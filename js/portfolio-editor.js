@@ -216,9 +216,12 @@
     ['name-label', 'subtitle-label', 'summary-label'].forEach((id, i) => {
       getElement(id).textContent = labels[i];
     });
-    getElement('period-label').textContent = sectionKey === 'certifications' ? '취득' : '기간';
-    getElement('period').placeholder =
-      sectionKey === 'certifications' ? '2026.06' : '2026.01 – 현재';
+    const isSingleDate = ['certifications', 'awards'].includes(sectionKey);
+    getElement('period-label').textContent = section.columns[1];
+    getElement('period').placeholder = isSingleDate ? '2026.10' : '2026.01 – 현재';
+    getElement('status-label').textContent = sectionKey === 'awards' ? '부문' : '상태';
+    getElement('item-status').placeholder =
+      sectionKey === 'awards' ? '논문 부문 등' : '재직, 재학, 졸업 등';
     ['project-category', 'project-technologies', 'project-link'].forEach((id) => {
       getElement(id).hidden = sectionKey !== 'projects';
     });

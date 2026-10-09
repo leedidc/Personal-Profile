@@ -8,6 +8,7 @@
     { key: 'certifications', title: '자격', columns: ['자격명', '취득', '발급기관'] },
     { key: 'projects', title: '프로젝트', columns: ['프로젝트', '기간', '내용'] },
     { key: 'activities', title: '대외활동', columns: ['기관 · 활동', '기간', '내용'] },
+    { key: 'awards', title: '수상', columns: ['수상명', '수상일', '수여기관'] },
   ];
   const logoOptions = [
     ['로고 없음', ''],
@@ -19,6 +20,9 @@
     ['국방통합데이터센터', 'image/didc.jpg'],
     ['개인정보보호위원회', 'image/pipc.png'],
     ['한국정보보호산업협회', 'image/kisia.png'],
+    ['행정안전부', 'image/mois.png'],
+    ['한국정보보호학회', 'image/kiisc.png'],
+    ['DB김준기문화재단', 'image/db-foundation.png'],
     ['한국인터넷진흥원', 'issuer/kisa.png'],
     ['한국방송통신전파진흥원', 'issuer/kca.png'],
     ['한국산업인력공단', 'issuer/hrdk.png'],
@@ -43,6 +47,7 @@
     certifications: ['자격명', '영문명 · 약칭', '발급기관'],
     projects: ['프로젝트명', '소속 · 구분', '프로젝트 내용'],
     activities: ['기관명', '활동명 · 소속', '활동 내용'],
+    awards: ['수상명', '대회명', '수여기관'],
   };
 
   const github = {

@@ -331,5 +331,49 @@
       "summary": "국내 기업의 개인정보 처리방침 평가",
       "details": []
     }
+  ],
+  "awards": [
+    {
+      "id": "award-mois-2026",
+      "name": "행정안전부 장관상",
+      "subtitle": "2026 한국정보보호학회 동계학술대회",
+      "logo": "image/mois.png",
+      "period": "2026.10",
+      "status": "",
+      "summary": "행정안전부",
+      "details": ["공공기관의 효율적인 국가망보안체계(N²SF) 도입을 위한 의사결정 프레임워크"]
+    },
+    {
+      "id": "award-kiisc-2026",
+      "name": "한국정보보호학회장상",
+      "subtitle": "2026 한국정보보호학회 동계학술대회",
+      "logo": "image/kiisc.png",
+      "period": "2026.10",
+      "status": "",
+      "summary": "한국정보보호학회",
+      "details": [
+        "국가 망 보안체계 정보서비스 모델 3의 등급 라벨 생애주기 통제 부재와 경계 중심 대응 아키텍처"
+      ]
+    },
+    {
+      "id": "award-db-2025",
+      "name": "입선상",
+      "subtitle": "2025 DB보험금융공모전",
+      "logo": "image/db-foundation.png",
+      "period": "2025.06",
+      "status": "논문 부문",
+      "summary": "DB김준기문화재단",
+      "details": []
+    },
+    {
+      "id": "award-kisia-2024",
+      "name": "우수상",
+      "subtitle": "2024 정보보호 정책제안 공모전",
+      "logo": "image/kisia.png",
+      "period": "2024.12",
+      "status": "",
+      "summary": "한국정보보호산업협회",
+      "details": []
+    }
   ]
 }

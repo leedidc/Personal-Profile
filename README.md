@@ -4,7 +4,7 @@
 
 ## 화면
 
-- index.html: 학력, 경력, 자격, 프로젝트, 대외활동을 가로형 표로 표시합니다. 모바일에서는 로고·이름 아래에 기간과 내용을 배치합니다.
+- index.html: 학력, 경력, 자격, 프로젝트, 대외활동, 수상을 가로형 표로 표시합니다. 모바일에서는 로고·이름 아래에 기간과 내용을 배치합니다.
 - /admin/ (admin/index.html): 항목 추가·수정·삭제, 순서 변경, 로고 선택·업로드, 프로필 수정, 미리보기, 사이트 저장.
 - html/certification.html: 첫 화면의 자격 목록으로 이동하는 이전 주소입니다.
 - 기존 기술 글과 게시글 관리 화면은 html/article.html, html/article-view.html, html/admin.html에 남아 있습니다.
@@ -17,7 +17,7 @@ GitHub Pages는 /admin을 /admin/으로 연결합니다. 저장소의 기존 CNA
 2. Resource owner는 leedidc, Repository access는 **Only select repositories → Personal-Profile**을 선택합니다.
 3. Repository permissions에서 **Contents: Read and write**를 선택합니다. Metadata 읽기 권한도 포함됩니다.
 4. 사이트 주소 뒤에 /admin을 붙이고 토큰으로 로그인합니다.
-5. 학력·경력·자격·프로젝트·대외활동 중 하나를 선택하고 **+ 추가** 또는 **수정**을 누릅니다.
+5. 학력·경력·자격·프로젝트·대외활동·수상 중 하나를 선택하고 **+ 추가** 또는 **수정**을 누릅니다.
 6. 로고는 기존 목록에서 선택하거나 PNG·JPG·WebP 파일을 업로드할 수 있습니다. 5MB 이하 이미지를 최대 160px로 줄여 데이터에 포함합니다. HTTPS 이미지 주소도 사용할 수 있습니다.
 7. **적용**으로 편집 내용을 반영하고 **미리보기**로 확인합니다. **사이트에 저장**을 누르면 main 브랜치의 data/portfolio.json이 커밋되며 GitHub Pages 배포 후 공개 화면에 반영됩니다.
 
@@ -29,7 +29,7 @@ API 계약: [GitHub 저장소 콘텐츠 API](https://docs.github.com/en/rest/rep
 
 ## 내용과 파일
 
-- data/portfolio.json: 프로필과 다섯 목록의 단일 데이터 원본.
+- data/portfolio.json: 프로필과 여섯 목록의 단일 데이터 원본.
 - js/portfolio-config.js: 화면 분류, 편집 필드 이름, 기본 로고, GitHub 저장 위치.
 - js/portfolio-core.js: 데이터 검증, 안전한 URL·텍스트 처리, 공통 표 표시.
 - js/portfolio.js: 공개 화면과 현재 메뉴 표시.
@@ -37,7 +37,7 @@ API 계약: [GitHub 저장소 콘텐츠 API](https://docs.github.com/en/rest/rep
 - js/portfolio-storage.js: GitHub 접근 확인·불러오기·저장 및 오류 처리.
 - css/resume.css, css/editor.css: 공개 화면과 관리자 화면 스타일.
 
-PDF 이력서의 경력·학력·자격·활동·회사 프로젝트를 반영했습니다. PDF에 없는 개인정보 확장 프로그램, IREB 자격, 개인정보보호위원회 국민평가단, DIDC 배치 기간은 기존 사이트 내용을 유지했습니다. PDF와 기존 사이트의 자격 취득일이 다른 경우 PDF의 연·월을 우선했습니다. 회사 프로젝트의 정확한 기간은 원문에 없어 비워 두었습니다.
+PDF 이력서의 경력·학력·자격·활동·수상·회사 프로젝트를 반영했습니다. PDF에 없는 개인정보 확장 프로그램, IREB 자격, 개인정보보호위원회 국민평가단, DIDC 배치 기간은 기존 사이트 내용을 유지했습니다. PDF와 기존 사이트의 자격 취득일이 다른 경우 PDF의 연·월을 우선했습니다. 회사 프로젝트의 정확한 기간은 원문에 없어 비워 두었습니다. 수상 4건의 명칭·수상일·수여기관과 관련 논문명은 PDF를 기준으로 작성했습니다.
 
 PDF 원본, 연봉, 집 주소, 전화번호, 자격 식별번호는 저장소에 추가하지 않았습니다.
 
@@ -46,6 +46,9 @@ PDF 원본, 연봉, 집 주소, 전화번호, 자격 식별번호는 저장소�
 - CSA: [공식 사이트](https://cloudsecurityalliance.org/)의 CSA RGB 로고 → issuer/csa.svg
 - ICQA: [공식 사이트](https://www.icqa.or.kr/cn/)의 로고 → issuer/icqa.png
 - ISTQB: [공식 사이트](https://istqb.org/)의 헤더 로고 → issuer/istqb.svg
+- 행정안전부: [공식 사이트](https://www.mois.go.kr/frt/sub/a07/miBanner/screen.do)의 로고 → image/mois.png
+- 한국정보보호학회: [공식 사이트](https://kiisc.or.kr/)의 로고 → image/kiisc.png
+- DB김준기문화재단: [공식 사이트](https://www.dbfoundation.or.kr/intro/summary)의 로고 → image/db-foundation.png
 
 ## 로컬 확인
 

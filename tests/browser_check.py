@@ -65,23 +65,25 @@ try:
         context.on("page", lambda page: page.on("pageerror", lambda error: errors.append(str(error))))
         page = context.new_page()
         page.goto(BASE)
-        expect(page.locator(".resume-section")).to_have_count(5)
+        expect(page.locator(".resume-section")).to_have_count(6)
         expect(page.locator("#certifications tbody tr")).to_have_count(len(original["certifications"]))
         expect(page.locator("#projects .project-group")).to_have_count(2)
+        expect(page.locator("#awards tbody tr")).to_have_count(4)
+        expect(page.locator("#awards tbody tr").first).to_contain_text("행정안전부 장관상")
         page.locator("#experience details summary").first.click()
         expect(page.locator("#experience details").first).to_have_attribute("open", "")
         assert "8,000" in page.locator("#experience details").first.inner_text()
         page.locator("#experience details summary").first.click()
         page.evaluate("document.querySelectorAll('img').forEach(img => img.loading = 'eager')")
         page.wait_for_function("Array.from(document.images).every(img => img.complete)")
-        assert page.locator(".org-logo img").count() == sum(len(original[s]) for s in ["education","experience","certifications","projects","activities"]), "Missing or failed organization logo"
+        assert page.locator(".org-logo img").count() == sum(len(original[s]) for s in ["education","experience","certifications","projects","activities","awards"]), "Missing or failed organization logo"
         assert page.evaluate("Array.from(document.images).every(img => img.naturalWidth > 0)")
         no_overflow(page)
         page.screenshot(path=str(ARTIFACTS / "desktop.png"), full_page=True)
         for width in [390, 320]:
             page.set_viewport_size({"width": width, "height": 844})
             page.goto(BASE)
-            expect(page.locator(".resume-section")).to_have_count(5)
+            expect(page.locator(".resume-section")).to_have_count(6)
             no_overflow(page)
         page.set_viewport_size({"width": 390, "height": 844})
         page.screenshot(path=str(ARTIFACTS / "mobile.png"), full_page=True)
@@ -115,6 +117,15 @@ try:
         admin.locator("#details").fill("검증용 상세 업무 1\n검증용 상세 업무 2")
         admin.locator("#apply-item").click()
 
+        # 수상 편집 내용이 미리보기와 저장 결과에 반영되는지 확인합니다.
+        admin.get_by_role("button", name="수상", exact=True).click()
+        expect(admin.locator(".editor-row")).to_have_count(4)
+        admin.get_by_role("button", name="행정안전부 장관상 수정", exact=True).click()
+        expect(admin.locator("#period-label")).to_have_text("수상일")
+        expect(admin.locator("#status-label")).to_have_text("부문")
+        admin.locator("#details").fill("검증용 수상 내용")
+        admin.locator("#apply-item").click()
+
         # Company/personal classification, reorder, cancellation, and deletion.
         admin.get_by_role("button", name="프로젝트", exact=True).click()
         admin.get_by_role("button", name="프로젝트 추가", exact=True).click()
@@ -141,6 +152,7 @@ try:
         admin.locator("#profile-form").get_by_role("button", name="적용", exact=True).click()
         admin.locator("#preview").click()
         expect(admin.locator("#preview-education tbody tr")).to_have_count(3)
+        expect(admin.locator("#preview-awards tbody tr")).to_have_count(4)
         expect(admin.locator("#preview-dialog h1")).to_contain_text("이찬형 검증")
         assert admin.locator('#preview-dialog img[src="x"]').count() == 0
         admin.locator("#preview-dialog").get_by_role("button", name="닫기", exact=True).click()
@@ -158,6 +170,7 @@ try:
         expect(admin.locator("#status")).to_contain_text("저장했습니다")
         expect(admin.locator("#publish")).to_be_disabled()
         assert state["writes"] == 1
+        assert state["data"]["awards"][0]["details"] == ["검증용 수상 내용"]
         assert state["data"]["profile"]["name"] == "이찬형 검증"
         assert state["data"]["education"][-1]["logo"].startswith("data:image/png;base64,")
         assert state["data"]["experience"][0]["details"] == ["검증용 상세 업무 1", "검증용 상세 업무 2"]
