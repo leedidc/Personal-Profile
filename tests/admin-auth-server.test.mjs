@@ -273,6 +273,97 @@ test('글 저장은 실제 브랜치의 트리만 사용하며 오래된 커밋�
   }
 });
 
+test('글·분류 저장의 GitHub 권한 오류와 요청 제한을 구분하고 외부 응답은 숨긴다', async () => {
+  const { auth } = setup();
+  const session = await login(auth);
+  const headSha = 'a'.repeat(40);
+  const treeSha = 'b'.repeat(40);
+  const index = {
+    version: 1,
+    categories: [{ id: 'study', name: '학습' }],
+    posts: [{ id: 'sample', title: '가상 글', date: '2026-10-10', categoryId: 'study' }],
+  };
+  const document = { version: 1, id: 'sample', content: { ops: [{ insert: '가상 본문\n' }] } };
+  const originalFetch = globalThis.fetch;
+  const cases = [
+    {
+      status: 403,
+      message: 'Resource not accessible by personal access token',
+      expected: /Contents/,
+    },
+    {
+      status: 403,
+      message: 'Resource not accessible by personal access token',
+      document,
+      expected: /Contents/,
+    },
+    { status: 403, message: 'API rate limit exceeded', expected: /요청 한도/ },
+    {
+      status: 403,
+      message: 'Private diagnostic',
+      headers: { 'X-RateLimit-Remaining': '0' },
+      expected: /요청 한도/,
+    },
+    {
+      status: 403,
+      message: 'Private diagnostic',
+      headers: { 'Retry-After': '60' },
+      expected: /요청 한도/,
+    },
+    { status: 429, message: 'Private diagnostic', expected: /요청 한도/ },
+    { status: 403, message: 'Private diagnostic', expected: /접근 권한/ },
+    { status: 401, message: 'Private diagnostic', expected: /토큰/ },
+    { status: 500, message: 'Private diagnostic', expected: /요청을 처리하지 못했습니다/ },
+  ];
+  try {
+    for (const scenario of cases) {
+      let writes = 0;
+      globalThis.fetch = async (url, options) => {
+        assert.equal(options.headers.Authorization, 'Bearer synthetic-github-token');
+        if (url.endsWith('/git/ref/heads/main')) {
+          return Response.json({ object: { sha: headSha } });
+        }
+        if (url.endsWith('/git/commits/' + headSha)) {
+          return Response.json({ tree: { sha: treeSha } });
+        }
+        if (url.includes('/contents/data/posts/index.json?ref=')) {
+          return Response.json({
+            sha: 'c'.repeat(40),
+            encoding: 'base64',
+            content: Buffer.from(JSON.stringify(index)).toString('base64'),
+          });
+        }
+        assert.ok(url.endsWith('/git/trees'), '실패 후 커밋이나 브랜치를 갱신하면 안 됩니다.');
+        assert.equal(options.method, 'POST');
+        const tree = JSON.parse(options.body);
+        assert.equal(tree.base_tree, treeSha);
+        assert.equal(tree.tree.length, scenario.document ? 2 : 1);
+        writes++;
+        return Response.json(
+          { message: scenario.message, detail: 'synthetic-github-token' },
+          {
+            status: scenario.status,
+            headers: scenario.headers,
+          },
+        );
+      };
+      const response = await call(auth, '/posts/save', {
+        ...session,
+        method: 'POST',
+        body: { headSha, index, document: scenario.document ?? null },
+      });
+      assert.equal(response.status, 503);
+      const result = await response.json();
+      assert.match(result.error, scenario.expected);
+      assert.doesNotMatch(result.error, /Private diagnostic|synthetic-github-token/);
+      assert.equal(writes, 1, '실패한 쓰기를 자동으로 반복하지 않습니다.');
+      assert.equal((await call(auth, '/session', session)).status, 200);
+    }
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
 test('관리자 진입 경로와 API 경로를 분리하고 공개 자산으로 인증을 우회하지 않는다', async () => {
   const paths = [];
   const env = {

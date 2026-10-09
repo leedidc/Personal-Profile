@@ -34,6 +34,23 @@
         messages[response.status] || 'GitHub 저장에 실패했습니다. 편집 내용은 유지됩니다.',
       );
       error.status = response.status;
+      if ([403, 429].includes(response.status)) {
+        const details = await response.json().catch(() => ({}));
+        if (
+          response.status === 429 ||
+          response.headers.get('X-RateLimit-Remaining') === '0' ||
+          response.headers.has('Retry-After') ||
+          /rate limit/i.test(details?.message || '')
+        ) {
+          error.code = 'GITHUB_RATE_LIMIT';
+          error.message =
+            'GitHub 요청 한도에 도달했습니다. 잠시 후 다시 저장해 주세요. 초안은 유지됩니다.';
+        } else if (details?.message === 'Resource not accessible by personal access token') {
+          error.code = 'GITHUB_TOKEN_PERMISSION';
+          error.message =
+            'GitHub 토큰의 저장소 권한이 부족합니다. Personal-Profile의 Contents 권한을 Read and write로 설정해 주세요. 초안은 유지됩니다.';
+        }
+      }
       throw error;
     }
     return response.json();

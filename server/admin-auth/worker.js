@@ -253,6 +253,25 @@ export class AdminState {
           409,
         );
       }
+      // 외부 응답 원문이나 토큰을 노출하지 않고, 확인한 원인만 안내합니다.
+      const githubErrors = {
+        GITHUB_TOKEN_PERMISSION:
+          '관리 서버의 GitHub 토큰에 쓰기 권한이 없습니다. Personal-Profile의 Contents 권한을 Read and write로 설정해 주세요. 편집 내용은 유지됩니다.',
+        GITHUB_RATE_LIMIT:
+          'GitHub 요청 한도에 도달했습니다. 잠시 후 다시 저장해 주세요. 편집 내용은 유지됩니다.',
+      };
+      if (Object.hasOwn(githubErrors, error.code)) {
+        return json({ error: githubErrors[error.code] }, 503);
+      }
+      if ([401, 403, 404].includes(error.status)) {
+        return json(
+          {
+            error:
+              '관리 서버의 GitHub 토큰과 Personal-Profile 저장소 접근 권한을 확인해 주세요. 편집 내용은 유지됩니다.',
+          },
+          503,
+        );
+      }
       return json(
         { error: '관리 서버가 요청을 처리하지 못했습니다. 편집 내용은 유지됩니다.' },
         503,

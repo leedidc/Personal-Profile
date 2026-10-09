@@ -11,7 +11,7 @@ def check_posts(browser, base, root, artifacts):
     errors = []
     context.on("page", lambda page: page.on("pageerror", lambda error: errors.append(str(error))))
     files = {str(path.relative_to(root)).replace("\\", "/"): json.loads(path.read_text(encoding="utf-8")) for path in (root / "data/posts").glob("*.json")}
-    state = {"head": "head-0", "tree": "tree-0", "writes": 0, "failure": None, "pending": None}
+    state = {"head": "head-0", "tree": "tree-0", "writes": 0, "failure": None, "pending": None, "permission_denied": False}
     original_count = len(files["data/posts/index.json"]["posts"])
 
     def github(route):
@@ -30,6 +30,9 @@ def check_posts(browser, base, root, artifacts):
                 route.fulfill(json={"sha": "file-sha", "encoding": "base64", "content": base64.b64encode(json.dumps(content, ensure_ascii=False).encode()).decode()})
             else:
                 raise AssertionError(path)
+            return
+        if state["permission_denied"]:
+            route.fulfill(status=403, json={"message": "Resource not accessible by personal access token"})
             return
         body = request.post_data_json
         if path == "/git/trees":
@@ -142,6 +145,15 @@ def check_posts(browser, base, root, artifacts):
     page.locator("#draft-list .sidebar-post").first.click()
     expect(body.locator("strong")).to_have_text("중요한 개념")
     expect(body.locator("img")).to_have_count(1)
+    before = copy.deepcopy(files)
+    state["permission_denied"] = True
+    page.locator("#publish-post").click()
+    expect(page.locator("#status")).to_contain_text("Contents")
+    expect(page.locator("#draft-list .sidebar-post")).to_have_count(1)
+    expect(body.locator("strong")).to_have_text("중요한 개념")
+    expect(body.locator("img")).to_have_count(1)
+    assert files == before
+    state["permission_denied"] = False
     page.locator("#publish-post").click()
     expect(page.locator("#status")).to_contain_text("GitHub에 게시했습니다")
     expect(page.locator("#draft-list .sidebar-post")).to_have_count(0)
@@ -164,6 +176,13 @@ def check_posts(browser, base, root, artifacts):
     page.get_by_role("button", name="브라우저 테스트 분류 삭제", exact=True).click()
     expect(page.locator("#status")).to_contain_text("사용 중인 분류")
     page.get_by_role("textbox", name="분류 이름: 브라우저 테스트", exact=True).fill("학습 노트")
+    before = copy.deepcopy(files)
+    state["permission_denied"] = True
+    page.locator("#save-categories").click()
+    expect(page.locator("#status")).to_contain_text("Contents")
+    expect(page.locator("#category-list input").last).to_have_value("학습 노트")
+    assert files == before
+    state["permission_denied"] = False
     page.locator("#save-categories").click()
     expect(page.locator("#status")).to_contain_text("분류를 저장했습니다")
     public.reload()
