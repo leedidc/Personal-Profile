@@ -184,8 +184,8 @@
 .post-body pre {
   padding: 20px;
   border-radius: 9px;
-  background: #282633;
-  color: #f4f0ff;
+  background: var(--navy);
+  color: var(--on-dark);
   overflow-x: auto;
   white-space: pre;
 }
@@ -194,10 +194,10 @@
     0.87em/1.8 ui-monospace,
     Consolas,
     monospace;
-  background: #ece8f5;
+  background: var(--accent-soft);
   border-radius: 3px;
   padding: 2px 4px;
-  color: #5b438c;
+  color: var(--accent);
 }
 .post-body pre code {
   color: inherit;

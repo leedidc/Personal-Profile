@@ -162,6 +162,8 @@ Windows에 설치된 Chrome을 우선 사용하며, 그 외 환경에서는 Play
 
 문구·경력 등 내용은 data/portfolio.json, 메뉴·로고·저장소 설정은 js/portfolio-config.js에서 수정합니다. 화면 스타일은 css/site-common.css와 css/admin-common.css에서 수정합니다. 화면 표시와 GitHub 통신은 별도 파일로 관리합니다.
 
+색상은 `css/site-common.css` 맨 위 `:root`에서 함께 관리합니다. `--navy`와 `--on-dark-*`는 짙은 상단 메뉴와 코드 블록, `--ink`·`--text-secondary`·`--muted`는 본문 글자, `--paper`·`--surface-*`는 밝은 슬레이트 배경, `--accent`·`--accent-soft`는 청록색 링크와 선택 상태에 사용합니다. 공개 포트폴리오·글·관리자·미리보기가 같은 변수를 사용합니다. 상단 메뉴 색을 바꾸면 각 HTML의 `theme-color`와 `image/favicon.svg`도 맞춰 주세요. 글 본문에 관리자가 직접 지정한 글자색과 강조색은 그대로 유지됩니다.
+
 [Prettier 설정](https://prettier.io/docs/configuration)은 .prettierrc.json, 편집기 기본 규칙은 .editorconfig에 있습니다. Node.js/npm을 사용할 수 있는 환경에서 수정한 파일에 다음 명령을 실행합니다. 서식 도구는 개발할 때만 사용하며 사이트 실행에는 필요하지 않습니다.
 
 ```sh

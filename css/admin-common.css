@@ -72,7 +72,7 @@
 .field textarea {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid #dedbe7;
+  border: 1px solid var(--control-line);
   border-radius: 7px;
   background: white;
   color: var(--ink);
@@ -182,12 +182,12 @@ dialog {
   padding: 0;
   color: var(--ink);
   background: var(--paper);
-  box-shadow: 0 24px 100px #25233022;
+  box-shadow: 0 24px 100px #152a3d22;
   width: min(700px, calc(100% - 32px));
   max-height: calc(100dvh - 40px);
 }
 dialog::backdrop {
-  background: #29233366;
+  background: #152a3d66;
   backdrop-filter: blur(3px);
 }
 .dialog-header {

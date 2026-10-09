@@ -39,7 +39,7 @@
 .sidebar-post:hover,
 .sidebar-post[aria-current='true'] {
   background: var(--accent-soft);
-  border-color: #d4cbea;
+  border-color: var(--accent-line);
 }
 .sidebar-post strong {
   font-size: 13px;
@@ -124,7 +124,7 @@
   border: 0;
   border-bottom: 1px solid var(--line);
   border-radius: 8px 8px 0 0;
-  background: #faf9fc;
+  background: var(--surface-hover);
   padding: 12px 10px 5px;
 }
 #post-toolbar .ql-formats {
@@ -172,7 +172,7 @@
 }
 #rich-editor .ql-editor.ql-blank::before {
   font-style: normal;
-  color: #9c97a9;
+  color: var(--muted);
   left: 24px;
   right: 24px;
 }
