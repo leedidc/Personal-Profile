@@ -36,6 +36,7 @@
       updatePageProfile(data.profile);
       Portfolio.renderPortfolio(root, data);
       window.PortfolioChatbot?.initialize(data);
+      window.PortfolioEffects?.initialize();
       if (location.hash) {
         document.getElementById(location.hash.slice(1))?.scrollIntoView();
       }

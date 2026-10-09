@@ -14,17 +14,20 @@
     <link rel="stylesheet" href="css/award-research.css" />
     <link rel="stylesheet" href="css/ai-chatbot.css" />
     <link rel="stylesheet" href="css/portfolio-skills.css" />
+    <link rel="stylesheet" href="css/portfolio-effects.css" />
     <script src="js/portfolio-config.js" defer></script>
     <script src="js/portfolio-core.js" defer></script>
     <script src="js/portfolio-skills.js" defer></script>
     <script src="js/award-research.js" defer></script>
     <script src="js/ai-chatbot-service.js" defer></script>
     <script src="js/ai-chatbot.js" defer></script>
+    <script src="js/portfolio-effects.js" defer></script>
     <script src="js/portfolio.js" defer></script>
   </head>
-  <body>
+  <body class="portfolio-page">
     <a class="skip-link" href="#main">본문으로 이동</a>
     <header class="site-header portfolio-header">
+      <div class="reading-progress" aria-hidden="true"><span id="reading-progress"></span></div>
       <div class="header-inner">
         <a class="brand" href="#main"
           ><span class="brand-mark" aria-hidden="true">CL</span><span>이찬형</span></a
@@ -55,6 +58,49 @@
       <noscript><p>포트폴리오를 보려면 JavaScript를 켜 주세요.</p></noscript>
     </main>
     <footer class="site-footer page-width"><span>이찬형</span><a href="#main">맨 위로 ↑</a></footer>
+    <template id="network-visual-template">
+      <div class="network-visual">
+        <div class="network-caption">
+          <span>SECURITY / NETWORK</span>
+          <button class="network-motion-toggle" type="button">모션 정지</button>
+        </div>
+        <svg class="network-art" viewBox="0 0 360 240" aria-hidden="true" focusable="false">
+          <g class="network-grid">
+            <path
+              d="M60 0V240M120 0V240M180 0V240M240 0V240M300 0V240M0 60H360M0 120H360M0 180H360"
+            />
+          </g>
+          <circle class="network-orbit" cx="180" cy="120" r="88" />
+          <circle class="network-orbit network-orbit-inner" cx="180" cy="120" r="64" />
+          <g class="network-connections">
+            <path
+              d="M36 62H104L180 120M38 174H102L180 120M180 22V120M324 62H256L180 120M322 174H258L180 120M180 218V120"
+            />
+          </g>
+          <g class="network-packets">
+            <path pathLength="100" d="M36 62H104L180 120" />
+            <path pathLength="100" d="M38 174H102L180 120" />
+            <path pathLength="100" d="M180 22V120" />
+            <path pathLength="100" d="M324 62H256L180 120" />
+            <path pathLength="100" d="M322 174H258L180 120" />
+            <path pathLength="100" d="M180 218V120" />
+          </g>
+          <g class="network-nodes">
+            <circle cx="36" cy="62" r="5" />
+            <circle cx="38" cy="174" r="5" />
+            <circle cx="180" cy="22" r="5" />
+            <circle cx="324" cy="62" r="5" />
+            <circle cx="322" cy="174" r="5" />
+            <circle cx="180" cy="218" r="5" />
+          </g>
+          <circle class="network-halo" cx="180" cy="120" r="42" />
+          <g class="network-shield">
+            <path d="M180 86L207 97V118C207 137 193 150 180 156C167 150 153 137 153 118V97Z" />
+            <path class="network-check" d="M168 119L177 128L194 109" />
+          </g>
+        </svg>
+      </div>
+    </template>
     <button
       id="ai-chat-launcher"
       class="ai-chat-launcher"

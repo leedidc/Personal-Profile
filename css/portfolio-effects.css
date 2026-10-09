@@ -1,0 +1,230 @@
+/* 공개 화면의 장식과 움직임은 콘텐츠·관리자 스타일과 분리합니다. */
+.reading-progress {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.reading-progress span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--on-dark-accent));
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.portfolio-page .profile-overview.has-network-visual {
+  grid-template-columns: minmax(0, 1fr) 300px;
+  column-gap: 40px;
+  align-items: start;
+}
+.has-network-visual .profile-introduction,
+.has-network-visual .profile-interests {
+  grid-column: 1;
+}
+.network-visual {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--accent-line);
+  border-radius: 16px;
+  background: radial-gradient(ellipse at center, var(--accent-soft), var(--white) 75%);
+}
+.network-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 14px 0;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+.network-motion-toggle {
+  flex-shrink: 0;
+  min-height: 36px;
+  padding: 5px 6px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--accent);
+  font-size: 11px;
+  letter-spacing: normal;
+}
+.network-motion-toggle:hover {
+  background: var(--accent-soft);
+}
+.network-motion-toggle:disabled {
+  opacity: 1;
+  color: var(--muted);
+  cursor: default;
+}
+.network-art {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 0 12px 12px;
+}
+.network-grid {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 0.5;
+  opacity: 0.5;
+}
+.network-orbit {
+  fill: none;
+  stroke: var(--accent-line);
+  stroke-width: 1;
+  stroke-dasharray: 2 7;
+}
+.network-orbit-inner {
+  stroke-dasharray: none;
+  opacity: 0.45;
+}
+.network-connections {
+  fill: none;
+  stroke: var(--accent-line);
+  stroke-width: 1.5;
+}
+.network-packets path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 6 94;
+  animation: network-travel 6s linear infinite;
+  animation-play-state: paused;
+}
+.network-packets path:nth-child(2n) {
+  animation-delay: -2s;
+}
+.network-packets path:nth-child(3n) {
+  animation-delay: -4s;
+}
+.network-nodes {
+  fill: var(--white);
+  stroke: var(--accent);
+  stroke-width: 1.5;
+}
+.network-halo {
+  fill: var(--accent-soft);
+  stroke: var(--accent-line);
+  stroke-width: 1;
+  transform-origin: 180px 120px;
+  animation: network-breathe 6s ease-in-out infinite;
+  animation-play-state: paused;
+}
+.network-shield {
+  fill: var(--navy);
+  stroke: var(--navy);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+.network-check {
+  fill: none;
+  stroke: var(--on-dark-accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.network-visual.is-animating .network-packets path,
+.network-visual.is-animating .network-halo {
+  animation-play-state: running;
+}
+@keyframes network-travel {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+@keyframes network-breathe {
+  50% {
+    transform: scale(1.12);
+    opacity: 0.55;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .portfolio-page .section-arrived .section-heading,
+  .portfolio-page .section-arrived > .table-wrap,
+  .portfolio-page .section-arrived > .project-group,
+  .portfolio-page .section-arrived > .skills-panel {
+    animation: section-arrive 450ms ease-out both;
+  }
+  .portfolio-page .table-wrap,
+  .portfolio-page .skills-panel,
+  .portfolio-page .skill-tabs button,
+  .portfolio-page .skill-groups button,
+  .portfolio-page .profile-interests li,
+  .portfolio-page .research-open {
+    transition:
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      background-color 180ms ease,
+      transform 180ms ease;
+  }
+  @keyframes section-arrive {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .portfolio-page .table-wrap:hover,
+  .portfolio-page .skills-panel:hover {
+    border-color: var(--accent-line);
+    box-shadow: 0 6px 20px #152a3d08;
+  }
+  .portfolio-page .skill-tabs button:hover,
+  .portfolio-page .skill-groups button:hover,
+  .portfolio-page .profile-interests li:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent-line);
+  }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .portfolio-page .profile-interests li:hover,
+  .portfolio-page .research-open:hover {
+    transform: translateY(-2px);
+  }
+}
+@media (max-width: 950px) {
+  .portfolio-page .profile-overview.has-network-visual {
+    grid-template-columns: minmax(0, 1fr) 240px;
+    column-gap: 24px;
+  }
+}
+@media (max-width: 680px) {
+  .portfolio-page .profile-overview.has-network-visual {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .network-visual {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .network-art {
+    height: 150px;
+  }
+  .network-motion-toggle {
+    min-height: 44px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .network-packets path,
+  .network-halo {
+    animation: none;
+  }
+}
+@media print {
+  .network-visual,
+  .reading-progress {
+    display: none;
+  }
+  .portfolio-page .profile-overview.has-network-visual {
+    display: block;
+  }
+}
