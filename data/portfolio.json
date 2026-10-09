@@ -597,6 +597,17 @@
       "period": "2023.12.18",
       "summary": "한국지능형사물인터넷협회",
       "logo": "issuer/kiot.jpg"
+    },
+    {
+      "id": "cert-enterprise-disaster-manager",
+      "name": "기업재난관리사",
+      "subtitle": "Enterprise Disaster Manager",
+      "logo": "image/mois.png",
+      "period": "2026.08.18",
+      "status": "",
+      "summary": "행정안전부",
+      "details": [],
+      "maskedNumber": "2026-***"
     }
   ],
   "languages": [
