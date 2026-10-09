@@ -53,6 +53,14 @@ test('최신 공개 이력과 순서를 전달하고 연락처·번호·예상�
       data.certifications.map((row) => row.name),
     );
     assert.equal(source.awards[0].research.slides[0].body, '관리자가 수정한 최신 연구 내용');
+    assert.deepEqual(
+      source.training.map((item) => item.subtitle),
+      data.training.map((item) => item.subtitle),
+    );
+    assert.deepEqual(
+      source.training.map((item) => item.summary),
+      data.training.map((item) => item.summary),
+    );
     assert.deepEqual(source.skills, [
       {
         name: '검증용 도구',

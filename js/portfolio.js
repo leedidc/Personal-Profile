@@ -41,6 +41,12 @@
         document.getElementById(location.hash.slice(1))?.scrollIntoView();
       }
       const nav = [...document.querySelectorAll('nav a')];
+      for (const section of PortfolioConfig.sections.filter((item) => item.optional)) {
+        const link = nav.find((item) => item.hash === '#' + section.key);
+        if (link) {
+          link.hidden = !data[section.key]?.length;
+        }
+      }
       const observer = new IntersectionObserver(
         (entries) => {
           for (const entry of entries) {

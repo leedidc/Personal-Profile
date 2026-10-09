@@ -107,7 +107,7 @@
     }
     const ids = new Set();
     for (const section of sections) {
-      const rows = section.key === 'skills' && data.skills === undefined ? [] : data[section.key];
+      const rows = section.optional && data[section.key] === undefined ? [] : data[section.key];
       if (!Array.isArray(rows) || rows.length > 500) {
         throw new Error(section.title + ' 목록을 확인해 주세요.');
       }
@@ -392,8 +392,8 @@
     if (row.details.length) {
       const list = createElement('ul');
       row.details.forEach((line) => list.append(createElement('li', '', line)));
-      if (section.key === 'awards' || section.key === 'education') {
-        list.className = section.key === 'education' ? 'education-details' : 'award-details';
+      if (['awards', 'education', 'training'].includes(section.key)) {
+        list.className = section.key === 'awards' ? 'award-details' : section.key + '-details';
         content.append(list);
       } else {
         const details = createElement('details', 'row-details');
@@ -479,7 +479,7 @@
     root.replaceChildren();
     sections.forEach((section) => {
       const rows = data[section.key] || [];
-      if (section.key === 'skills' && !rows.length) {
+      if (section.optional && !rows.length) {
         return;
       }
       const block = createElement('section', 'resume-section');

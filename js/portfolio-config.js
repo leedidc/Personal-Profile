@@ -4,6 +4,12 @@
   // 화면 분류, 기본 로고, 저장 위치는 이 파일에서 관리합니다.
   const sections = [
     { key: 'education', title: '학력', columns: ['학교', '기간', '전공 · 학위'] },
+    {
+      key: 'training',
+      title: '교육 이수현황',
+      columns: ['교육기관 · 과정', '이수기간', '이수시간 · 교육내용'],
+      optional: true,
+    },
     { key: 'experience', title: '경력', columns: ['회사', '기간', '부서 · 업무'] },
     {
       key: 'certifications',
@@ -17,7 +23,7 @@
       columns: ['시험명', '취득일', '점수 · 등급', '등록번호'],
       numberLabel: '등록번호',
     },
-    { key: 'skills', title: 'SKILL', columns: ['도구 · 용도', '숙련도'] },
+    { key: 'skills', title: 'SKILL', columns: ['도구 · 용도', '숙련도'], optional: true },
     { key: 'projects', title: '프로젝트', columns: ['프로젝트', '기간', '내용'] },
     { key: 'activities', title: '대외활동', columns: ['기관 · 활동', '기간', '내용'] },
     { key: 'awards', title: '수상', columns: ['수상명', '수상일', '수여기관 · 수상 내용'] },
@@ -59,6 +65,7 @@
 
   const editorLabels = {
     education: ['학교 정식 명칭', '영문 학교명 (전체 명칭)', '전공 · 학위'],
+    training: ['교육기관', '과정명', '이수시간 (예: 4시간)'],
     experience: ['회사 정식 명칭', '영문 회사명 (전체 명칭)', '부서 · 직책'],
     certifications: ['자격 정식 명칭', '영문 전체 명칭 (한글 자격만)', '발급기관'],
     languages: ['시험명', '시행기관 · 언어', '점수 · 등급'],

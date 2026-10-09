@@ -493,7 +493,8 @@ p {
   color: var(--accent);
 }
 /* 학력의 기본 정보는 바로 표시하고 과목 목록만 펼칩니다. */
-.education-details {
+.education-details,
+.training-details {
   display: grid;
   gap: 4px;
   margin: 10px 0 0;

@@ -15,6 +15,7 @@ from skills_browser_check import check_skills
 from mobile_layout_check import check_mobile_layout
 from visual_effects_browser_check import check_visual_effects
 from admin_auth_browser_check import check_admin_auth
+from training_browser_check import check_training
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACTS = ROOT / ".test-artifacts"
@@ -77,7 +78,7 @@ try:
         expect(page.locator(".profile-interests li")).to_have_text(original["profile"]["interests"])
         expect(page.locator("#education .summary-english").first).to_have_text(original["education"][0]["summaryEnglish"])
         expect(page.locator("#experience .row-subtitle").first).to_have_text(original["experience"][0]["subtitle"])
-        expect(page.locator(".resume-section")).to_have_count(7 + bool(original.get('skills')))
+        expect(page.locator(".resume-section")).to_have_count(7 + bool(original.get('skills')) + bool(original.get('training')))
         expect(page.locator("#certifications tbody tr")).to_have_count(len(original["certifications"]))
         expect(page.locator("#certifications thead th")).to_have_count(4)
         expect(page.locator("#certifications .row-name")).to_have_text([row["name"] for row in original["certifications"]])
@@ -119,7 +120,7 @@ try:
         page.locator("#experience details summary").first.click()
         page.evaluate("document.querySelectorAll('img').forEach(img => img.loading = 'eager')")
         page.wait_for_function("Array.from(document.images).every(img => img.complete)")
-        assert page.locator(".org-logo img").count() == sum(len(original[s]) for s in ["education","experience","certifications","languages","projects","activities","awards"]), "Missing or failed organization logo"
+        assert page.locator(".org-logo img").count() == sum(bool(row['logo']) for section in ["education","training","experience","certifications","languages","projects","activities","awards"] for row in original.get(section, [])), "Missing or failed organization logo"
         assert page.evaluate("Array.from(document.images).every(img => img.naturalWidth > 0)")
         check_research_reader(page, original, ARTIFACTS)
         no_overflow(page)
@@ -128,7 +129,7 @@ try:
         for width in [390, 320]:
             page.set_viewport_size({"width": width, "height": 844})
             page.goto(BASE)
-            expect(page.locator(".resume-section")).to_have_count(7 + bool(original.get('skills')))
+            expect(page.locator(".resume-section")).to_have_count(7 + bool(original.get('skills')) + bool(original.get('training')))
             no_overflow(page)
         page.set_viewport_size({"width": 390, "height": 844})
         page.screenshot(path=str(ARTIFACTS / "mobile.png"), full_page=True)
@@ -372,6 +373,7 @@ try:
         # 새 프로필 필드가 없는 기존 데이터도 공개 화면에서 열립니다.
         legacy_data = copy.deepcopy(original)
         legacy_data.pop('skills', None)
+        legacy_data.pop('training', None)
         del legacy_data["profile"]["introduction"]
         del legacy_data["profile"]["interests"]
         for award in legacy_data['awards']:
@@ -382,6 +384,7 @@ try:
         expect(legacy.locator(".resume-section")).to_have_count(7)
         expect(legacy.locator(".profile-overview")).to_have_count(0)
         expect(legacy.locator('.research-open')).to_have_count(0)
+        expect(legacy.locator('nav a[href="#training"]')).to_be_hidden()
 
         # A non-writer cannot enter the editing panel.
         denied = context.new_page()
@@ -398,6 +401,7 @@ try:
         check_mobile_layout(browser, BASE, ARTIFACTS)
         check_visual_effects(browser, BASE, ARTIFACTS)
         check_admin_auth(browser, BASE, ROOT, ARTIFACTS)
+        check_training(browser, BASE, ROOT, ARTIFACTS)
         assert not errors, errors
         browser.close()
         print("PASS: public tables, logos, responsive layouts, expandable details, admin access, add/edit/delete/reorder, logo upload, preview, failed save, conflict, Unicode persistence, logout and read-only access.")

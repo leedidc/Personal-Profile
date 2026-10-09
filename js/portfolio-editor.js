@@ -305,6 +305,15 @@
     getElement('status-label').textContent = sectionKey === 'awards' ? '부문' : '상태';
     getElement('item-status').placeholder =
       sectionKey === 'awards' ? '논문 부문 등' : '재직, 재학, 졸업 등';
+    if (sectionKey === 'training') {
+      getElement('item-status').placeholder = '이수 등';
+      getElement('period').placeholder = '2026.06.29 – 2026.06.30';
+    }
+    if (sectionKey === 'activities') {
+      getElement('status-label').textContent = '활동구분 · 상태';
+      getElement('item-status').placeholder = '동아리활동, 기타사회활동 등';
+    }
+    getElement('details-label').textContent = sectionKey === 'training' ? '교육내용' : '상세 내용';
     ['project-category', 'project-technologies', 'project-link'].forEach((id) => {
       getElement(id).hidden = sectionKey !== 'projects';
     });
