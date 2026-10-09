@@ -7,7 +7,10 @@
 - index.html: 이름·연락처·자기소개·관심분야 아래에 학력, 경력, 자격, 어학, 프로젝트, 대외활동, 수상을 가로형 표로 표시합니다. 모바일에서는 로고·이름 아래에 기간과 내용을 배치합니다.
 - /admin/ (admin/index.html): 항목 추가·수정·삭제, 순서 변경, 로고 선택·업로드, 프로필 수정, 미리보기, 사이트 저장.
 - html/certification.html: 첫 화면의 자격 목록으로 이동하는 이전 주소입니다.
-- 기존 기술 글과 게시글 관리 화면은 html/article.html, html/article-view.html, html/admin.html에 남아 있습니다.
+- /posts/: 제목·게시일·관리자가 만든 분류를 표시하는 글 목록. 분류 필터와 제목 검색을 지원합니다.
+- /posts/view.html?id=글-ID: 글 본문을 읽는 별도 페이지.
+- /admin/posts.html: 서식 편집, 이미지 삽입, 초안 보관, 분류 관리, 글 게시·수정·삭제.
+- html/article.html, html/article-view.html, html/admin.html은 새 글 페이지로 이동하는 이전 주소입니다. 기존 글 ID도 연결합니다.
 
 GitHub Pages는 /admin을 /admin/으로 연결합니다. 저장소의 기존 CNAME을 유지합니다.
 
@@ -39,6 +42,24 @@ API 계약: [GitHub 저장소 콘텐츠 API](https://docs.github.com/en/rest/rep
 
 ## 내용과 파일
 
+### 글 작성과 게시
+
+1. 포트폴리오 상단의 **글**을 누르면 공개 목록이 열립니다. 관리자 화면의 **글 관리** 또는 `/admin/posts.html`에서 같은 GitHub 토큰으로 로그인합니다.
+2. **분류**에 이름을 입력하고 **분류 추가 → 분류 저장**을 누릅니다. 분류 이름을 바꾸면 그 분류를 사용하는 글에도 적용됩니다. 글 또는 이 브라우저의 초안에서 사용 중인 분류는 먼저 글의 분류를 바꾼 후 삭제합니다.
+3. **새 글**에서 제목·게시일·분류를 선택하고 본문을 작성합니다. 제목 서식, 굵게·기울임·밑줄·취소선, 글자색·강조색, 번호·글머리·체크 목록, 정렬, 인용, 코드 블록, HTTPS 링크, 실행 취소·다시 실행을 지원합니다.
+4. 그림 버튼, 붙여넣기 또는 끌어 놓기로 PNG·JPEG·WebP 이미지를 넣습니다. 입력 파일은 15MB 이하이며, 긴 변 1600px 이하의 WebP로 줄여 본문에 포함합니다. **글 한 편은 이미지 포함 3MB까지**입니다.
+5. 작성 중인 글은 약 0.8초 후 이 브라우저의 IndexedDB에 자동 보관됩니다. **초안 보관**으로 즉시 보관할 수도 있습니다. 초안은 공개하거나 GitHub에 올리지 않습니다. 새로고침 후 다시 로그인하고 왼쪽 초안 목록에서 열면 본문·이미지·분류를 복구합니다. 아직 저장하지 않은 새 분류도 초안과 함께 복구됩니다.
+6. 브라우저 데이터 삭제나 다른 기기 사용에 대비하려면 **초안 내려받기**로 JSON 파일을 보관합니다. **초안 파일 불러오기**로 복원할 수 있습니다. 토큰은 초안과 파일에 포함하지 않습니다. 저장 공간 부족 시 화면에 오류를 표시하고 현재 편집 내용을 유지합니다.
+7. **미리보기**로 확인한 뒤 **게시하기**를 누릅니다. 게시일은 표시용이며 예약 게시 기능은 아닙니다. **수정 게시**는 이미 게시한 글을 갱신합니다. GitHub Pages 배포 후 공개 화면에 반영됩니다. **글 삭제**는 본문과 목록을 함께 제거하며, 별도로 보관한 초안은 남깁니다.
+
+글 저장은 [Git 트리 API](https://docs.github.com/en/rest/git/trees#create-a-tree)와 [브랜치 참조 API](https://docs.github.com/en/rest/git/refs#update-a-reference)를 사용합니다. 불러온 커밋과 트리 SHA를 기준으로 목록·본문을 하나의 커밋에 저장하고 `force: false`로 갱신합니다. 다른 변경사항이 생기면 덮어쓰지 않고 오류를 표시합니다. **새로 불러오기**는 목록만 갱신하므로 현재 초안은 유지됩니다. 기존 글의 오래된 초안은 자동으로 덮어쓰지 못하게 막습니다. 초안을 내려받아 보관하고, 게시한 최신 글을 열어 필요한 변경사항을 옮긴 뒤 게시하세요.
+
+본문은 [Quill 2.0.3](vendor/quill/README.md)의 Delta JSON으로 보관합니다. 공개 화면과 미리보기는 허용된 서식만 DOM으로 만들고 텍스트는 `textContent`로 표시합니다. 임의 HTML, 스크립트 URL, SVG 업로드는 허용하지 않습니다. 토큰은 열린 페이지 메모리에만 유지하며 새로고침·로그아웃 시 다시 입력합니다.
+
+이전 글 API에 있던 3개 글(`test`, `create`, `SC-200 Study Notes`)의 본문·이미지·게시일을 `legacy-4`, `legacy-2`, `legacy-1`로 옮겼습니다. 기존 Microsoft 분류와 분류가 없던 글의 상태도 유지합니다. 이전 API의 데이터는 변경하지 않았으며 이후 관리는 GitHub 데이터로 합니다.
+
+### 파일 역할
+
 - data/portfolio.json: 프로필과 일곱 목록의 단일 데이터 원본. 자기소개는 `profile.introduction`, 관심분야는 `profile.interests` 배열, 영문 전공·학위는 학력 항목의 `summaryEnglish`에서 관리합니다.
 - js/portfolio-config.js: 화면 분류, 편집 필드 이름, 기본 로고, GitHub 저장 위치.
 - js/portfolio-core.js: 데이터 검증, 안전한 URL·텍스트 처리, 공개 화면과 미리보기의 공통 프로필·표 표시.
@@ -46,6 +67,17 @@ API 계약: [GitHub 저장소 콘텐츠 API](https://docs.github.com/en/rest/rep
 - js/portfolio-editor.js: 편집 화면, 로고 업로드, 미리보기.
 - js/portfolio-storage.js: GitHub 접근 확인·불러오기·저장 및 오류 처리.
 - css/resume.css, css/editor.css: 공개 화면과 관리자 화면 스타일.
+- data/posts/index.json: 분류 `{id, name}`와 글 목록 `{id, title, date, categoryId}`. 분류 ID가 빈 문자열이면 미분류입니다.
+- data/posts/{id}.json: 글 본문 `{version: 1, id, content: {ops: [...]}}`. 글 목록은 본문과 이미지를 내려받지 않으므로 가볍게 열립니다.
+- js/posts-core.js: 글 데이터·URL·서식 검증과 본문 표시.
+- js/posts.js: 공개 글 목록·검색·필터·읽기 화면.
+- js/posts-editor.js: 관리자 분류·초안·게시 흐름.
+- js/posts-rich-editor.js: Quill 설정, 링크·이미지 편집, 붙여넣기 처리.
+- js/posts-drafts.js: 이 브라우저의 IndexedDB 초안 보관.
+- js/posts-storage.js: GitHub 접근 확인과 여러 글 파일의 동시 저장.
+- js/posts-redirect.js: 이전 글 ID를 새 주소로 연결.
+- css/posts.css, css/posts-editor.css: 글 읽기와 글 관리 스타일.
+- vendor/quill/: 고정 버전의 편집기와 라이선스. CDN 연결 없이 동작합니다.
 
 PDF 이력서의 경력·학력·자격·활동·수상·회사 프로젝트를 반영했습니다. 개인정보 확장 프로그램, IREB 자격, DIDC 배치 기간은 기존 사이트 내용을 유지했습니다. 자격명·취득일·발급기관은 사용자가 마지막으로 제공한 자격 목록을 우선하며, 번호를 제공하지 않은 기존 CCSK·SC-900도 유지합니다. 회사 프로젝트의 정확한 기간은 원문에 없어 비워 두었습니다. 수상 4건의 명칭·수상일·수여기관과 관련 논문명은 PDF를 기준으로 작성했습니다.
 
@@ -87,6 +119,7 @@ http://localhost:8000/ 과 http://localhost:8000/admin/ 을 확인합니다.
 
 ```sh
 node --test tests/credential-number.test.cjs
+node --test tests/posts.test.cjs
 ```
 
 브라우저 검증:
@@ -98,6 +131,8 @@ uv run --with playwright python -X utf8 tests/browser_check.py
 Windows에 설치된 Chrome을 우선 사용하며, 그 외 환경에서는 Playwright Chromium이 필요합니다. 테스트는 GitHub 응답을 모의하므로 실제 저장소를 변경하지 않습니다. 공개 목록·이미지, 1440/390/320px 화면, 이수과목·상세 펼치기, 어학 등록번호 마스킹, 관리자 접근, 추가·수정·삭제·순서 선택, 로고 업로드, 프로필 전체 편집, 미리보기, 권한 오류·충돌 시 편집 유지, UTF-8 저장, 로그아웃·재로그인 후 순서와 프로필 유지를 확인합니다. 자기소개·관심분야의 HTML 입력을 텍스트로 표시하는지, 빈 항목을 숨기는지, 새 필드가 없는 이전 데이터도 열리는지 검증합니다. 캡처는 Git에서 제외한 .test-artifacts/에 저장됩니다.
 
 ## 코드 편집 기준
+
+글 검사는 `tests/posts_browser_check.py`를 통해 같은 브라우저 검사에서 실행합니다. 기존 글 이전·이미지 보존, 목록 필터·검색·본문, 서식·이미지 업로드·미리보기, 초안 복구, 분류 수정·삭제 제한, 글 게시·수정·삭제, 충돌 시 보존, 접근 권한과 모바일 너비를 확인합니다. GitHub 저장은 모의 응답만 사용합니다.
 
 파일 역할과 작업 규칙은 [AGENTS.md](AGENTS.md)에 정리했습니다. HTML·CSS·JavaScript는 2칸, Python은 4칸 들여쓰기와 UTF-8·LF를 사용합니다. CSS 속성과 JavaScript 문장은 한 줄씩 작성하고 함수·변수 이름에 역할을 드러냅니다.
 

@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "id": "legacy-1",
+  "content": {
+    "ops": [
+      {
+        "attributes": {
+          "header": 1
+        },
+        "insert": "SC-200\n"
+      },
+      {
+        "insert": "Hello"
+      }
+    ]
+  }
+}

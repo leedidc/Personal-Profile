@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="공부한 내용과 경험을 정리한 글 모음." />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"
+    />
+    <title>글 | 이찬형</title>
+    <link rel="icon" href="../image/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../css/resume.css" />
+    <link rel="stylesheet" href="../css/posts.css" />
+    <script src="../js/posts-core.js" defer></script>
+    <script src="../js/posts.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 이동</a>
+    <header class="site-header posts-header">
+      <div class="header-inner">
+        <a class="brand" href="../"
+          ><span class="brand-mark" aria-hidden="true">CL</span><span>포트폴리오</span></a
+        >
+        <nav aria-label="주 메뉴">
+          <a href="../">프로필</a><a href="./" aria-current="page">글</a>
+        </nav>
+      </div>
+    </header>
+    <main class="posts-width" id="main">
+      <header class="posts-intro">
+        <p class="eyebrow">STUDY &amp; NOTES</p>
+        <h1>글</h1>
+        <p>공부한 내용과 경험을 차곡차곡 기록합니다.</p>
+      </header>
+      <form class="posts-filters" role="search" id="filters" hidden>
+        <div>
+          <label for="category-filter">분류</label
+          ><select id="category-filter">
+            <option value="all">전체 분류</option>
+          </select>
+        </div>
+        <div class="search-field">
+          <label for="post-search">글 검색</label
+          ><input id="post-search" type="search" placeholder="제목으로 검색" maxlength="200" />
+        </div>
+      </form>
+      <p id="posts-status" class="posts-status" role="status">글을 불러오는 중입니다.</p>
+      <div class="posts-table-wrap" id="posts-table-wrap" hidden>
+        <table class="posts-table">
+          <caption class="sr-only">
+            게시글 목록
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">제목</th>
+              <th scope="col">분류</th>
+              <th scope="col">게시일</th>
+            </tr>
+          </thead>
+          <tbody id="posts-list"></tbody>
+        </table>
+      </div>
+      <button class="button" id="retry-posts" type="button" hidden>다시 불러오기</button>
+      <noscript><p>글 목록을 보려면 JavaScript를 켜 주세요.</p></noscript>
+    </main>
+    <footer class="posts-width site-footer">
+      <a href="../">← 포트폴리오</a><a href="../admin/posts.html">글 관리</a>
+    </footer>
+  </body>
+</html>

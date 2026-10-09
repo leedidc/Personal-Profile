@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "id": "microsoft",
+      "name": "Microsoft"
+    }
+  ],
+  "posts": [
+    {
+      "id": "legacy-4",
+      "title": "test",
+      "date": "2026-06-01",
+      "categoryId": ""
+    },
+    {
+      "id": "legacy-2",
+      "title": "create",
+      "date": "2026-06-01",
+      "categoryId": ""
+    },
+    {
+      "id": "legacy-1",
+      "title": "SC-200 Study Notes",
+      "date": "2026-06-01",
+      "categoryId": "microsoft"
+    }
+  ]
+}

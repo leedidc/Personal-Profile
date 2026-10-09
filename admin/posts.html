@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="referrer" content="no-referrer" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data: blob:; connect-src 'self' https://api.github.com; object-src 'none'; base-uri 'self'; form-action 'self'"
+    />
+    <title>글 관리 | 이찬형</title>
+    <link rel="icon" href="../image/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../css/resume.css" />
+    <link rel="stylesheet" href="../css/editor.css" />
+    <link rel="stylesheet" href="../vendor/quill/quill.snow.css" />
+    <link rel="stylesheet" href="../css/posts.css" />
+    <link rel="stylesheet" href="../css/posts-editor.css" />
+    <script src="../js/portfolio-config.js" defer></script>
+    <script src="../js/posts-core.js" defer></script>
+    <script src="../js/posts-storage.js" defer></script>
+    <script src="../js/posts-drafts.js" defer></script>
+    <script src="../vendor/quill/quill.js" defer></script>
+    <script src="../js/posts-rich-editor.js" defer></script>
+    <script src="../js/posts-editor.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 이동</a>
+    <header class="site-header admin-header">
+      <div class="header-inner">
+        <a class="brand" href="./"
+          ><span class="brand-mark" aria-hidden="true">CL</span><span>관리자</span></a
+        >
+        <div class="admin-header-actions">
+          <a class="button" href="./">포트폴리오 관리</a
+          ><a class="button" href="../posts/" target="_blank" rel="noopener">글 보기 ↗</a
+          ><button class="button" id="logout" type="button" hidden>로그아웃</button>
+        </div>
+      </div>
+    </header>
+    <main class="page-width admin-main" id="main">
+      <div class="admin-title">
+        <div>
+          <p class="eyebrow">STUDY &amp; NOTES</p>
+          <h1>글 관리</h1>
+        </div>
+        <button class="button primary" type="button" id="new-post" hidden>+ 새 글</button>
+      </div>
+      <form class="login-card" id="login-form">
+        <h2>GitHub 로그인</h2>
+        <p>글과 분류를 관리하고, 완성한 글을 사이트에 게시합니다.</p>
+        <div class="field">
+          <label for="token">GitHub 토큰</label
+          ><input id="token" type="password" autocomplete="off" spellcheck="false" required /><small
+            >Personal-Profile 저장소 · Contents 읽기 및 쓰기 권한</small
+          >
+        </div>
+        <button class="button primary" type="submit" id="login-button">로그인</button>
+        <p>
+          <a
+            href="https://github.com/settings/personal-access-tokens/new"
+            target="_blank"
+            rel="noopener noreferrer"
+            >토큰 만들기 ↗</a
+          >
+        </p>
+      </form>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+      <fieldset class="posts-workspace" id="workspace" hidden>
+        <legend class="sr-only">글과 분류 편집</legend>
+        <aside class="posts-sidebar">
+          <section class="sidebar-section">
+            <div class="editor-heading">
+              <h2>게시한 글</h2>
+              <button class="button small" id="refresh-posts" type="button">새로 불러오기</button>
+            </div>
+            <div id="published-list"></div>
+          </section>
+          <section class="sidebar-section">
+            <h2>이 브라우저의 초안</h2>
+            <p class="editor-help">자동 보관되며, 게시 전에는 공개되지 않습니다.</p>
+            <div id="draft-list"></div>
+            <button class="button small" id="import-draft" type="button">초안 파일 불러오기</button>
+            <input id="draft-file" type="file" accept="application/json,.json" hidden />
+          </section>
+          <section class="sidebar-section">
+            <div class="editor-heading">
+              <h2>분류</h2>
+              <button class="button small" id="save-categories" type="button" disabled>
+                분류 저장
+              </button>
+            </div>
+            <div id="category-list"></div>
+            <div class="category-add field">
+              <label for="new-category">새 분류</label
+              ><input id="new-category" maxlength="60" placeholder="분류 이름" /><button
+                class="button"
+                id="add-category"
+                type="button"
+              >
+                + 분류 추가
+              </button>
+            </div>
+          </section>
+        </aside>
+        <section class="post-composer" aria-label="글 작성">
+          <div class="composer-heading">
+            <h2 id="composer-title">새 글 작성</h2>
+            <span id="draft-status" role="status"></span>
+          </div>
+          <div class="field title-field">
+            <label for="post-title">글 제목</label
+            ><input id="post-title" maxlength="200" placeholder="제목을 입력하세요" />
+          </div>
+          <div class="post-fields">
+            <div class="field">
+              <label for="post-date">게시일</label><input id="post-date" type="date" />
+            </div>
+            <div class="field">
+              <label for="post-category">분류</label
+              ><select id="post-category">
+                <option value="">미분류</option>
+              </select>
+            </div>
+          </div>
+          <div class="rich-editor-wrap">
+            <div id="post-toolbar" aria-label="본문 서식">
+              <span class="ql-formats"
+                ><button class="ql-undo" type="button" aria-label="실행 취소">↶</button
+                ><button class="ql-redo" type="button" aria-label="다시 실행">↷</button></span
+              >
+              <span class="ql-formats"
+                ><select class="ql-header" aria-label="문단 종류">
+                  <option value="1">큰 제목</option>
+                  <option value="2">중간 제목</option>
+                  <option value="3">작은 제목</option>
+                  <option selected>본문</option>
+                </select></span
+              >
+              <span class="ql-formats"
+                ><button class="ql-bold" type="button" aria-label="굵게"></button
+                ><button class="ql-italic" type="button" aria-label="기울임"></button
+                ><button class="ql-underline" type="button" aria-label="밑줄"></button
+                ><button class="ql-strike" type="button" aria-label="취소선"></button
+              ></span>
+              <span class="ql-formats"
+                ><select class="ql-color" aria-label="글자색">
+                  <option value="#252330" selected></option>
+                  <option value="#6951c8"></option>
+                  <option value="#c0392b"></option>
+                  <option value="#217a52"></option>
+                  <option value="#2463a6"></option></select
+                ><select class="ql-background" aria-label="강조색">
+                  <option selected></option>
+                  <option value="#f0ecfa"></option>
+                  <option value="#fff0b3"></option>
+                  <option value="#d8f3df"></option></select
+              ></span>
+              <span class="ql-formats"
+                ><button
+                  class="ql-list"
+                  value="ordered"
+                  type="button"
+                  aria-label="번호 목록"
+                ></button
+                ><button
+                  class="ql-list"
+                  value="bullet"
+                  type="button"
+                  aria-label="글머리 목록"
+                ></button
+                ><button class="ql-list" value="check" type="button" aria-label="체크 목록"></button
+                ><select class="ql-align" aria-label="정렬">
+                  <option selected></option>
+                  <option value="center"></option>
+                  <option value="right"></option>
+                  <option value="justify"></option></select
+              ></span>
+              <span class="ql-formats"
+                ><button class="ql-blockquote" type="button" aria-label="인용"></button
+                ><button class="ql-code-block" type="button" aria-label="코드 블록"></button
+                ><button class="ql-link" type="button" aria-label="링크"></button
+                ><button class="ql-image" type="button" aria-label="이미지 삽입"></button
+                ><button class="ql-clean" type="button" aria-label="서식 지우기"></button
+              ></span>
+            </div>
+            <div id="rich-editor"></div>
+          </div>
+          <input id="post-image" type="file" accept="image/png,image/jpeg,image/webp" hidden />
+          <p class="editor-help image-help">
+            이미지를 붙여넣거나 끌어 놓을 수 있습니다. PNG·JPEG·WebP · 이미지 포함 글 한 편 최대 3MB
+          </p>
+          <div class="composer-actions">
+            <div class="admin-header-actions">
+              <button class="button" id="save-draft" type="button">초안 보관</button
+              ><button class="button" id="export-draft" type="button">초안 내려받기</button
+              ><button class="button" id="preview-post" type="button">미리보기</button>
+            </div>
+            <div class="admin-header-actions">
+              <button class="button danger" id="delete-post" type="button" hidden>글 삭제</button
+              ><button class="button primary" id="publish-post" type="button">게시하기</button>
+            </div>
+          </div>
+        </section>
+      </fieldset>
+      <noscript><p>글을 작성하려면 JavaScript를 켜 주세요.</p></noscript>
+    </main>
+    <dialog id="post-preview" aria-labelledby="preview-title">
+      <div class="dialog-header">
+        <h2 id="preview-title">미리보기</h2>
+        <button class="button" type="button" id="close-preview">닫기</button>
+      </div>
+      <article id="preview-content"></article>
+    </dialog>
+    <dialog id="link-dialog" aria-labelledby="link-title">
+      <form id="link-form">
+        <div class="dialog-header"><h2 id="link-title">링크 넣기</h2></div>
+        <div class="dialog-body field">
+          <label for="link-url">HTTPS 주소</label
+          ><input id="link-url" type="url" placeholder="https://" required maxlength="2000" />
+          <p id="link-error" class="dialog-error" role="alert"></p>
+        </div>
+        <div class="dialog-actions">
+          <button class="button" type="button" id="cancel-link">취소</button
+          ><button class="button primary" type="submit">넣기</button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>

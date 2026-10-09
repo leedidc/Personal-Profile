@@ -8,6 +8,7 @@ import threading
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from functools import partial
 from playwright.sync_api import sync_playwright, expect
+from posts_browser_check import check_posts
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACTS = ROOT / ".test-artifacts"
@@ -350,6 +351,7 @@ try:
         expect(denied.locator("#status")).to_contain_text("수정할 수 있는 계정")
         expect(denied.locator("#editor-panel")).to_be_hidden()
 
+        check_posts(browser, BASE, ROOT, ARTIFACTS)
         assert not errors, errors
         browser.close()
         print("PASS: public tables, logos, responsive layouts, expandable details, admin access, add/edit/delete/reorder, logo upload, preview, failed save, conflict, Unicode persistence, logout and read-only access.")

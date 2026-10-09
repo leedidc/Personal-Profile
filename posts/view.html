@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="no-referrer" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"
+    />
+    <title>글 읽기 | 이찬형</title>
+    <link rel="icon" href="../image/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../css/resume.css" />
+    <link rel="stylesheet" href="../css/posts.css" />
+    <script src="../js/posts-core.js" defer></script>
+    <script src="../js/posts.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 이동</a>
+    <header class="site-header posts-header">
+      <div class="header-inner">
+        <a class="brand" href="../"
+          ><span class="brand-mark" aria-hidden="true">CL</span><span>포트폴리오</span></a
+        >
+        <nav aria-label="주 메뉴">
+          <a href="../">프로필</a><a href="./" aria-current="page">글</a>
+        </nav>
+      </div>
+    </header>
+    <main class="reading-width" id="main">
+      <a class="back-link" href="./">← 모든 글</a>
+      <p id="posts-status" class="posts-status" role="status">글을 불러오는 중입니다.</p>
+      <article id="post-content" hidden></article>
+      <button class="button" id="retry-posts" type="button" hidden>다시 불러오기</button>
+      <noscript><p>본문을 보려면 JavaScript를 켜 주세요.</p></noscript>
+    </main>
+    <footer class="reading-width site-footer">
+      <a href="./">← 글 목록</a><a href="../">포트폴리오</a>
+    </footer>
+  </body>
+</html>

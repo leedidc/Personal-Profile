@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "id": "legacy-2",
+  "content": {
+    "ops": [
+      {
+        "insert": "hello"
+      }
+    ]
+  }
+}

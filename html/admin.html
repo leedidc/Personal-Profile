@@ -1,51 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ko">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin | Chanhyeong Lee</title>
-    <link rel="stylesheet" href="https://cdn.quilljs.com/1.3.7/quill.snow.css">
-    <link rel="stylesheet" href="../css/portfolio.css">
-    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js" defer>
-    </script>
-    <script src="../js/i18n.js" defer>
-    </script>
-    <script src="../js/admin.js" defer>
-    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>글 관리</title>
+    <meta http-equiv="refresh" content="0; url=../admin/posts.html" />
   </head>
   <body>
-    <main class="subpage admin-page">
-      <div class="page-toolbar">
-        <a href="../index.html" data-ko="← 포트폴리오로">← Back to portfolio</a>
-        <div class="language-switch" role="group" aria-label="Language">
-          <button type="button" data-language="ko" lang="ko">한국어</button>
-          <button type="button" data-language="en" lang="en">EN</button>
-        </div>
-      </div>
-      <p class="eyebrow">CONTENT MANAGEMENT</p>
-      <h1 data-ko="게시글 관리">Article management</h1>
-      <form id="loginBox">
-        <label for="tokenInput" data-ko="관리자 토큰">Admin token</label>
-        <input type="password" id="tokenInput" autocomplete="off" required>
-        <div class="actions">
-          <button class="button primary" type="submit" data-ko="로그인">Login</button>
-          <button class="button" type="button" id="logout" data-ko="로그아웃">Logout</button>
-        </div>
-      </form>
-      <p id="admin-status" role="status">
-      </p>
-      <section id="panel" hidden>
-        <h2 data-ko="게시글 작성">Create article</h2>
-        <label for="title" data-ko="제목">Title</label>
-        <input id="title" type="text">
-        <label id="editor-label" data-ko="본문">Content</label>
-        <div id="editor">
-        </div>
-        <button class="button primary" id="create" type="button" data-ko="등록">Create</button>
-        <h2 data-ko="게시글 목록">Articles</h2>
-        <div id="list">
-        </div>
-      </section>
-    </main>
+    <p><a href="../admin/posts.html">글 관리 페이지로 이동</a></p>
   </body>
 </html>

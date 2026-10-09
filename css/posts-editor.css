@@ -1,0 +1,239 @@
+.posts-workspace {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 32px;
+  min-width: 0;
+}
+.posts-sidebar {
+  min-width: 0;
+}
+.sidebar-section {
+  margin-bottom: 26px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+.sidebar-section h2 {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+.sidebar-section .editor-heading {
+  margin-bottom: 6px;
+}
+.sidebar-section .editor-heading h2 {
+  margin: 0;
+}
+.sidebar-post {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 1px solid transparent;
+  background: transparent;
+  padding: 10px;
+  border-radius: 7px;
+  color: var(--ink);
+  margin-block: 4px;
+}
+.sidebar-post:hover,
+.sidebar-post[aria-current='true'] {
+  background: var(--accent-soft);
+  border-color: #d4cbea;
+}
+.sidebar-post strong {
+  font-size: 13px;
+  display: block;
+  overflow-wrap: anywhere;
+}
+.sidebar-post small {
+  font-size: 11px;
+  color: var(--muted);
+}
+.draft-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.draft-row .sidebar-post {
+  min-width: 0;
+}
+.category-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.category-row input {
+  min-width: 0;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 8px;
+}
+.category-row .button,
+.draft-row .button {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.category-add {
+  margin-top: 16px;
+}
+.post-composer {
+  min-width: 0;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 28px;
+  align-self: start;
+}
+.composer-heading {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  align-items: center;
+}
+.composer-heading h2 {
+  font-size: 16px;
+}
+#draft-status {
+  font-size: 11px;
+  color: var(--muted);
+}
+.title-field input {
+  font-size: 24px;
+  font-weight: 600;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  padding: 10px 0;
+}
+.post-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-block: 20px 28px;
+}
+.rich-editor-wrap {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+#post-toolbar {
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 8px 8px 0 0;
+  background: #faf9fc;
+  padding: 12px 10px 5px;
+}
+#post-toolbar .ql-formats {
+  margin-right: 12px;
+  margin-bottom: 8px;
+}
+#post-toolbar button {
+  width: 30px;
+  height: 30px;
+}
+#post-toolbar .ql-picker {
+  height: 30px;
+}
+#post-toolbar .ql-header {
+  width: 98px;
+}
+#post-toolbar .ql-header .ql-picker-item::before,
+#post-toolbar .ql-header .ql-picker-label::before {
+  content: '본문';
+}
+#post-toolbar .ql-header [data-value='1']::before {
+  content: '큰 제목';
+}
+#post-toolbar .ql-header [data-value='2']::before {
+  content: '중간 제목';
+}
+#post-toolbar .ql-header [data-value='3']::before {
+  content: '작은 제목';
+}
+#rich-editor {
+  border: 0;
+  font: 15px/1.85 var(--font);
+}
+#rich-editor .ql-editor {
+  min-height: 380px;
+  padding: 24px;
+  overflow-wrap: anywhere;
+}
+#rich-editor .ql-editor p {
+  margin-block: 7px;
+}
+#rich-editor .ql-editor img {
+  max-width: 100%;
+  border-radius: 6px;
+}
+#rich-editor .ql-editor.ql-blank::before {
+  font-style: normal;
+  color: #9c97a9;
+  left: 24px;
+  right: 24px;
+}
+#rich-editor .ql-tooltip {
+  white-space: normal;
+  max-width: 100%;
+  z-index: 2;
+}
+#rich-editor .ql-tooltip input {
+  max-width: 100%;
+}
+.image-help {
+  margin-top: 12px;
+}
+.composer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+  margin-top: 22px;
+}
+#post-preview {
+  width: min(880px, calc(100% - 32px));
+}
+#post-preview article {
+  padding: 0 32px 40px;
+}
+@media (max-width: 1000px) {
+  .posts-workspace {
+    grid-template-columns: 1fr;
+  }
+  .posts-sidebar {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+}
+@media (max-width: 680px) {
+  .posts-sidebar {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .post-composer {
+    padding: 18px 12px;
+  }
+  .post-fields {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  #rich-editor .ql-editor {
+    padding: 16px;
+  }
+  .title-field input {
+    font-size: 20px;
+  }
+  #post-preview article {
+    padding-inline: 18px;
+  }
+  .admin-header .header-inner {
+    gap: 12px;
+  }
+}
