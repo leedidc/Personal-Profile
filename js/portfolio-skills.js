@@ -188,5 +188,5 @@
     selectCategory(categories[0]);
   }
 
-  window.PortfolioSkills = { validateSkill, categoryLabel, renderSkills };
+  globalThis.PortfolioSkills = { validateSkill, categoryLabel, renderSkills };
 })();

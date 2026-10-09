@@ -55,15 +55,21 @@
     }
 
     if (!response.ok) {
-      throw new Error(
+      const error = new Error(
         errorMessages[response.status] || '요청을 처리하지 못했습니다. 잠시 후 다시 시도해 주세요.',
       );
+      error.status = response.status;
+      throw error;
     }
 
     return response.json();
   }
 
   async function verifyWriteAccess(token) {
+    if (token?.type === 'session') {
+      await AdminAuth.request('/session', token);
+      return;
+    }
     const repositoryInfo = await requestGitHub(`/repos/${repository}`, token);
 
     if (!repositoryInfo.permissions?.push) {
@@ -72,6 +78,10 @@
   }
 
   async function loadPortfolio(token) {
+    if (token?.type === 'session') {
+      const remote = await AdminAuth.request('/portfolio', token);
+      return { data: Portfolio.validatePortfolio(remote.data), sha: remote.sha };
+    }
     const remote = await requestGitHub(`${contentEndpoint}?ref=${branch}`, token);
 
     if (remote.encoding !== 'base64' || !remote.content || !remote.sha) {
@@ -86,6 +96,13 @@
 
   async function savePortfolio(token, data, sha) {
     const publicData = Portfolio.preparePortfolioForPublication(data);
+    if (token?.type === 'session') {
+      const saved = await AdminAuth.request('/portfolio', token, {
+        method: 'PUT',
+        body: { data: publicData, sha },
+      });
+      return saved.sha;
+    }
 
     // 마지막으로 읽은 SHA를 전달하면 다른 편집자의 변경을 덮어쓰지 않습니다.
     const saved = await requestGitHub(contentEndpoint, token, {
@@ -105,5 +122,5 @@
     return saved.content.sha;
   }
 
-  window.PortfolioStorage = { loadPortfolio, savePortfolio, verifyWriteAccess };
+  globalThis.PortfolioStorage = { loadPortfolio, savePortfolio, verifyWriteAccess };
 })();

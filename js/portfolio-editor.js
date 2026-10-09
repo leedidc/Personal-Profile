@@ -194,26 +194,24 @@
       setBusy(false);
     }
   });
-  getElement('login-form').addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const candidate = getElement('token').value.trim();
-    if (!candidate) {
-      return;
-    }
+  async function login(credential = null) {
     getElement('login-button').disabled = true;
     showStatus('로그인 중…');
     try {
+      const candidate = credential || (await AdminAuth.login());
       await verifyWriteAccess(candidate);
-      const remote = await loadPortfolio(candidate);
+      const remote = data ? null : await loadPortfolio(candidate);
       token = candidate;
-      data = remote.data;
-      sha = remote.sha;
+      if (remote) {
+        data = remote.data;
+        sha = remote.sha;
+        setDirty(false);
+      }
       getElement('token').value = '';
       getElement('login-form').hidden = true;
       getElement('editor-panel').hidden = false;
       getElement('logout').hidden = false;
       getElement('publish-actions').hidden = false;
-      setDirty(false);
       renderEditorList();
       showStatus('');
     } catch (error) {
@@ -221,10 +219,28 @@
     } finally {
       getElement('login-button').disabled = false;
     }
+  }
+  getElement('login-form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    login();
   });
-  getElement('logout').addEventListener('click', () => {
+  AdminAuth.restoreSession().then((credential) => {
+    if (credential && !token && !busy) {
+      login(credential);
+    }
+  });
+  getElement('logout').addEventListener('click', async () => {
     if (dirty && !confirm('저장하지 않은 변경사항을 버리고 로그아웃할까요?')) {
       return;
+    }
+    setBusy(true);
+    try {
+      await AdminAuth.logout(token);
+    } catch (error) {
+      showStatus(error.message, true);
+      return;
+    } finally {
+      setBusy(false);
     }
     token = '';
     sha = '';
@@ -241,7 +257,7 @@
     getElement('logout').hidden = true;
     getElement('login-form').hidden = false;
     showStatus('로그아웃했습니다.');
-    getElement('token').focus();
+    AdminAuth.focusLogin();
   });
 
   function updateLogoPreview() {

@@ -82,6 +82,11 @@
     historyTurns: 4,
   };
 
+  const admin = {
+    origin: 'https://personal-profile-admin-auth.leedidc1227.workers.dev',
+    publicOrigin: 'https://lee.chanhyeong.kro.kr',
+  };
+
   const skillCategories = [
     { value: 'office', label: 'OA' },
     { value: 'languages', label: '언어' },
@@ -96,12 +101,13 @@
   ];
   const skillLevels = ['상', '중', '하', '미정'];
 
-  window.PortfolioConfig = {
+  globalThis.PortfolioConfig = {
     sections,
     logoOptions,
     editorLabels,
     github,
     chatbot,
+    admin,
     skillCategories,
     skillGroups,
     skillLevels,

@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="../css/posts-editor.css" />
     <script src="../js/portfolio-config.js" defer></script>
     <script src="../js/posts-core.js" defer></script>
+    <script src="../js/admin-auth.js" defer></script>
     <script src="../js/posts-github.js" defer></script>
     <script src="../js/posts-drafts.js" defer></script>
     <script src="../vendor/quill/quill.js" defer></script>
@@ -34,7 +35,13 @@
         >
         <div class="admin-header-actions">
           <a class="button" href="./">포트폴리오 관리</a
-          ><a class="button" href="../posts/" target="_blank" rel="noopener">글 보기 ↗</a
+          ><a
+            class="button"
+            href="../posts/"
+            data-public-path="/posts/"
+            target="_blank"
+            rel="noopener"
+            >글 보기 ↗</a
           ><button class="button" id="logout" type="button" hidden>로그아웃</button>
         </div>
       </div>
@@ -48,23 +55,70 @@
         <button class="button primary" type="button" id="new-post" hidden>+ 새 글</button>
       </div>
       <form class="login-card" id="login-form">
-        <h2>GitHub 로그인</h2>
-        <p>글과 분류를 관리하고, 완성한 글을 사이트에 게시합니다.</p>
-        <div class="field">
-          <label for="token">GitHub 토큰</label
-          ><input id="token" type="password" autocomplete="off" spellcheck="false" required /><small
-            >Personal-Profile 저장소 · Contents 읽기 및 쓰기 권한</small
+        <h2>관리자 로그인</h2>
+        <div class="login-methods" role="group" aria-label="로그인 방식">
+          <button
+            class="button"
+            type="button"
+            data-login-method="password"
+            aria-pressed="false"
+            disabled
           >
+            아이디 · 비밀번호
+          </button>
+          <button class="button" type="button" data-login-method="token" aria-pressed="true">
+            GitHub 토큰
+          </button>
+        </div>
+        <p id="password-login-notice">비밀번호 로그인은 서버 연결 후 사용할 수 있습니다.</p>
+        <div id="login-password-fields" hidden>
+          <div class="field">
+            <label for="username">아이디</label>
+            <input
+              id="username"
+              name="username"
+              autocomplete="username"
+              maxlength="64"
+              spellcheck="false"
+              required
+              disabled
+            />
+          </div>
+          <div class="field">
+            <label for="password">비밀번호</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              maxlength="128"
+              required
+              disabled
+            />
+          </div>
+        </div>
+        <div id="login-token-fields">
+          <p>글과 분류를 관리하고, 완성한 글을 사이트에 게시합니다.</p>
+          <div class="field">
+            <label for="token">GitHub 토큰</label
+            ><input
+              id="token"
+              type="password"
+              autocomplete="off"
+              spellcheck="false"
+              required
+            /><small>Personal-Profile 저장소 · Contents 읽기 및 쓰기 권한</small>
+          </div>
+          <p>
+            <a
+              href="https://github.com/settings/personal-access-tokens/new"
+              target="_blank"
+              rel="noopener noreferrer"
+              >토큰 만들기 ↗</a
+            >
+          </p>
         </div>
         <button class="button primary" type="submit" id="login-button">로그인</button>
-        <p>
-          <a
-            href="https://github.com/settings/personal-access-tokens/new"
-            target="_blank"
-            rel="noopener noreferrer"
-            >토큰 만들기 ↗</a
-          >
-        </p>
       </form>
       <p class="status" id="status" role="status" aria-live="polite"></p>
       <fieldset class="posts-workspace" id="workspace" hidden>

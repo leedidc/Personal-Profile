@@ -29,9 +29,11 @@
         409: '다른 변경사항이 저장되었습니다. 초안을 보관한 후 새로 불러와 주세요.',
         422: '변경 충돌 또는 브랜치 보호로 저장하지 못했습니다. 초안을 보관하고 최신 내용을 불러와 주세요.',
       };
-      throw new Error(
+      const error = new Error(
         messages[response.status] || 'GitHub 저장에 실패했습니다. 편집 내용은 유지됩니다.',
       );
+      error.status = response.status;
+      throw error;
     }
     return response.json();
   }
@@ -54,6 +56,11 @@
   }
 
   async function loadSnapshot(token, verifyAccess = false) {
+    if (token?.type === 'session') {
+      const snapshot = await AdminAuth.request('/posts/snapshot', token);
+      Posts.validateIndex(snapshot.index);
+      return snapshot;
+    }
     if (verifyAccess) {
       const repositoryInfo = await request('', token);
       if (!repositoryInfo.permissions?.push) {
@@ -70,6 +77,17 @@
   async function loadDocument(token, snapshot, id) {
     if (!Posts.validId(id)) {
       throw new Error('글 주소가 올바르지 않습니다.');
+    }
+    if (token?.type === 'session') {
+      const documentData = await AdminAuth.request('/posts/read', token, {
+        method: 'POST',
+        body: { headSha: snapshot.headSha, id },
+      });
+      Posts.validateDocument(documentData);
+      if (documentData.id !== id) {
+        throw new Error('글과 본문이 일치하지 않습니다.');
+      }
+      return documentData;
     }
     const documentData = Posts.validateDocument(
       await readJson('data/posts/' + id + '.json', token, snapshot.headSha),
@@ -93,6 +111,14 @@
       (!Posts.validId(deletedId) || nextIndex.posts.some((post) => post.id === deletedId))
     ) {
       throw new Error('삭제할 글을 확인해 주세요.');
+    }
+    if (token?.type === 'session') {
+      const saved = await AdminAuth.request('/posts/save', token, {
+        method: 'POST',
+        body: { headSha: snapshot.headSha, index: nextIndex, document: documentData, deletedId },
+      });
+      Posts.validateIndex(saved.index);
+      return saved;
     }
     const reference = await request('/git/ref/heads/' + branch, token);
     if (reference.object.sha !== snapshot.headSha) {
@@ -144,5 +170,5 @@
     return { headSha: commit.sha, treeSha: nextTree.sha, index: structuredClone(nextIndex) };
   }
 
-  window.PostsStorage = { loadSnapshot, loadDocument, save };
+  globalThis.PostsStorage = { loadSnapshot, loadDocument, save };
 })();

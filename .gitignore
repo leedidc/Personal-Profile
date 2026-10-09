@@ -1,2 +1,7 @@
 .test-artifacts/
 __pycache__/
+node_modules/
+.wrangler/
+.dev.vars*
+.env*
+server/admin-auth/.assets/

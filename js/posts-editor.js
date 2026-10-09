@@ -364,16 +364,17 @@
     }
   }
 
-  elements['login-form'].addEventListener('submit', (event) => {
-    event.preventDefault();
+  function login(credential = null) {
     perform(async () => {
-      const candidate = elements.token.value.trim();
-      elements.token.value = '';
-      if (!candidate) {
-        throw new Error('GitHub 토큰을 입력해 주세요.');
-      }
-      snapshot = await PostsStorage.loadSnapshot(candidate, true);
+      const candidate = credential || (await AdminAuth.login());
+      const latest = await PostsStorage.loadSnapshot(candidate, true);
       token = candidate;
+      if (snapshot) {
+        elements['login-form'].hidden = true;
+        showStatus('다시 로그인했습니다. 작성 중인 내용은 그대로 유지됩니다.');
+        return;
+      }
+      snapshot = latest;
       workingIndex = structuredClone(snapshot.index);
       if (!editor) {
         editor = PostsRichEditor.create(markChanged, (message) => showStatus(message, true));
@@ -385,8 +386,17 @@
       renderCategories();
       newDocument();
       await renderDrafts();
-      showStatus('분류를 만들고 글을 작성해 보세요. 토큰은 이 페이지를 닫으면 지워집니다.');
+      showStatus('분류를 만들고 글을 작성해 보세요.');
     });
+  }
+  elements['login-form'].addEventListener('submit', (event) => {
+    event.preventDefault();
+    login();
+  });
+  AdminAuth.restoreSession().then((credential) => {
+    if (credential && !token && !busy) {
+      login(credential);
+    }
   });
   for (const id of ['post-title', 'post-date', 'post-category']) {
     elements[id].addEventListener('input', markChanged);
@@ -516,6 +526,7 @@
       if (categoriesChanged && !confirm('저장하지 않은 분류 변경을 버리고 로그아웃할까요?')) {
         return;
       }
+      await AdminAuth.logout(token);
       token = '';
       snapshot = null;
       workingIndex = null;

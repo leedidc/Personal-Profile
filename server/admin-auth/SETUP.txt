@@ -1,0 +1,46 @@
+관리자 인증 Worker
+
+공개 화면은 기존 정적 사이트를 유지합니다. 이 Worker는 전용 관리자 화면과 /api/admin/* 요청을 처리합니다.
+관리자 주소: https://personal-profile-admin-auth.leedidc1227.workers.dev/admin/
+현재 계정에서 공개 사이트 도메인을 관리하지 않으므로 관리자 화면과 인증 API를 같은 workers.dev 주소에 배포합니다.
+worker.js: 로그인 제한, 세션, CSRF 및 출처 검사
+password.js: scrypt 비밀번호 해시 (N=16384, r=8, p=5)
+content.js: 기존 검증 코드를 공유하며 data/portfolio.json과 data/posts/만 저장
+wrangler.json: 관리자 주소, 사용자 이름, 정적 화면과 Durable Object 연결
+build-assets.js: 관리자 화면에 필요한 공개 폴더만 .assets에 복사 (서버 코드와 비밀 설정 제외)
+../../js/portfolio-config.js: 공개 사이트 주소와 비밀번호 로그인 이동 주소
+
+배포 준비
+1. 이 폴더에서 npm ci를 실행합니다.
+2. wrangler login으로 사용자의 Cloudflare 계정을 연결합니다.
+3. wrangler.json의 SITE_ORIGIN과 portfolio-config.js의 admin.origin을 사용할 workers.dev 주소와 맞춥니다.
+4. 이 폴더에서 npm run deploy로 personal-profile-admin-auth Worker와 관리자 정적 화면을 배포합니다.
+5. Cloudflare Worker의 Settings > Variables and Secrets에 다음 Secret을 등록합니다.
+   ADMIN_PASSWORD_HASH: password.js의 hashPassword로 생성한 값
+   GITHUB_TOKEN: Personal-Profile 저장소만 선택한 Contents 읽기·쓰기 토큰
+   비밀번호 원문·토큰·생성한 해시는 파일, GitHub 또는 브라우저 저장소에 넣지 않습니다.
+6. 전용 관리자 주소의 /api/admin/status 응답이 준비 상태를 반환하면 비밀번호 입력란이 활성화됩니다.
+
+운영
+- 등록 계정은 wrangler.json의 ADMIN_USERNAME에서 설정합니다.
+- 비밀번호는 ADMIN_PASSWORD_HASH Secret을 바꿉니다. 기존 세션은 자동으로 무효화됩니다.
+- 세션은 최대 2시간, 미사용 30분이며 로그아웃하면 서버에서도 폐기됩니다.
+- IP별 15분 동안 5회, 전체 50회까지 로그인 시도를 허용합니다.
+- 세션당 API 요청은 분당 60회입니다. 데이터 충돌 시 강제 저장하지 않습니다.
+- 별도의 SQL 쿼리를 만들지 않습니다. 세션·시도 횟수는 Durable Object의 키·값 API로 관리합니다.
+- 서버 Secret이 없거나 서버에 연결되지 않으면 전용 화면의 비밀번호 로그인은 비활성화됩니다.
+- GitHub 토큰 직접 로그인은 기존처럼 토큰을 페이지 메모리에서만 사용합니다.
+- 공개 사이트 관리자 화면의 비밀번호 버튼은 전용 관리자 화면을 엽니다.
+- 초안 저장소는 주소별로 구분됩니다. 이전 주소에서 만든 초안은 기존 토큰 로그인 후 내보내기/가져오기로 옮깁니다.
+- 관리자 HTML, CSS, JavaScript를 수정하면 GitHub 푸시와 함께 이 Worker도 다시 배포합니다.
+- Worker와 Durable Object는 계정의 기존 요금제·무료 사용량 범위를 따릅니다.
+
+검증
+저장소 루트: node --test tests/admin-auth-server.test.mjs
+저장소 루트: uv run --with playwright python -X utf8 tests/browser_check.py
+배포 검증: npm run deploy -- --dry-run
+
+참고
+https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
+https://developers.cloudflare.com/workers/runtime-apis/nodejs/crypto/
+https://developers.cloudflare.com/workers/configuration/secrets/

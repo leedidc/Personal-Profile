@@ -315,7 +315,7 @@
     root.replaceChildren(heading, body);
   }
 
-  window.Posts = {
+  globalThis.Posts = {
     createElement,
     safeLink,
     safeImage,

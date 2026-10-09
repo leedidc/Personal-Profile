@@ -10,6 +10,6 @@
 - **글 편집기:** Quill
 - **데이터 저장:** JSON, IndexedDB
 - **콘텐츠 관리:** GitHub REST API
-- **AI 챗봇 연동:** Cloudflare Workers
-- **호스팅:** GitHub Pages
+- **관리자 인증·AI 챗봇 연동:** Cloudflare Workers
+- **호스팅:** GitHub Pages, Cloudflare Workers(관리자)
 - **개발·검증:** Prettier, Playwright, Node.js, Python

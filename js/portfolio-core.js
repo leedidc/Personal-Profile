@@ -58,7 +58,9 @@
         /^(image|issuer)\/[a-z0-9_./-]+$/i.test(value) &&
         !value.includes('..')
       ) {
-        return new URL(base + value, location.href).href;
+        // 서버에서도 같은 검증을 사용하며 실제 요청은 발생하지 않습니다.
+        return new URL(base + value, globalThis.location?.href || 'https://portfolio.invalid/')
+          .href;
       }
       const url = new URL(value);
       return url.protocol === 'https:' && !url.username && !url.password ? url.href : '';
@@ -517,7 +519,7 @@
       root.append(block);
     });
   }
-  window.Portfolio = {
+  globalThis.Portfolio = {
     sections,
     createElement,
     getSafeUrl,

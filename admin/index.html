@@ -22,6 +22,7 @@
     <script src="../js/skills-editor.js" defer></script>
     <script src="../js/award-research.js" defer></script>
     <script src="../js/award-research-editor.js" defer></script>
+    <script src="../js/admin-auth.js" defer></script>
     <script src="../js/portfolio-github.js" defer></script>
     <script src="../js/portfolio-editor.js" defer></script>
   </head>
@@ -29,12 +30,12 @@
     <a class="skip-link" href="#main">본문으로 이동</a>
     <header class="site-header admin-header">
       <div class="header-inner">
-        <a class="brand" href="../"
+        <a class="brand" href="../" data-public-path="/"
           ><span class="brand-mark" aria-hidden="true">CL</span><span>포트폴리오</span></a
         >
         <div class="admin-header-actions">
           <a class="button" href="posts.html">글 관리</a>
-          <a class="button" href="../">사이트 보기 ↗</a>
+          <a class="button" href="../" data-public-path="/">사이트 보기 ↗</a>
           <button class="button" type="button" id="logout" hidden>로그아웃</button>
         </div>
       </div>
@@ -48,32 +49,72 @@
         </div>
       </div>
       <form class="login-card" id="login-form">
-        <h2>GitHub 로그인</h2>
-        <p>
-          Personal-Profile 저장소에 접근할 수 있는 토큰으로 로그인해 주세요. 저장하면 사이트에
-          반영됩니다.
-        </p>
-        <div class="field">
-          <label for="token">GitHub 토큰</label>
-          <input
-            id="token"
-            name="token"
-            type="password"
-            autocomplete="off"
-            spellcheck="false"
-            required
-          />
-          <small>저장소: Personal-Profile · 권한: Contents 읽기 및 쓰기</small>
+        <h2>관리자 로그인</h2>
+        <p>로그인 방식을 선택해 주세요.</p>
+        <div class="login-methods" role="group" aria-label="로그인 방식">
+          <button
+            class="button"
+            type="button"
+            data-login-method="password"
+            aria-pressed="false"
+            disabled
+          >
+            아이디 · 비밀번호
+          </button>
+          <button class="button" type="button" data-login-method="token" aria-pressed="true">
+            GitHub 토큰
+          </button>
+        </div>
+        <p id="password-login-notice">비밀번호 로그인은 서버 연결 후 사용할 수 있습니다.</p>
+        <div id="login-password-fields" hidden>
+          <div class="field">
+            <label for="username">아이디</label>
+            <input
+              id="username"
+              name="username"
+              autocomplete="username"
+              maxlength="64"
+              spellcheck="false"
+              required
+              disabled
+            />
+          </div>
+          <div class="field">
+            <label for="password">비밀번호</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              maxlength="128"
+              required
+              disabled
+            />
+          </div>
+        </div>
+        <div id="login-token-fields">
+          <div class="field">
+            <label for="token">GitHub 토큰</label>
+            <input
+              id="token"
+              name="token"
+              type="password"
+              autocomplete="off"
+              spellcheck="false"
+              required
+            />
+            <small>저장소: Personal-Profile · 권한: Contents 읽기 및 쓰기</small>
+          </div>
+          <p>
+            <a
+              href="https://github.com/settings/personal-access-tokens/new"
+              target="_blank"
+              rel="noopener noreferrer"
+              >토큰 만들기 ↗</a
+            >
+          </p>
         </div>
         <button class="button primary" id="login-button" type="submit">로그인</button>
-        <p>
-          <a
-            href="https://github.com/settings/personal-access-tokens/new"
-            target="_blank"
-            rel="noopener noreferrer"
-            >토큰 만들기 ↗</a
-          >
-        </p>
       </form>
       <p class="status" id="status" role="status" aria-live="polite"></p>
       <section id="editor-panel" hidden aria-label="포트폴리오 편집">
