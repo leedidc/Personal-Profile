@@ -20,7 +20,12 @@ function loadPortfolioScripts(fetch) {
   });
   context.window = context;
 
-  for (const filename of ['portfolio-config.js', 'portfolio-core.js', 'portfolio-github.js']) {
+  for (const filename of [
+    'portfolio-config.js',
+    'portfolio-core.js',
+    'portfolio-skills.js',
+    'portfolio-github.js',
+  ]) {
     vm.runInContext(fs.readFileSync(path.join(root, 'js', filename), 'utf8'), context);
   }
 

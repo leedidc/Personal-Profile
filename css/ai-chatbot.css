@@ -207,6 +207,10 @@
   .ai-chat-heading p {
     max-width: 180px;
   }
+  .ai-chat-actions .button {
+    min-width: 44px;
+    min-height: 44px;
+  }
   .ai-chat-form textarea {
     font-size: 16px;
   }
@@ -224,4 +228,13 @@
     height: calc(100dvh - 24px);
     max-height: none;
   }
+}
+.ai-chat-panel.is-keyboard-open {
+  top: calc(var(--chat-viewport-top) + 12px);
+  bottom: auto;
+  height: calc(var(--chat-viewport-height) - 24px);
+  max-height: none;
+}
+.ai-chat-panel.is-keyboard-open .ai-chat-suggestions {
+  display: none;
 }

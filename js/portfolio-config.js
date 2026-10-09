@@ -17,6 +17,7 @@
       columns: ['시험명', '취득일', '점수 · 등급', '등록번호'],
       numberLabel: '등록번호',
     },
+    { key: 'skills', title: 'SKILL', columns: ['도구 · 용도', '숙련도'] },
     { key: 'projects', title: '프로젝트', columns: ['프로젝트', '기간', '내용'] },
     { key: 'activities', title: '대외활동', columns: ['기관 · 활동', '기간', '내용'] },
     { key: 'awards', title: '수상', columns: ['수상명', '수상일', '수여기관 · 수상 내용'] },
@@ -81,5 +82,28 @@
     historyTurns: 4,
   };
 
-  window.PortfolioConfig = { sections, logoOptions, editorLabels, github, chatbot };
+  const skillCategories = [
+    { value: 'office', label: 'OA' },
+    { value: 'languages', label: '언어' },
+    { value: 'engineering', label: '공학 도구' },
+  ];
+  const skillGroups = [
+    { value: 'development', label: '개발 · 협업' },
+    { value: 'security-analysis', label: '보안 분석 · 진단' },
+    { value: 'security-solutions', label: '보안 솔루션' },
+    { value: 'systems', label: '시스템 · 가상화' },
+    { value: 'cloud-data', label: '클라우드 · 데이터' },
+  ];
+  const skillLevels = ['상', '중', '하', '미정'];
+
+  window.PortfolioConfig = {
+    sections,
+    logoOptions,
+    editorLabels,
+    github,
+    chatbot,
+    skillCategories,
+    skillGroups,
+    skillLevels,
+  };
 })();

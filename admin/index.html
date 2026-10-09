@@ -15,8 +15,11 @@
     <link rel="stylesheet" href="../css/site-common.css" />
     <link rel="stylesheet" href="../css/admin-common.css" />
     <link rel="stylesheet" href="../css/award-research.css" />
+    <link rel="stylesheet" href="../css/portfolio-skills.css" />
     <script src="../js/portfolio-config.js" defer></script>
     <script src="../js/portfolio-core.js" defer></script>
+    <script src="../js/portfolio-skills.js" defer></script>
+    <script src="../js/skills-editor.js" defer></script>
     <script src="../js/award-research.js" defer></script>
     <script src="../js/award-research-editor.js" defer></script>
     <script src="../js/portfolio-github.js" defer></script>
@@ -231,6 +234,45 @@
         <div class="dialog-actions">
           <button class="button" type="button" data-close="item-dialog">취소</button
           ><button class="button primary" type="submit" id="apply-item">적용</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="skill-dialog" aria-labelledby="skill-dialog-title">
+      <form id="skill-form">
+        <div class="dialog-header">
+          <h2 id="skill-dialog-title">SKILL 수정</h2>
+          <button class="button icon" type="button" data-close="skill-dialog" aria-label="닫기">
+            ×
+          </button>
+        </div>
+        <div class="dialog-body">
+          <div class="form-grid">
+            <div class="field full">
+              <label for="skill-name">도구 이름</label>
+              <input id="skill-name" required maxlength="200" />
+            </div>
+            <div class="field">
+              <label for="skill-category">분류</label>
+              <select id="skill-category"></select>
+            </div>
+            <div class="field" id="skill-group-field">
+              <label for="skill-group">공학 도구 세부 분류</label>
+              <select id="skill-group"></select>
+            </div>
+            <div class="field">
+              <label for="skill-level">숙련도</label>
+              <select id="skill-level"></select>
+            </div>
+            <div class="field full">
+              <label for="skill-description">용도 설명</label>
+              <textarea id="skill-description" rows="3" maxlength="500"></textarea>
+            </div>
+          </div>
+          <p id="skill-error" class="dialog-error" role="alert"></p>
+        </div>
+        <div class="dialog-actions">
+          <button class="button" type="button" data-close="skill-dialog">취소</button>
+          <button class="button primary" type="submit">적용</button>
         </div>
       </form>
     </dialog>

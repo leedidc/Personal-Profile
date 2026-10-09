@@ -11,6 +11,8 @@ from playwright.sync_api import sync_playwright, expect
 from posts_browser_check import check_posts
 from award_research_browser_check import check_research_reader, edit_research_slides, check_research_preview
 from ai_chatbot_browser_check import check_chatbot
+from skills_browser_check import check_skills
+from mobile_layout_check import check_mobile_layout
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACTS = ROOT / ".test-artifacts"
@@ -73,7 +75,7 @@ try:
         expect(page.locator(".profile-interests li")).to_have_text(original["profile"]["interests"])
         expect(page.locator("#education .summary-english").first).to_have_text(original["education"][0]["summaryEnglish"])
         expect(page.locator("#experience .row-subtitle").first).to_have_text(original["experience"][0]["subtitle"])
-        expect(page.locator(".resume-section")).to_have_count(7)
+        expect(page.locator(".resume-section")).to_have_count(7 + bool(original.get('skills')))
         expect(page.locator("#certifications tbody tr")).to_have_count(len(original["certifications"]))
         expect(page.locator("#certifications thead th")).to_have_count(4)
         expect(page.locator("#certifications .row-name")).to_have_text([row["name"] for row in original["certifications"]])
@@ -124,7 +126,7 @@ try:
         for width in [390, 320]:
             page.set_viewport_size({"width": width, "height": 844})
             page.goto(BASE)
-            expect(page.locator(".resume-section")).to_have_count(7)
+            expect(page.locator(".resume-section")).to_have_count(7 + bool(original.get('skills')))
             no_overflow(page)
         page.set_viewport_size({"width": 390, "height": 844})
         page.screenshot(path=str(ARTIFACTS / "mobile.png"), full_page=True)
@@ -367,6 +369,7 @@ try:
 
         # 새 프로필 필드가 없는 기존 데이터도 공개 화면에서 열립니다.
         legacy_data = copy.deepcopy(original)
+        legacy_data.pop('skills', None)
         del legacy_data["profile"]["introduction"]
         del legacy_data["profile"]["interests"]
         for award in legacy_data['awards']:
@@ -389,6 +392,8 @@ try:
 
         check_posts(browser, BASE, ROOT, ARTIFACTS)
         check_chatbot(browser, BASE, ARTIFACTS)
+        check_skills(browser, BASE, ROOT, ARTIFACTS)
+        check_mobile_layout(browser, BASE, ARTIFACTS)
         assert not errors, errors
         browser.close()
         print("PASS: public tables, logos, responsive layouts, expandable details, admin access, add/edit/delete/reorder, logo upload, preview, failed save, conflict, Unicode persistence, logout and read-only access.")

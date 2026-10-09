@@ -28,6 +28,17 @@ test('최신 공개 이력과 순서를 전달하고 연락처·번호·예상�
   data.profile.apiKey = 'synthetic-secret-not-for-transmission';
   data.certifications[0].maskedNumber = 'SYNTHETIC-***';
   data.certifications.reverse();
+  data.skills = [
+    {
+      id: 'test-skill',
+      name: '검증용 도구',
+      category: 'engineering',
+      group: 'security-analysis',
+      level: '미정',
+      description: '검증용 설명',
+      apiKey: 'synthetic-secret',
+    },
+  ];
   data.awards[0].research.slides[0].body = '관리자가 수정한 최신 연구 내용';
   const before = JSON.stringify(data);
   const { PortfolioChatService } = loadService(async (url, options) => {
@@ -42,6 +53,15 @@ test('최신 공개 이력과 순서를 전달하고 연락처·번호·예상�
       data.certifications.map((row) => row.name),
     );
     assert.equal(source.awards[0].research.slides[0].body, '관리자가 수정한 최신 연구 내용');
+    assert.deepEqual(source.skills, [
+      {
+        name: '검증용 도구',
+        category: '공학 도구',
+        group: '보안 분석 · 진단',
+        level: '미정',
+        description: '검증용 설명',
+      },
+    ]);
     assert.doesNotMatch(
       message,
       /private-marker|synthetic-secret|SYNTHETIC|maskedNumber|data:image/,

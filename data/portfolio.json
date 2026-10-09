@@ -16,6 +16,224 @@
       "국가망보안체계"
     ]
   },
+  "skills": [
+    {
+      "id": "skill-excel",
+      "name": "Excel",
+      "category": "office",
+      "group": "",
+      "level": "미정",
+      "description": "스프레드시트 작업"
+    },
+    {
+      "id": "skill-word",
+      "name": "Word",
+      "category": "office",
+      "group": "",
+      "level": "상",
+      "description": "문서 작성·편집"
+    },
+    {
+      "id": "skill-powerpoint",
+      "name": "PowerPoint",
+      "category": "office",
+      "group": "",
+      "level": "상",
+      "description": "발표 자료 제작"
+    },
+    {
+      "id": "skill-hwp",
+      "name": "한글(HWP)",
+      "category": "office",
+      "group": "",
+      "level": "상",
+      "description": "한글 문서 작성·편집"
+    },
+    {
+      "id": "skill-python",
+      "name": "Python",
+      "category": "languages",
+      "group": "",
+      "level": "중",
+      "description": "스크립트·프로그램 작성"
+    },
+    {
+      "id": "skill-javascript",
+      "name": "JavaScript",
+      "category": "languages",
+      "group": "",
+      "level": "중",
+      "description": "웹 기능 개발"
+    },
+    {
+      "id": "skill-sql",
+      "name": "SQL",
+      "category": "languages",
+      "group": "",
+      "level": "중",
+      "description": "데이터 조회·처리"
+    },
+    {
+      "id": "skill-powershell",
+      "name": "PowerShell",
+      "category": "languages",
+      "group": "",
+      "level": "중",
+      "description": "Windows 관리·작업 자동화"
+    },
+    {
+      "id": "skill-bash",
+      "name": "Bash",
+      "category": "languages",
+      "group": "",
+      "level": "중",
+      "description": "셸 스크립트·작업 자동화"
+    },
+    {
+      "id": "skill-vscode",
+      "name": "VS Code",
+      "category": "engineering",
+      "group": "development",
+      "level": "중",
+      "description": "코드 작성·편집"
+    },
+    {
+      "id": "skill-codex",
+      "name": "Codex",
+      "category": "engineering",
+      "group": "development",
+      "level": "중",
+      "description": "AI 기반 개발 지원"
+    },
+    {
+      "id": "skill-git",
+      "name": "Git",
+      "category": "engineering",
+      "group": "development",
+      "level": "중",
+      "description": "코드 버전 관리"
+    },
+    {
+      "id": "skill-github",
+      "name": "GitHub",
+      "category": "engineering",
+      "group": "development",
+      "level": "중",
+      "description": "코드 저장·협업"
+    },
+    {
+      "id": "skill-wireshark",
+      "name": "Wireshark",
+      "category": "engineering",
+      "group": "security-analysis",
+      "level": "중",
+      "description": "네트워크 패킷 분석"
+    },
+    {
+      "id": "skill-nmap",
+      "name": "Nmap",
+      "category": "engineering",
+      "group": "security-analysis",
+      "level": "중",
+      "description": "네트워크 탐색·점검"
+    },
+    {
+      "id": "skill-burp",
+      "name": "Burp Suite",
+      "category": "engineering",
+      "group": "security-analysis",
+      "level": "하",
+      "description": "웹 보안 테스트"
+    },
+    {
+      "id": "skill-siem",
+      "name": "SIEM",
+      "category": "engineering",
+      "group": "security-solutions",
+      "level": "중",
+      "description": "보안 로그·이벤트 분석"
+    },
+    {
+      "id": "skill-nac",
+      "name": "NAC",
+      "category": "engineering",
+      "group": "security-solutions",
+      "level": "중",
+      "description": "네트워크 접근 제어"
+    },
+    {
+      "id": "skill-fw",
+      "name": "FW",
+      "category": "engineering",
+      "group": "security-solutions",
+      "level": "중",
+      "description": "방화벽·통신 제어"
+    },
+    {
+      "id": "skill-waf",
+      "name": "WAF",
+      "category": "engineering",
+      "group": "security-solutions",
+      "level": "중",
+      "description": "웹 애플리케이션 방화벽"
+    },
+    {
+      "id": "skill-wips",
+      "name": "WIPS",
+      "category": "engineering",
+      "group": "security-solutions",
+      "level": "중",
+      "description": "무선 침입 방지"
+    },
+    {
+      "id": "skill-vmware",
+      "name": "VMware",
+      "category": "engineering",
+      "group": "systems",
+      "level": "중",
+      "description": "가상 머신 환경"
+    },
+    {
+      "id": "skill-docker",
+      "name": "Docker",
+      "category": "engineering",
+      "group": "systems",
+      "level": "중",
+      "description": "컨테이너 환경"
+    },
+    {
+      "id": "skill-linux",
+      "name": "Linux",
+      "category": "engineering",
+      "group": "systems",
+      "level": "중",
+      "description": "Linux 운영체제"
+    },
+    {
+      "id": "skill-kali",
+      "name": "Kali Linux",
+      "category": "engineering",
+      "group": "systems",
+      "level": "중",
+      "description": "보안 점검용 Linux 환경"
+    },
+    {
+      "id": "skill-cloudflare",
+      "name": "Cloudflare",
+      "category": "engineering",
+      "group": "cloud-data",
+      "level": "중",
+      "description": "DNS·웹 서비스 보호"
+    },
+    {
+      "id": "skill-dbeaver",
+      "name": "DBeaver",
+      "category": "engineering",
+      "group": "cloud-data",
+      "level": "중",
+      "description": "데이터베이스 관리 도구"
+    }
+  ],
   "education": [
     {
       "id": "edu-asu",

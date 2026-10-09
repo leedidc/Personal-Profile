@@ -15,6 +15,24 @@
   let pendingRequest = null;
   let conversationVersion = 0;
 
+  function updateVisibleViewport() {
+    if (!panel.open) {
+      return;
+    }
+    const viewport = window.visualViewport;
+    const keyboardOpen =
+      viewport && viewport.scale === 1 && window.innerHeight - viewport.height > 120;
+    panel.classList.toggle('is-keyboard-open', Boolean(keyboardOpen));
+    if (keyboardOpen) {
+      // 가상 키보드가 가린 영역을 제외한 화면 안에 입력창을 배치합니다.
+      panel.style.setProperty('--chat-viewport-height', viewport.height + 'px');
+      panel.style.setProperty('--chat-viewport-top', viewport.offsetTop + 'px');
+    }
+  }
+  window.visualViewport?.addEventListener('resize', updateVisibleViewport);
+  window.visualViewport?.addEventListener('scroll', updateVisibleViewport);
+  window.addEventListener('resize', updateVisibleViewport);
+
   function updateControls() {
     getElement('ai-chat-send').disabled = Boolean(pendingRequest) || !input.value.trim();
     for (const button of panel.querySelectorAll('[data-question], .ai-chat-retry')) {
@@ -120,6 +138,7 @@
       closePanel();
     } else {
       panel.show();
+      updateVisibleViewport();
       launcher.setAttribute('aria-expanded', 'true');
       scrollToLatest();
       input.focus();

@@ -268,6 +268,11 @@
     flex-direction: column;
     gap: 12px;
   }
+  .posts-filters input,
+  .posts-filters select {
+    min-height: 44px;
+    font-size: 16px;
+  }
   .posts-table thead {
     display: none;
   }

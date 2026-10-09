@@ -105,7 +105,7 @@
     }
     const ids = new Set();
     for (const section of sections) {
-      const rows = data[section.key];
+      const rows = section.key === 'skills' && data.skills === undefined ? [] : data[section.key];
       if (!Array.isArray(rows) || rows.length > 500) {
         throw new Error(section.title + ' 목록을 확인해 주세요.');
       }
@@ -120,6 +120,10 @@
           throw new Error('항목 ID가 올바르지 않습니다.');
         }
         ids.add(row.id);
+        if (section.key === 'skills') {
+          PortfolioSkills.validateSkill(row);
+          continue;
+        }
         for (const key of ['name', 'subtitle', 'period', 'status', 'summary']) {
           if (typeof row[key] !== 'string' || row[key].length > 5000) {
             throw new Error(section.title + ' 내용을 확인해 주세요.');
@@ -467,20 +471,26 @@
   function renderPortfolio(root, data, base = './', prefix = '') {
     validatePortfolio(data);
     root.replaceChildren();
-    sections.forEach((section, index) => {
+    sections.forEach((section) => {
+      const rows = data[section.key] || [];
+      if (section.key === 'skills' && !rows.length) {
+        return;
+      }
       const block = createElement('section', 'resume-section');
       block.id = prefix + section.key;
       const heading = createElement('div', 'section-heading');
       const title = createElement('h2');
       title.append(
-        createElement('span', 'section-index', String(index + 1).padStart(2, '0')),
+        createElement('span', 'section-index', String(root.children.length + 1).padStart(2, '0')),
         document.createTextNode(section.title),
       );
-      const count = createElement('span', 'section-count', String(data[section.key].length));
-      count.setAttribute('aria-label', data[section.key].length + '개');
+      const count = createElement('span', 'section-count', String(rows.length));
+      count.setAttribute('aria-label', rows.length + '개');
       heading.append(title, count);
       block.append(heading);
-      if (section.key === 'projects') {
+      if (section.key === 'skills') {
+        PortfolioSkills.renderSkills(block, rows, prefix);
+      } else if (section.key === 'projects') {
         for (const [category, title] of [
           ['personal', '개인'],
           ['company', '회사'],
@@ -498,7 +508,7 @@
           block.append(group);
         }
       } else {
-        block.append(table(section, data[section.key], base));
+        block.append(table(section, rows, base));
       }
       root.append(block);
     });

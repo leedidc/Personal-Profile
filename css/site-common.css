@@ -663,6 +663,25 @@ p {
   }
 }
 @media (max-width: 950px) {
+  .portfolio-header .header-inner {
+    flex-wrap: wrap;
+    gap: 0;
+    min-height: auto;
+    padding-top: 13px;
+  }
+  .portfolio-header nav {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .portfolio-header nav a {
+    flex-shrink: 0;
+    min-height: 44px;
+    white-space: nowrap;
+  }
   .page-width,
   .header-inner {
     width: calc(100% - 48px);
@@ -785,7 +804,7 @@ p {
   }
   .resume-table tbody tr {
     display: grid;
-    grid-template-columns: 118px minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
     padding: 18px 16px;
     gap: 14px 12px;
     border-bottom: 1px solid var(--line);
@@ -803,18 +822,18 @@ p {
   .resume-table .name-cell {
     grid-column: 1/-1;
   }
-  .resume-table.award-table .content-cell,
-  .resume-table.education-table .content-cell {
+  .resume-table .content-cell {
     grid-column: 1/-1;
   }
-  .resume-table.education-table .period-cell {
+  .resume-table .period-cell {
     grid-column: 1/-1;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 8px;
   }
-  .resume-table.education-table .period,
-  .resume-table.education-table .badge {
+  .resume-table .period,
+  .resume-table .badge {
     margin-top: 0;
   }
   .resume-table.credential-table .credential-cell {
@@ -840,14 +859,14 @@ p {
     font-size: 13px;
   }
   .row-subtitle {
-    font-size: 10px;
+    font-size: 11px;
   }
   .identity {
     min-height: 42px;
     gap: 12px;
   }
   .period {
-    font-size: 10px;
+    font-size: 11px;
     white-space: normal;
     line-height: 1.8;
   }
@@ -855,14 +874,14 @@ p {
     font-size: 9px;
   }
   .row-summary {
-    font-size: 12px;
+    font-size: 13px;
   }
   .row-details summary {
-    min-height: 30px;
+    min-height: 44px;
   }
   .row-details ul,
   .award-details {
-    font-size: 11px;
+    font-size: 13px;
   }
   .tags span {
     font-size: 9px;
@@ -875,11 +894,11 @@ p {
     padding-bottom: 26px;
   }
   .button {
-    min-height: 42px;
+    min-height: 44px;
   }
   .button.small,
   .button.icon {
-    min-height: 36px;
+    min-height: 44px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

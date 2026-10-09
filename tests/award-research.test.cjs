@@ -17,7 +17,12 @@ function loadPortfolio(fetch) {
     location: { href: 'https://example.test/admin/' },
   });
   context.window = context;
-  for (const name of ['portfolio-config.js', 'portfolio-core.js', 'portfolio-github.js']) {
+  for (const name of [
+    'portfolio-config.js',
+    'portfolio-core.js',
+    'portfolio-skills.js',
+    'portfolio-github.js',
+  ]) {
     vm.runInContext(fs.readFileSync(path.join(__dirname, '../js', name), 'utf8'), context);
   }
   return context;

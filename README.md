@@ -4,7 +4,7 @@
 
 ## 화면
 
-- index.html: 이름·연락처·자기소개·관심분야 아래에 학력, 경력, 자격, 어학, 프로젝트, 대외활동, 수상을 가로형 표로 표시합니다. 모바일에서는 로고·이름 아래에 기간과 내용을 배치합니다.
+- index.html: 이름·연락처·자기소개·관심분야 아래에 학력, 경력, 자격, 어학, SKILL, 프로젝트, 대외활동, 수상을 표시합니다. 모바일에서는 로고·이름과 기간 아래에 내용을 전체 너비로 배치합니다.
 - /admin/ (admin/index.html): 항목 추가·수정·삭제, 순서 변경, 로고 선택·업로드, 프로필 수정, 미리보기, 사이트 저장.
 - html/certification.html: 첫 화면의 자격 목록으로 이동하는 이전 주소입니다.
 - /posts/: 제목·게시일·관리자가 만든 분류를 표시하는 글 목록. 분류 필터와 제목 검색을 지원합니다.
@@ -22,7 +22,7 @@ GitHub Pages는 /admin을 /admin/으로 연결합니다. 저장소의 기존 CNA
 2. Resource owner는 leedidc, Repository access는 **Only select repositories → Personal-Profile**을 선택합니다.
 3. Repository permissions에서 **Contents: Read and write**를 선택합니다. Metadata 읽기 권한도 포함됩니다.
 4. 사이트 주소 뒤에 /admin을 붙이고 토큰으로 로그인합니다.
-5. 학력·경력·자격·어학·프로젝트·대외활동·수상 중 하나를 선택하고 **+ 추가** 또는 **수정**을 누릅니다.
+5. 학력·경력·자격·어학·SKILL·프로젝트·대외활동·수상 중 하나를 선택하고 **+ 추가** 또는 **수정**을 누릅니다.
 6. 로고는 기존 목록에서 선택하거나 PNG·JPG·WebP 파일을 업로드할 수 있습니다. 5MB 이하 이미지를 최대 160px로 줄여 데이터에 포함합니다. HTTPS 이미지 주소도 사용할 수 있습니다.
 7. **적용**으로 편집 내용을 반영하고 **미리보기**로 확인합니다. **사이트에 저장**을 누르면 main 브랜치의 data/portfolio.json이 커밋되며 GitHub Pages 배포 후 공개 화면에 반영됩니다.
 
@@ -50,11 +50,33 @@ GitHub Pages는 /admin을 /admin/으로 연결합니다. 저장소의 기존 CNA
 
 API 계약: [GitHub 저장소 콘텐츠 API](https://docs.github.com/en/rest/repos/contents#create-or-update-file-contents).
 
+## SKILL
+
+상단 **SKILL**에서 OA·언어·공학 도구 탭을 선택합니다. 선택한 분류의 도구 이름·용도·숙련도만 표로 표시하며, 항목이 많아지면 표 안에서 세로로 스크롤합니다. 공학 도구는 다음 다섯 분류로 나뉩니다.
+
+| 세부 분류         | 도구                              |
+| ----------------- | --------------------------------- |
+| 개발 · 협업       | VS Code, Codex, Git, GitHub       |
+| 보안 분석 · 진단  | Wireshark, Nmap, Burp Suite       |
+| 보안 솔루션       | SIEM, NAC, FW, WAF, WIPS          |
+| 시스템 · 가상화   | VMware, Docker, Linux, Kali Linux |
+| 클라우드 · 데이터 | Cloudflare, DBeaver               |
+
+2026.10.09 제공한 27개 항목을 반영했습니다. Word·PowerPoint·한글(HWP)은 **상**, Burp Suite는 **하**, Excel은 **미정**, 나머지는 **중**입니다. 숙련도는 본인 평가이며 임의의 백분율로 환산하지 않습니다. 용도 설명은 도구의 일반적인 역할입니다.
+
+관리자의 **SKILL → 추가·수정**에서 이름·분류·공학 도구 세부 분류·숙련도·용도를 편집합니다. 삭제·표시 순서·미리보기·사이트 저장도 다른 목록과 같습니다. 각 분류 안에서는 저장한 배열 순서를 유지합니다. 데이터는 `data/portfolio.json`의 `skills`에 보관하며, 이전 데이터에 `skills`가 없거나 빈 배열이면 공개 SKILL 영역을 숨깁니다. 기본 항목을 자동으로 복구하지 않습니다.
+
+## 모바일 화면
+
+좁은 화면에서는 날짜와 설명을 세로로 배치해 경력·학력·수상 내용을 전체 너비로 읽을 수 있습니다. 상단 메뉴는 950px 이하에서 별도 줄로 옮겨 가로로 넘깁니다. SKILL은 분류별 짧은 표를 유지하고 공학 도구 버튼은 화면 너비에 맞춰 줄바꿈합니다. 주요 버튼의 터치 영역과 관리자·글 검색 입력 크기도 모바일에 맞춥니다.
+
+챗봇은 [VisualViewport](https://developer.mozilla.org/en-US/docs/Web/API/VisualViewport)의 높이와 위치 변경을 감지해 가상 키보드가 차지한 영역 위에 입력창을 배치합니다. 이때 추천 질문은 잠시 숨깁니다. 해당 API가 없는 브라우저에서는 기본 반응형 배치를 사용합니다.
+
 ## AI 챗봇
 
 첫 화면 오른쪽 아래의 **포트폴리오에 대해 질문**을 누르면 AI 안내 창이 열립니다. 현재 하는 일·보유 자격증·연구와 수상·주요 프로젝트를 추천 질문으로 제공하며, 직접 입력한 후속 질문도 최근 네 차례의 대화를 참고합니다. Enter로 보내고 Shift+Enter로 줄바꿈하며, Esc로 닫습니다. **새 대화**는 진행 중인 요청을 취소하고 이 화면의 대화 기록을 지웁니다.
 
-답변 자료는 현재 페이지에서 불러온 `data/portfolio.json`입니다. 공개된 소개·학력·경력·자격·어학·프로젝트·활동·연구 슬라이드를 전달하며 연락처, 로고, 자격·어학 번호는 제외합니다. 관리자가 저장한 최신 내용·목록 순서는 페이지를 다시 불러오면 챗봇에도 반영됩니다. 질문과 공개 이력은 AI 서비스로 전송됩니다. 프런트엔드는 대화를 메모리에만 보관하고 브라우저 저장소에 남기지 않으며, AI 서비스의 보관 정책은 별도입니다.
+답변 자료는 현재 페이지에서 불러온 `data/portfolio.json`입니다. 공개된 소개·학력·경력·자격·어학·스킬과 숙련도·프로젝트·활동·연구 슬라이드를 전달하며 연락처, 로고, 자격·어학 번호는 제외합니다. 관리자가 저장한 최신 내용·목록 순서는 페이지를 다시 불러오면 챗봇에도 반영됩니다. 미정인 숙련도는 추정하지 않도록 안내합니다. 질문과 공개 이력은 AI 서비스로 전송됩니다. 프런트엔드는 대화를 메모리에만 보관하고 브라우저 저장소에 남기지 않으며, AI 서비스의 보관 정책은 별도입니다.
 
 기존 Cloudflare Worker `https://chatbot.leedidc1227.workers.dev`에 `POST {message}`로 요청하고 `{reply}`를 받습니다. 주소·30초 제한·질문 길이·대화 범위는 `js/portfolio-config.js`의 `chatbot`에서 설정합니다. 질문은 1,000자 이내, 답변은 12,000자 이내이며 자료와 대화가 합쳐 60,000자를 넘으면 전송하지 않습니다. 답변은 HTML로 해석하지 않고 텍스트로 표시합니다.
 
@@ -86,22 +108,27 @@ API 키와 Worker 서버 코드는 이 저장소에 없습니다. [Google의 API
 
 직접 편집할 때는 아래 표에서 수정할 부분에 맞는 파일을 찾으면 됩니다. 파일명은 기능 이름(`portfolio`, `posts`)과 역할(`config`, `editor`, `github`, `drafts`)을 조합합니다. JSON 배열의 순서가 화면 순서이므로 이름·날짜를 수정할 때 배열을 정렬하지 않습니다.
 
-| 수정할 부분                       | 열 파일                                    | 찾을 항목                                        |
-| --------------------------------- | ------------------------------------------ | ------------------------------------------------ |
-| 이름·연락처·자기소개              | data/portfolio.json                        | profile                                          |
-| 자격·어학·대외활동 내용과 순서    | data/portfolio.json                        | certifications, languages, activities            |
-| 메뉴 이름·관리자 필드·로고 선택지 | js/portfolio-config.js                     | sections, editorLabels, logoOptions              |
-| 색상·글꼴·상단 메뉴·포트폴리오 표 | css/site-common.css                        | :root와 각 화면 클래스                           |
-| 관리자 로그인·입력란·편집 창      | css/admin-common.css                       | .login-card, .field, dialog                      |
-| 포트폴리오 편집 동작              | js/portfolio-editor.js                     | 항목 편집·순서 변경·미리보기 함수                |
-| GitHub 불러오기·저장              | js/portfolio-github.js, js/posts-github.js | loadPortfolio, savePortfolio, loadSnapshot, save |
-| 글 읽기·글 편집 화면              | css/posts.css, css/posts-editor.css        | 본문과 편집기 스타일                             |
+| 수정할 부분                       | 열 파일                                                               | 찾을 항목                                        |
+| --------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------ |
+| 이름·연락처·자기소개              | data/portfolio.json                                                   | profile                                          |
+| 자격·어학·대외활동 내용과 순서    | data/portfolio.json                                                   | certifications, languages, activities            |
+| 스킬 이름·용도·숙련도·순서        | data/portfolio.json                                                   | skills                                           |
+| 스킬 분류·세부 분류·숙련도 선택지 | js/portfolio-config.js                                                | skillCategories, skillGroups, skillLevels        |
+| 스킬 탭·표·관리자 편집            | js/portfolio-skills.js, js/skills-editor.js, css/portfolio-skills.css | 표시·검증·편집 함수와 스타일                     |
+| 메뉴 이름·관리자 필드·로고 선택지 | js/portfolio-config.js                                                | sections, editorLabels, logoOptions              |
+| 색상·글꼴·상단 메뉴·포트폴리오 표 | css/site-common.css                                                   | :root와 각 화면 클래스                           |
+| 관리자 로그인·입력란·편집 창      | css/admin-common.css                                                  | .login-card, .field, dialog                      |
+| 포트폴리오 편집 동작              | js/portfolio-editor.js                                                | 항목 편집·순서 변경·미리보기 함수                |
+| GitHub 불러오기·저장              | js/portfolio-github.js, js/posts-github.js                            | loadPortfolio, savePortfolio, loadSnapshot, save |
+| 글 읽기·글 편집 화면              | css/posts.css, css/posts-editor.css                                   | 본문과 편집기 스타일                             |
 
 세부 역할은 다음과 같습니다.
 
-- data/portfolio.json: 프로필과 일곱 목록의 단일 데이터 원본. 자기소개는 `profile.introduction`, 관심분야는 `profile.interests` 배열, 영문 전공·학위는 학력 항목의 `summaryEnglish`에서 관리합니다.
+- data/portfolio.json: 프로필과 여덟 목록의 단일 데이터 원본. 자기소개는 `profile.introduction`, 관심분야는 `profile.interests` 배열, 영문 전공·학위는 학력 항목의 `summaryEnglish`, 스킬은 `skills`에서 관리합니다.
 - js/portfolio-config.js: 화면 분류, 편집 필드 이름, 기본 로고, GitHub 저장 위치, 챗봇 연결 설정.
 - js/portfolio-core.js: 데이터 검증, 안전한 URL·텍스트 처리, 공개 화면과 미리보기의 공통 프로필·표 표시.
+- js/portfolio-skills.js, css/portfolio-skills.css: 스킬 데이터 검증과 공개 화면·미리보기의 분류 탭, 세부 분류, 숙련도 표.
+- js/skills-editor.js: 스킬 전용 편집창의 분류·숙련도 선택과 입력 처리.
 - js/portfolio.js: 공개 화면과 현재 메뉴 표시.
 - js/ai-chatbot.js, css/ai-chatbot.css: 챗봇 창, 추천 질문, 대화 표시, 초기화와 모바일 레이아웃.
 - js/ai-chatbot-service.js: 공개 이력 선별, 질문·대화 구성, 기존 AI 서버 통신과 오류 처리.
@@ -176,6 +203,7 @@ node --test tests/credential-number.test.cjs
 node --test tests/posts.test.cjs
 node --test tests/award-research.test.cjs
 node --test tests/ai-chatbot.test.cjs
+node --test tests/skills.test.cjs
 ```
 
 브라우저 검증:
@@ -187,6 +215,10 @@ uv run --with playwright python -X utf8 tests/browser_check.py
 Windows에 설치된 Chrome을 우선 사용하며, 그 외 환경에서는 Playwright Chromium이 필요합니다. 테스트는 GitHub 응답을 모의하므로 실제 저장소를 변경하지 않습니다. 공개 목록·이미지, 1440/390/320px 화면, 이수과목·상세 펼치기, 어학 등록번호 마스킹, 관리자 접근, 추가·수정·삭제·순서 선택, 로고 업로드, 프로필 전체 편집, 미리보기, 권한 오류·충돌 시 편집 유지, UTF-8 저장, 로그아웃·재로그인 후 순서와 프로필 유지를 확인합니다. 자기소개·관심분야의 HTML 입력을 텍스트로 표시하는지, 빈 항목을 숨기는지, 새 필드가 없는 이전 데이터도 열리는지 검증합니다. 캡처는 Git에서 제외한 .test-artifacts/에 저장됩니다.
 
 챗봇 검사는 `tests/ai_chatbot_browser_check.py`에서 추천 질문·후속 질문·HTML 입력의 텍스트 표시·429 오류·재시도·요청 중 초기화·한글 입력·모바일 너비·대화 기록을 확인합니다. `tests/ai-chatbot.test.cjs`는 최신 자료의 전달·연락처와 번호 제외·대화 길이·오류 구분·취소·시간 제한을 검사합니다. 자동 검사에서는 AI 서버를 모의하므로 API 사용량이 발생하지 않습니다.
+
+스킬 검사는 `tests/skills_browser_check.py`에서 모든 분류의 항목·숙련도·순서, 키보드 탭 이동, 관리자 추가·수정·삭제·순서 변경·미리보기·SHA 저장과 다른 데이터 보존을 확인합니다. `tests/skills.test.cjs`는 데이터 검증과 이전 데이터 호환을 검사합니다.
+
+`tests/mobile_layout_check.py`는 320·360·390·430·681·768·844px의 공개·글·관리자 화면과 가로 화면에서 가로 넘침을 검사합니다. 경력 내용의 너비와 키보드 표시를 모의한 챗봇 입력 영역도 확인합니다. 두 검사는 `tests/browser_check.py`에 포함됩니다. Chrome 모바일 에뮬레이션을 사용하며 실제 iOS·Android 기기의 키보드 동작을 대신 검증하지는 않습니다.
 
 ## 코드 편집 기준
 

@@ -294,7 +294,7 @@ dialog::backdrop {
     padding: 12px;
   }
   .admin-header .header-inner {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 10px;
   }
   .admin-header-actions {
@@ -337,6 +337,10 @@ dialog::backdrop {
     align-self: flex-end;
     flex-shrink: 1;
     max-width: 100%;
+  }
+  .order-select {
+    min-height: 44px;
+    font-size: 16px;
   }
   .editor-row .row-name {
     font-size: 13px;

@@ -90,18 +90,26 @@
 
   function renderEditorList() {
     const section = sections.find((item) => item.key === sectionKey);
-    getElement('section-title').textContent = section.title + ' · ' + data[sectionKey].length;
+    const rows = data[sectionKey] || [];
+    getElement('section-title').textContent = section.title + ' · ' + rows.length;
     getElement('add-item').setAttribute('aria-label', section.title + ' 추가');
     for (const button of getElement('editor-tabs').children) {
       button.setAttribute('aria-pressed', String(button.dataset.section === sectionKey));
     }
     const list = getElement('editor-list');
     list.replaceChildren();
-    data[sectionKey].forEach((row, index, rows) => {
+    rows.forEach((row, index, rows) => {
       const article = createElement('article', 'editor-row');
       const identity = createElement('div', 'identity');
       const text = createElement('div', 'identity-text');
       text.append(createElement('span', 'row-name', row.name));
+      if (sectionKey === 'skills') {
+        text.append(
+          createElement('span', 'row-subtitle', PortfolioSkills.categoryLabel(row)),
+          createElement('span', 'row-summary', '숙련도 ' + row.level),
+          createElement('span', 'row-subtitle', row.description),
+        );
+      }
       if (row.subtitle) {
         text.append(createElement('span', 'row-subtitle', row.subtitle));
       }
@@ -118,7 +126,10 @@
         .filter(Boolean)
         .join(' · ');
       text.append(createElement('span', 'row-subtitle', meta));
-      identity.append(createLogo(row, '../'), text);
+      if (sectionKey !== 'skills') {
+        identity.append(createLogo(row, '../'));
+      }
+      identity.append(text);
       const actions = createElement('div', 'editor-actions');
       const move = (direction) => moveItem(row.id, index + direction);
       const up = createActionButton('↑', row.name + ' 위로 이동', () => move(-1), 'icon');
@@ -147,7 +158,7 @@
       article.append(identity, actions);
       list.append(article);
     });
-    if (!data[sectionKey].length) {
+    if (!rows.length) {
       list.append(createElement('p', 'empty-row', '등록된 항목이 없습니다.'));
     }
   }
@@ -248,6 +259,10 @@
   });
 
   function openItemDialog(row) {
+    if (sectionKey === 'skills') {
+      SkillsEditor.open(row, applyRow);
+      return;
+    }
     uploadVersion++;
     getElement('apply-item').disabled = false;
     editingId = row?.id || null;
@@ -409,23 +424,27 @@
         row.maskedNumber = maskCredentialNumber(String(fields.get('maskedNumber') || ''));
         getElement('credential-number').value = row.maskedNumber;
       }
-      const next = structuredClone(data);
-      const index = next[sectionKey].findIndex((item) => item.id === editingId);
-      if (index < 0) {
-        next[sectionKey].push(row);
-      } else {
-        next[sectionKey][index] = row;
-      }
-      validatePortfolio(next);
-      data = next;
-      setDirty();
-      renderEditorList();
+      applyRow(row);
       getElement('item-dialog').close();
-      showStatus('변경사항을 적용했습니다. ‘사이트에 저장’을 누르면 반영됩니다.');
     } catch (error) {
       getElement('item-error').textContent = error.message;
     }
   });
+  function applyRow(row) {
+    const next = structuredClone(data);
+    const rows = (next[sectionKey] ||= []);
+    const index = rows.findIndex((item) => item.id === row.id);
+    if (index < 0) {
+      rows.push(row);
+    } else {
+      rows[index] = row;
+    }
+    validatePortfolio(next);
+    data = next;
+    setDirty();
+    renderEditorList();
+    showStatus('변경사항을 적용했습니다. ‘사이트에 저장’을 누르면 반영됩니다.');
+  }
   getElement('edit-profile').addEventListener('click', () => {
     getElement('profile-form').reset();
     for (const [key, value] of Object.entries(data.profile)) {
