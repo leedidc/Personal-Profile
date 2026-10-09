@@ -17,6 +17,7 @@ from visual_effects_browser_check import check_visual_effects
 from admin_auth_browser_check import check_admin_auth
 from training_browser_check import check_training
 from section_order_browser_check import check_section_order
+from visitor_info_browser_check import check_visitor_info, ENDPOINT as VISITOR_ENDPOINT
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACTS = ROOT / ".test-artifacts"
@@ -71,6 +72,7 @@ try:
         chrome = Path(os.environ.get("PROGRAMFILES", r"C:\Program Files")) / "Google/Chrome/Application/chrome.exe"
         browser = p.chromium.launch(executable_path=str(chrome) if chrome.exists() else None, headless=True)
         context = browser.new_context(viewport={"width": 1440, "height": 1000}, device_scale_factor=1)
+        context.route(VISITOR_ENDPOINT, lambda route: route.fulfill(json={"ip": "192.0.2.10", "country": "KR"}))
         context.on("page", lambda page: page.on("pageerror", lambda error: errors.append(str(error))))
         page = context.new_page()
         page.goto(BASE)
@@ -404,6 +406,7 @@ try:
         check_admin_auth(browser, BASE, ROOT, ARTIFACTS)
         check_training(browser, BASE, ROOT, ARTIFACTS)
         check_section_order(browser, BASE, ROOT, ARTIFACTS)
+        check_visitor_info(browser, BASE, ARTIFACTS)
         assert not errors, errors
         browser.close()
         print("PASS: public tables, logos, responsive layouts, expandable details, admin access, add/edit/delete/reorder, logo upload, preview, failed save, conflict, Unicode persistence, logout and read-only access.")

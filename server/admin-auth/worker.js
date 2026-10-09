@@ -1,6 +1,7 @@
 import { createHash, randomBytes, timingSafeEqual } from 'node:crypto';
 import { verifyPassword } from './password.js';
 import { handleContent, RequestError, requireValue } from './content.js';
+import { handleVisitor } from './visitor.js';
 
 const cookieName = '__Host-portfolio-admin';
 const sessionLifetime = 2 * 60 * 60 * 1000;
@@ -263,6 +264,9 @@ export class AdminState {
 export default {
   fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname === '/api/visitor') {
+      return handleVisitor(request, env);
+    }
     if (!url.pathname.startsWith('/api/')) {
       if (url.pathname === '/') {
         return Response.redirect(url.origin + '/admin/', 302);

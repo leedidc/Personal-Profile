@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/ai-chatbot.css" />
     <link rel="stylesheet" href="css/portfolio-skills.css" />
     <link rel="stylesheet" href="css/portfolio-effects.css" />
+    <link rel="stylesheet" href="css/visitor-info.css" />
     <script src="js/portfolio-config.js" defer></script>
     <script src="js/portfolio-core.js" defer></script>
     <script src="js/portfolio-skills.js" defer></script>
@@ -24,6 +25,7 @@
     <script src="js/portfolio-effects.js" defer></script>
     <script src="js/portfolio-navigation.js" defer></script>
     <script src="js/portfolio.js" defer></script>
+    <script src="js/visitor-info.js" defer></script>
   </head>
   <body class="portfolio-page">
     <a class="skip-link" href="#main">본문으로 이동</a>
@@ -46,6 +48,23 @@
       </div>
     </header>
     <main id="main" class="page-width">
+      <aside id="visitor-info" class="visitor-info" aria-labelledby="visitor-heading" hidden>
+        <h2 id="visitor-heading">방문자 정보</h2>
+        <dl>
+          <div class="visitor-local-time">
+            <dt>현재 시간 · 내 기기 기준</dt>
+            <dd><time id="visitor-time"></time></dd>
+          </div>
+          <div>
+            <dt>공인 IP</dt>
+            <dd id="visitor-ip">확인 중…</dd>
+          </div>
+          <div>
+            <dt>접속 국가</dt>
+            <dd id="visitor-country">확인 중…</dd>
+          </div>
+        </dl>
+      </aside>
       <div id="profile"></div>
       <div id="portfolio"><p class="load-message" role="status">불러오는 중…</p></div>
       <noscript><p>포트폴리오를 보려면 JavaScript를 켜 주세요.</p></noscript>

@@ -4,6 +4,8 @@
 관리자 주소: https://personal-profile-admin-auth.leedidc1227.workers.dev/admin/
 현재 계정에서 공개 사이트 도메인을 관리하지 않으므로 관리자 화면과 인증 API를 같은 workers.dev 주소에 배포합니다.
 worker.js: 로그인 제한, 세션, CSRF 및 출처 검사
+visitor.js: GET /api/visitor에서 요청자의 공인 IP와 접속 국가만 반환 (저장·로깅·캐시 없음)
+공개 사이트의 접속 정보 요청은 PUBLIC_ORIGIN에 설정한 출처만 CORS로 허용하며 관리자 API 출처 검사는 그대로 유지합니다.
 password.js: scrypt 비밀번호 해시 (N=16384, r=8, p=5)
 content.js: 기존 검증 코드를 공유하며 data/portfolio.json과 data/posts/만 저장
 wrangler.json: 관리자 주소, 사용자 이름, 정적 화면과 Durable Object 연결

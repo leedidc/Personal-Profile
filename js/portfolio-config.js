@@ -96,6 +96,11 @@
     publicOrigin: 'https://lee.chanhyeong.kro.kr',
   };
 
+  const visitor = {
+    endpoint: admin.origin + '/api/visitor',
+    requestTimeoutMs: 6000,
+  };
+
   const skillCategories = [
     { value: 'office', label: 'OA' },
     { value: 'languages', label: '언어' },
@@ -117,6 +122,7 @@
     github,
     chatbot,
     admin,
+    visitor,
     skillCategories,
     skillGroups,
     skillLevels,
