@@ -190,7 +190,7 @@ def check_posts(browser, base, root, artifacts):
     expect(page.locator("#status")).to_contain_text("최신 목록")
     page.locator("#publish-post").click()
     expect(page.locator("#status")).to_contain_text("이전 버전")
-    page.locator("#published-list .sidebar-post").first.click()
+    page.locator("#published-list .sidebar-post").filter(has_text="수정한 제목").click()
     expect(page.locator("#post-title")).to_have_value("수정한 제목")
 
     for width in [1440, 390, 320]:

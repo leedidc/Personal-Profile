@@ -1,0 +1,49 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="640"
+  height="640"
+  viewBox="0 0 640 640"
+  role="img"
+  aria-labelledby="title desc"
+>
+  <title id="title">HTTP/2와 HTTP/3의 암호화 및 전송 계층 비교</title>
+  <desc id="desc">
+    HTTPS의 HTTP/2는 TLS 레코드와 TCP를 사용한다. HTTP/3는 UDP 기반 QUIC 위에서 동작한다. QUIC은 TLS
+    1.3 핸드셰이크를 사용하지만 TLS 레코드 대신 QUIC 패킷을 보호한다.
+  </desc>
+  <rect width="640" height="640" rx="20" fill="#f0f6f8" />
+  <g font-family="Malgun Gothic, sans-serif" fill="#152a3d" text-anchor="middle">
+    <text x="320" y="53" font-size="28" font-weight="700">HTTP/3는 다른 처리가 필요하다</text>
+    <text x="320" y="91" font-size="22" fill="#486473">HTTPS에서의 프로토콜 계층 비교</text>
+    <text x="173" y="147" font-size="26" font-weight="700">HTTP/2</text>
+    <text x="467" y="147" font-size="26" font-weight="700">HTTP/3</text>
+    <g fill="#fff" stroke="#b2d4d7" stroke-width="2">
+      <rect x="40" y="175" width="265" height="75" rx="10" />
+      <rect x="335" y="175" width="265" height="75" rx="10" />
+      <rect x="40" y="365" width="265" height="70" rx="10" />
+      <rect x="335" y="365" width="265" height="70" rx="10" />
+      <rect x="40" y="450" width="265" height="70" rx="10" />
+      <rect x="335" y="450" width="265" height="70" rx="10" />
+    </g>
+    <rect x="40" y="265" width="265" height="85" rx="10" fill="#152a3d" />
+    <rect x="335" y="265" width="265" height="85" rx="10" fill="#187e88" />
+    <g font-size="25">
+      <text x="173" y="221">HTTP/2 프레임</text>
+      <text x="467" y="221">HTTP/3 프레임</text>
+      <text x="173" y="300" fill="#fff">TLS</text>
+      <text x="467" y="300" fill="#fff">QUIC</text>
+      <text x="173" y="409">TCP</text>
+      <text x="467" y="409">UDP</text>
+      <text x="173" y="494">IP</text>
+      <text x="467" y="494">IP</text>
+    </g>
+    <text x="173" y="330" font-size="22" fill="#c9e2ec">TLS 레코드 보호</text>
+    <text x="467" y="330" font-size="22" fill="#fff">QUIC 패킷 보호</text>
+    <text x="320" y="568" font-size="24" fill="#12616a" font-weight="700">
+      QUIC은 TLS 1.3으로 키를 설정한다
+    </text>
+    <text x="320" y="603" font-size="22" fill="#486473">
+      TLS 레코드 계층을 그대로 쓰지는 않는다
+    </text>
+  </g>
+</svg>

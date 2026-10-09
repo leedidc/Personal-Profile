@@ -4,6 +4,10 @@
     {
       "id": "microsoft",
       "name": "Microsoft"
+    },
+    {
+      "id": "network-security",
+      "name": "네트워크 보안"
     }
   ],
   "posts": [
@@ -24,6 +28,12 @@
       "title": "SC-200 Study Notes",
       "date": "2026-06-01",
       "categoryId": "microsoft"
+    },
+    {
+      "id": "ssl-tls-visibility-principles",
+      "title": "SSL/TLS 가시화 원리",
+      "date": "2026-10-10",
+      "categoryId": "network-security"
     }
   ]
 }
