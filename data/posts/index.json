@@ -12,12 +12,6 @@
   ],
   "posts": [
     {
-      "id": "legacy-1",
-      "title": "SC-200 Study Notes",
-      "date": "2026-06-01",
-      "categoryId": "microsoft"
-    },
-    {
       "id": "ssl-tls-visibility-principles",
       "title": "SSL/TLS 가시화 원리",
       "date": "2026-10-10",
