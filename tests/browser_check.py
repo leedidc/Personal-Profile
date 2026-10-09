@@ -92,6 +92,11 @@ try:
         expect(page.locator("#projects .project-group")).to_have_count(2)
         expect(page.locator("#awards tbody tr")).to_have_count(4)
         expect(page.locator("#awards tbody tr").first).to_contain_text("행정안전부 장관상")
+        for index, award in enumerate(original["awards"]):
+            award_row = page.locator("#awards tbody tr").nth(index)
+            expect(award_row.locator(".award-details li")).to_have_text(award["details"])
+            for detail in award_row.locator(".award-details li").all():
+                expect(detail).to_be_visible()
         page.locator("#experience details summary").first.click()
         expect(page.locator("#experience details").first).to_have_attribute("open", "")
         assert "8,000" in page.locator("#experience details").first.inner_text()
@@ -102,6 +107,7 @@ try:
         assert page.evaluate("Array.from(document.images).every(img => img.naturalWidth > 0)")
         no_overflow(page)
         page.screenshot(path=str(ARTIFACTS / "desktop.png"), full_page=True)
+        page.locator("#awards").screenshot(path=str(ARTIFACTS / "award-details-desktop.png"))
         for width in [390, 320]:
             page.set_viewport_size({"width": width, "height": 844})
             page.goto(BASE)
@@ -109,6 +115,7 @@ try:
             no_overflow(page)
         page.set_viewport_size({"width": 390, "height": 844})
         page.screenshot(path=str(ARTIFACTS / "mobile.png"), full_page=True)
+        page.locator("#awards").screenshot(path=str(ARTIFACTS / "award-details-mobile.png"))
         page.goto(BASE + "/html/certification.html")
         page.wait_for_url("**/#certifications")
         expect(page.locator("#certifications")).to_be_visible()
@@ -240,6 +247,8 @@ try:
         admin.locator("#preview").click()
         expect(admin.locator("#preview-education tbody tr")).to_have_count(3)
         expect(admin.locator("#preview-awards tbody tr")).to_have_count(4)
+        expect(admin.locator("#preview-awards tbody tr").first.locator(".award-details")).to_have_text("검증용 수상 내용")
+        expect(admin.locator("#preview-awards tbody tr").first.locator(".award-details")).to_be_visible()
         expect(admin.locator("#preview-certifications .credential-number").last).to_have_text(masked_number)
         assert synthetic_number not in admin.locator("#preview-content").inner_html()
         expect(admin.locator("#preview-languages .credential-number").last).to_have_text(masked_registration)

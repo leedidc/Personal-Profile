@@ -453,17 +453,20 @@ p {
 .row-details[open] .chevron {
   transform: rotate(180deg);
 }
-.row-details ul {
+.row-details ul,
+.award-details {
   margin: 12px 0 3px;
   padding-left: 17px;
   color: #696373;
   font-size: 12px;
   line-height: 1.85;
 }
-.row-details li + li {
+.row-details li + li,
+.award-details li + li {
   margin-top: 8px;
 }
-.row-details li::marker {
+.row-details li::marker,
+.award-details li::marker {
   color: #b2a6d4;
 }
 .tags {
@@ -708,6 +711,9 @@ p {
   .resume-table .name-cell {
     grid-column: 1/-1;
   }
+  .resume-table.award-table .content-cell {
+    grid-column: 1/-1;
+  }
   .resume-table.credential-table .credential-cell {
     grid-column: 1/-1;
     display: flex;
@@ -751,7 +757,8 @@ p {
   .row-details summary {
     min-height: 30px;
   }
-  .row-details ul {
+  .row-details ul,
+  .award-details {
     font-size: 11px;
   }
   .tags span {

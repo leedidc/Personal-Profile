@@ -326,18 +326,23 @@
       content.append(createCourses(row));
     }
     if (row.details.length) {
-      const details = createElement('details', 'row-details');
-      const summary = createElement('summary');
-      summary.setAttribute('aria-label', row.name + ' 상세 내용');
-      summary.append(
-        createElement('span', 'when-closed', '자세히 보기'),
-        createElement('span', 'when-open', '접기'),
-        createElement('span', 'chevron', '⌄'),
-      );
       const list = createElement('ul');
       row.details.forEach((line) => list.append(createElement('li', '', line)));
-      details.append(summary, list);
-      content.append(details);
+      if (section.key === 'awards') {
+        list.className = 'award-details';
+        content.append(list);
+      } else {
+        const details = createElement('details', 'row-details');
+        const summary = createElement('summary');
+        summary.setAttribute('aria-label', row.name + ' 상세 내용');
+        summary.append(
+          createElement('span', 'when-closed', '자세히 보기'),
+          createElement('span', 'when-open', '접기'),
+          createElement('span', 'chevron', '⌄'),
+        );
+        details.append(summary, list);
+        content.append(details);
+      }
     }
     if (row.technologies?.length) {
       const tags = createElement('div', 'tags');
@@ -364,6 +369,9 @@
     const table = createElement('table', 'resume-table');
     if (section.numberLabel) {
       table.classList.add('credential-table');
+    }
+    if (section.key === 'awards') {
+      table.classList.add('award-table');
     }
     table.append(createElement('caption', 'sr-only', caption || section.title));
     const head = createElement('thead');

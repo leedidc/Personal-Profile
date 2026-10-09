@@ -19,7 +19,7 @@
     },
     { key: 'projects', title: '프로젝트', columns: ['프로젝트', '기간', '내용'] },
     { key: 'activities', title: '대외활동', columns: ['기관 · 활동', '기간', '내용'] },
-    { key: 'awards', title: '수상', columns: ['수상명', '수상일', '수여기관'] },
+    { key: 'awards', title: '수상', columns: ['수상명', '수상일', '수여기관 · 수상 내용'] },
   ];
   const logoOptions = [
     ['로고 없음', ''],
