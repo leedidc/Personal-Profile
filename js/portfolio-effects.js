@@ -55,26 +55,16 @@
     const visual = template.content.firstElementChild.cloneNode(true);
     overview.classList.add('has-network-visual');
     overview.append(visual);
-    const toggle = visual.querySelector('.network-motion-toggle');
     const resetTilt = initializeNetworkTilt(visual);
-    let paused = false;
     let visible = false;
 
     function updateMotion() {
-      const enabled = !paused && !reducedMotion.matches;
-      const animating = enabled && visible && !document.hidden;
+      const animating = !reducedMotion.matches && visible && !document.hidden;
       visual.classList.toggle('is-animating', animating);
       if (!animating) {
         resetTilt();
       }
-      toggle.disabled = reducedMotion.matches;
-      toggle.textContent = reducedMotion.matches ? '모션 꺼짐' : paused ? '모션 재생' : '모션 정지';
-      toggle.setAttribute('aria-label', '네트워크 ' + toggle.textContent);
     }
-    toggle.addEventListener('click', () => {
-      paused = !paused;
-      updateMotion();
-    });
     reducedMotion.addEventListener('change', updateMotion);
     document.addEventListener('visibilitychange', updateMotion);
     const observer = new IntersectionObserver((entries) => {
