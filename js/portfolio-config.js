@@ -40,6 +40,7 @@
     ['YBM · TOEIC', 'issuer/ybm.png'],
     ['경찰청 · 경기남부경찰청', 'image/police.png'],
     ['개인정보보호위원회', 'image/pipc.png'],
+    ['한국사회보장정보원', 'image/ssis.png'],
     ['한국정보보호산업협회', 'image/kisia.png'],
     ['행정안전부', 'image/mois.png'],
     ['한국정보보호학회', 'image/kiisc.png'],
