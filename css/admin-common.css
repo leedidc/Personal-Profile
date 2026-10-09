@@ -252,8 +252,47 @@ dialog::backdrop {
 #preview-content .resume-section:first-child {
   padding-top: 25px;
 }
+/* 수상 연구 슬라이드 편집 */
+.research-editor {
+  grid-column: 1 / -1;
+  min-width: 0;
+  padding: 20px;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.research-editor legend {
+  padding-inline: 6px;
+  font-weight: 600;
+  font-size: 14px;
+}
+.research-editor .field,
+.research-editor > .editor-help:last-child {
+  margin-top: 12px;
+}
+.research-slide-editor {
+  margin-block: 18px;
+  padding: 16px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.research-editor-heading {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.research-editor-heading h3 {
+  font-size: 13px;
+}
 /* 모바일 배치 */
 @media (max-width: 680px) {
+  .research-editor,
+  .research-slide-editor {
+    padding: 12px;
+  }
   .admin-header .header-inner {
     flex-wrap: nowrap;
     gap: 10px;

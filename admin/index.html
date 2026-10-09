@@ -14,8 +14,11 @@
     <link rel="icon" href="../image/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="../css/site-common.css" />
     <link rel="stylesheet" href="../css/admin-common.css" />
+    <link rel="stylesheet" href="../css/award-research.css" />
     <script src="../js/portfolio-config.js" defer></script>
     <script src="../js/portfolio-core.js" defer></script>
+    <script src="../js/award-research.js" defer></script>
+    <script src="../js/award-research-editor.js" defer></script>
     <script src="../js/portfolio-github.js" defer></script>
     <script src="../js/portfolio-editor.js" defer></script>
   </head>
@@ -169,6 +172,32 @@
                 maxlength="1000"
               />
             </div>
+            <fieldset id="award-research-fields" class="research-editor" hidden disabled>
+              <legend>연구 내용 슬라이드</legend>
+              <p class="editor-help">
+                수상 항목의 ‘연구 내용 보기’에서 한 장씩 표시합니다. 최대 12장까지 추가할 수 있고,
+                슬라이드가 없으면 버튼이 표시되지 않습니다.
+              </p>
+              <div class="field">
+                <label for="research-editor-title">연구 · 논문 제목</label>
+                <input id="research-editor-title" maxlength="300" />
+              </div>
+              <div class="field">
+                <label for="research-editor-link">원문 · 관련 자료 링크 (선택)</label>
+                <input
+                  id="research-editor-link"
+                  type="url"
+                  placeholder="https://"
+                  maxlength="2000"
+                />
+              </div>
+              <div id="research-slides"></div>
+              <button id="add-research-slide" class="button" type="button">+ 슬라이드 추가</button>
+              <p class="editor-help">
+                연구 배경, 접근 방법, 제안 내용처럼 나눠 작성하세요. 줄바꿈은 그대로 표시됩니다.
+                적용 후 관리자 미리보기에서 넘겨볼 수 있습니다.
+              </p>
+            </fieldset>
             <div class="field full" id="project-link" hidden>
               <label for="link">프로젝트 링크</label
               ><input id="link" name="link" type="url" placeholder="https://" maxlength="2000" />

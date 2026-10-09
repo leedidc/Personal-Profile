@@ -151,6 +151,9 @@
         ) {
           throw new Error('상세 내용을 확인해 주세요.');
         }
+        if (section.key === 'awards') {
+          validateAwardResearch(row.research);
+        }
         if (section.key === 'education' && row.courses !== undefined) {
           if (
             !Array.isArray(row.courses) ||
@@ -181,6 +184,45 @@
       throw new Error('데이터가 너무 큽니다. 로고 이미지 크기를 줄여 주세요.');
     }
     return data;
+  }
+
+  function validateAwardResearch(research) {
+    // 연구 설명이 없는 이전 데이터도 그대로 열 수 있습니다.
+    if (research === undefined) {
+      return;
+    }
+    if (
+      !research ||
+      typeof research.title !== 'string' ||
+      !research.title.trim() ||
+      research.title.length > 300 ||
+      !Array.isArray(research.slides) ||
+      research.slides.length < 1 ||
+      research.slides.length > 12
+    ) {
+      throw new Error('연구 제목과 슬라이드 1~12장을 입력해 주세요.');
+    }
+    for (const slide of research.slides) {
+      if (
+        !slide ||
+        typeof slide.title !== 'string' ||
+        !slide.title.trim() ||
+        slide.title.length > 160 ||
+        typeof slide.body !== 'string' ||
+        !slide.body.trim() ||
+        slide.body.length > 3000
+      ) {
+        throw new Error('슬라이드 제목은 160자, 내용은 3,000자 이내로 입력해 주세요.');
+      }
+    }
+    if (
+      research.link !== undefined &&
+      (typeof research.link !== 'string' ||
+        research.link.length > 2000 ||
+        (research.link && !getSafeUrl(research.link)))
+    ) {
+      throw new Error('연구 원문 링크는 https:// 주소로 입력해 주세요.');
+    }
   }
 
   function renderProfile(root, profile, prefix = '') {
@@ -349,6 +391,14 @@
       row.technologies.forEach((tag) => tags.append(createElement('span', '', tag)));
       content.append(tags);
     }
+    if (section.key === 'awards' && row.research) {
+      const button = createElement('button', 'button small research-open', '연구 내용 보기 →');
+      button.type = 'button';
+      button.setAttribute('aria-haspopup', 'dialog');
+      button.setAttribute('aria-label', row.name + ' 연구 내용 보기');
+      button.addEventListener('click', () => AwardResearch.open(row, button));
+      content.append(button);
+    }
     const url = getSafeUrl(row.link);
     if (url) {
       const a = createElement('a', 'project-link', '프로젝트 보기 ↗');
@@ -442,6 +492,7 @@
     maskCredentialNumber,
     preparePortfolioForPublication,
     validatePortfolio,
+    validateAwardResearch,
     createLogo,
     renderProfile,
     renderPortfolio,

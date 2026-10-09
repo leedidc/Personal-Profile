@@ -9,6 +9,7 @@ from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from functools import partial
 from playwright.sync_api import sync_playwright, expect
 from posts_browser_check import check_posts
+from award_research_browser_check import check_research_reader, edit_research_slides, check_research_preview
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACTS = ROOT / ".test-artifacts"
@@ -105,6 +106,7 @@ try:
         page.wait_for_function("Array.from(document.images).every(img => img.complete)")
         assert page.locator(".org-logo img").count() == sum(len(original[s]) for s in ["education","experience","certifications","languages","projects","activities","awards"]), "Missing or failed organization logo"
         assert page.evaluate("Array.from(document.images).every(img => img.naturalWidth > 0)")
+        check_research_reader(page, original, ARTIFACTS)
         no_overflow(page)
         page.screenshot(path=str(ARTIFACTS / "desktop.png"), full_page=True)
         page.locator("#awards").screenshot(path=str(ARTIFACTS / "award-details-desktop.png"))
@@ -204,6 +206,7 @@ try:
         expect(admin.locator("#period-label")).to_have_text("수상일")
         expect(admin.locator("#status-label")).to_have_text("부문")
         admin.locator("#details").fill("검증용 수상 내용")
+        expected_research = edit_research_slides(admin, original['awards'][0].get('research'))
         admin.locator("#apply-item").click()
 
         # Company/personal classification, reorder, cancellation, and deletion.
@@ -249,6 +252,7 @@ try:
         expect(admin.locator("#preview-awards tbody tr")).to_have_count(4)
         expect(admin.locator("#preview-awards tbody tr").first.locator(".award-details")).to_have_text("검증용 수상 내용")
         expect(admin.locator("#preview-awards tbody tr").first.locator(".award-details")).to_be_visible()
+        check_research_preview(admin, expected_research)
         expect(admin.locator("#preview-certifications .credential-number").last).to_have_text(masked_number)
         assert synthetic_number not in admin.locator("#preview-content").inner_html()
         expect(admin.locator("#preview-languages .credential-number").last).to_have_text(masked_registration)
@@ -284,6 +288,8 @@ try:
         assert [row["id"] for row in state["data"]["certifications"][:-1]] == expected_certificate_ids
         assert [row["id"] for row in state["data"]["experience"]] == expected_experience_ids
         assert state["data"]["awards"][0]["details"] == ["검증용 수상 내용"]
+        assert state['data']['awards'][0]['research'] == expected_research
+        assert state['data']['awards'][1:] == original['awards'][1:]
         assert state["data"]["profile"]["name"] == "이찬형 검증"
         assert state["data"]["education"][-1]["logo"].startswith("data:image/png;base64,")
         assert next(row for row in state["data"]["experience"] if row["id"] == "exp-etri")["details"] == ["검증용 상세 업무 1", "검증용 상세 업무 2"]
@@ -347,11 +353,14 @@ try:
         legacy_data = copy.deepcopy(original)
         del legacy_data["profile"]["introduction"]
         del legacy_data["profile"]["interests"]
+        for award in legacy_data['awards']:
+            award.pop('research', None)
         legacy = context.new_page()
         legacy.route(BASE + "/data/portfolio.json", lambda route: route.fulfill(json=legacy_data))
         legacy.goto(BASE)
         expect(legacy.locator(".resume-section")).to_have_count(7)
         expect(legacy.locator(".profile-overview")).to_have_count(0)
+        expect(legacy.locator('.research-open')).to_have_count(0)
 
         # A non-writer cannot enter the editing panel.
         denied = context.new_page()

@@ -223,6 +223,7 @@
     getElement('preview-content').replaceChildren();
     getElement('item-form').reset();
     getElement('profile-form').reset();
+    AwardResearchEditor.load();
     logoValue = '';
     getElement('editor-panel').hidden = true;
     getElement('publish-actions').hidden = true;
@@ -280,6 +281,9 @@
     getElement('credential-number-label').textContent = section.numberLabel || '';
     getElement('education-courses').hidden = sectionKey !== 'education';
     getElement('courses').value = row?.courses?.join('\n') || '';
+    getElement('award-research-fields').hidden = sectionKey !== 'awards';
+    getElement('award-research-fields').disabled = sectionKey !== 'awards';
+    AwardResearchEditor.load(row?.research);
     getElement('credential-number').value = row?.maskedNumber || '';
     for (const key of ['name', 'subtitle', 'period', 'status', 'summary', 'link']) {
       form.elements.namedItem(key).value = row?.[key] || '';
@@ -395,6 +399,12 @@
     }
     try {
       const section = sections.find((item) => item.key === sectionKey);
+      if (sectionKey === 'awards') {
+        const research = AwardResearchEditor.read();
+        if (research) {
+          row.research = research;
+        }
+      }
       if (section.numberLabel) {
         row.maskedNumber = maskCredentialNumber(String(fields.get('maskedNumber') || ''));
         getElement('credential-number').value = row.maskedNumber;
