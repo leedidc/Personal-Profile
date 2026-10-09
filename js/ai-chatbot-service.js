@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const { chatbot, sections, skillCategories, skillGroups } = PortfolioConfig;
+  const { chatbot, sections } = PortfolioConfig;
 
   function createPortfolioContext(portfolio) {
     const context = {
@@ -25,13 +25,17 @@
     ];
     for (const section of sections) {
       if (section.key === 'skills') {
-        context.skills = (portfolio.skills || []).map((skill) => ({
-          name: skill.name,
-          category: skillCategories.find((category) => category.value === skill.category)?.label,
-          group: skillGroups.find((group) => group.value === skill.group)?.label,
-          level: skill.level,
-          description: skill.description,
-        }));
+        const categories = PortfolioSkills.getCategories(portfolio);
+        context.skills = (portfolio.skills || []).map((skill) => {
+          const category = categories.find((category) => category.value === skill.category);
+          return {
+            name: skill.name,
+            category: category?.label,
+            group: category?.groups.find((group) => group.value === skill.group)?.label,
+            level: skill.level,
+            description: skill.description,
+          };
+        });
         continue;
       }
       context[section.key] = (portfolio[section.key] || []).map((row) => {

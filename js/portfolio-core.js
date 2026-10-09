@@ -105,6 +105,7 @@
         throw new Error('프로필 링크는 https:// 주소로 입력해 주세요.');
       }
     }
+    const skillCategories = PortfolioSkills.validateCategories(PortfolioSkills.getCategories(data));
     const ids = new Set();
     for (const section of sections) {
       const rows = section.optional && data[section.key] === undefined ? [] : data[section.key];
@@ -123,7 +124,7 @@
         }
         ids.add(row.id);
         if (section.key === 'skills') {
-          PortfolioSkills.validateSkill(row);
+          PortfolioSkills.validateSkill(row, skillCategories);
           continue;
         }
         for (const key of ['name', 'subtitle', 'period', 'status', 'summary']) {
@@ -495,7 +496,7 @@
       heading.append(title, count);
       block.append(heading);
       if (section.key === 'skills') {
-        PortfolioSkills.renderSkills(block, rows, prefix);
+        PortfolioSkills.renderSkills(block, rows, prefix, PortfolioSkills.getCategories(data));
       } else if (section.key === 'projects') {
         for (const [category, title] of [
           ['personal', '개인'],

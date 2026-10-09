@@ -1,0 +1,48 @@
+{
+  "skillCategories": [
+    { "value": "office", "label": "OA", "groups": [] },
+    { "value": "languages", "label": "언어", "groups": [] },
+    {
+      "value": "engineering",
+      "label": "공학 도구",
+      "groups": [
+        { "value": "development", "label": "개발 · 협업" },
+        { "value": "security-analysis", "label": "보안 분석 · 진단" }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "synthetic-office",
+      "name": "Excel",
+      "category": "office",
+      "group": "",
+      "level": "중",
+      "description": "검증용 설명"
+    },
+    {
+      "id": "synthetic-language",
+      "name": "검증용 언어",
+      "category": "languages",
+      "group": "",
+      "level": "하",
+      "description": ""
+    },
+    {
+      "id": "synthetic-dev",
+      "name": "검증용 개발 도구",
+      "category": "engineering",
+      "group": "development",
+      "level": "상",
+      "description": ""
+    },
+    {
+      "id": "synthetic-security",
+      "name": "검증용 보안 도구",
+      "category": "engineering",
+      "group": "security-analysis",
+      "level": "중",
+      "description": ""
+    }
+  ]
+}

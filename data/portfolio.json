@@ -16,13 +16,28 @@
       "국가망보안체계"
     ]
   },
+  "skillCategories": [
+    { "value": "office", "label": "OA", "groups": [] },
+    { "value": "languages", "label": "언어", "groups": [] },
+    {
+      "value": "engineering",
+      "label": "공학 도구",
+      "groups": [
+        { "value": "development", "label": "개발 · 협업" },
+        { "value": "security-analysis", "label": "보안 분석 · 진단" },
+        { "value": "security-solutions", "label": "보안 솔루션" },
+        { "value": "systems", "label": "시스템 · 가상화" },
+        { "value": "cloud-data", "label": "클라우드 · 데이터" }
+      ]
+    }
+  ],
   "skills": [
     {
       "id": "skill-excel",
       "name": "Excel",
       "category": "office",
       "group": "",
-      "level": "미정",
+      "level": "중",
       "description": "스프레드시트 작업"
     },
     {

@@ -137,6 +137,7 @@
 }
 .editor-heading {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
@@ -144,6 +145,38 @@
 }
 .editor-heading h2 {
   font-size: 19px;
+}
+.editor-heading-actions,
+.category-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.skill-category-card {
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--white);
+}
+.skill-category-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.skill-category-row .field {
+  flex: 1 1 180px;
+  min-width: 0;
+  margin: 0;
+}
+.skill-category-groups {
+  padding-left: 12px;
+  border-left: 2px solid var(--line);
+}
+.category-actions .button {
+  min-height: 40px;
 }
 .editor-list {
   border: 1px solid var(--line);

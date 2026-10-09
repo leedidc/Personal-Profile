@@ -3,10 +3,13 @@ import copy
 import json
 import re
 from playwright.sync_api import expect
+from skill_categories_browser_check import check_skill_categories
 
 
 def check_skills(browser, base, root, artifacts):
     data = json.loads((root / 'data/portfolio.json').read_text(encoding='utf-8'))
+    # 관리자의 실제 분류 변경과 독립된 입력으로 편집 동작을 검증합니다.
+    data.update(json.loads((root / 'tests/fixtures/skills.json').read_text(encoding='utf-8')))
     state = {'data': copy.deepcopy(data), 'sha': 'test-skills-sha', 'writes': 0}
     context = browser.new_context(viewport={'width': 390, 'height': 844}, is_mobile=True, has_touch=True)
     errors = []
@@ -35,6 +38,8 @@ def check_skills(browser, base, root, artifacts):
     page = context.new_page()
     page.goto(base)
     expect(page.locator('#skills')).to_be_visible()
+    expect(page.locator('#skills .skills-note')).to_have_count(0)
+    expect(page.locator('#skills tbody tr').filter(has_text='Excel').locator('.skill-level')).to_have_text('중')
     displayed = []
     for category, label in [('office', 'OA'), ('languages', '언어'), ('engineering', '공학 도구')]:
         page.get_by_role('tab', name=re.compile('^' + label)).click()
@@ -99,6 +104,7 @@ def check_skills(browser, base, root, artifacts):
     expect(admin.locator('#status')).to_contain_text('저장했습니다')
     assert state['data'] == data
     assert state['writes'] == 2
+    check_skill_categories(admin, page, state, data, artifacts)
     assert not errors, errors
     context.close()
     print('PASS: skill categories, proficiency, ordering, keyboard, mobile, admin CRUD, preview, SHA save and existing data preservation.')

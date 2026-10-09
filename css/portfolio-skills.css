@@ -1,5 +1,4 @@
-.skills-introduction,
-.skills-note {
+.skills-introduction {
   color: var(--muted);
   font-size: 12px;
   line-height: 1.8;
@@ -9,10 +8,14 @@
 }
 .skill-tabs {
   display: flex;
+  overflow-x: auto;
   gap: 6px;
   border-bottom: 1px solid var(--line);
 }
 .skill-tabs button {
+  flex-shrink: 0;
+  overflow-wrap: anywhere;
+  max-width: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -50,6 +53,8 @@
   margin-bottom: 18px;
 }
 .skill-groups button {
+  max-width: 100%;
+  overflow-wrap: anywhere;
   min-height: 40px;
   padding: 8px 12px;
   border: 1px solid var(--line);
@@ -111,6 +116,7 @@
 .skill-name,
 .skill-description {
   display: block;
+  overflow-wrap: anywhere;
 }
 .skill-name {
   font-size: 14px;
@@ -146,14 +152,11 @@
 .skill-level[data-level='미정'] {
   border-style: dashed;
 }
-.skills-note {
-  margin-top: 12px;
-}
 @media (max-width: 680px) {
   .skill-tabs button {
     flex: 1;
     gap: 5px;
-    min-width: 0;
+    min-width: 90px;
     padding-inline: 6px;
     font-size: 13px;
   }

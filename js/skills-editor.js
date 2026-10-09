@@ -1,11 +1,13 @@
 (() => {
   'use strict';
-  const { skillCategories, skillGroups, skillLevels } = PortfolioConfig;
+  const { skillLevels } = PortfolioConfig;
   const getElement = (id) => document.getElementById(id);
   let skillId;
   let applySkill;
+  let categories = [];
 
   function fillOptions(id, options) {
+    getElement(id).replaceChildren();
     for (const { value, label } of options) {
       const option = document.createElement('option');
       option.value = value;
@@ -13,32 +15,36 @@
       getElement(id).append(option);
     }
   }
-  fillOptions('skill-category', skillCategories);
-  fillOptions('skill-group', skillGroups);
   fillOptions(
     'skill-level',
     skillLevels.map((value) => ({ value, label: value })),
   );
 
-  function updateGroupField() {
-    const engineering = getElement('skill-category').value === 'engineering';
-    getElement('skill-group-field').hidden = !engineering;
-    getElement('skill-group').disabled = !engineering;
+  function updateGroupField(selected = '') {
+    const groups =
+      categories.find((item) => item.value === getElement('skill-category').value)?.groups || [];
+    fillOptions('skill-group', [{ value: '', label: '미분류' }, ...groups]);
+    getElement('skill-group').value = groups.some((group) => group.value === selected)
+      ? selected
+      : '';
+    getElement('skill-group-field').hidden = !groups.length;
+    getElement('skill-group').disabled = !groups.length;
   }
-  getElement('skill-category').addEventListener('change', updateGroupField);
+  getElement('skill-category').addEventListener('change', () => updateGroupField());
 
-  function open(skill, onApply) {
+  function open(skill, onApply, configuredCategories) {
+    categories = configuredCategories;
     skillId = skill?.id || crypto.randomUUID();
     applySkill = onApply;
     getElement('skill-form').reset();
+    fillOptions('skill-category', categories);
     getElement('skill-dialog-title').textContent = skill ? 'SKILL 수정' : 'SKILL 추가';
     getElement('skill-name').value = skill?.name || '';
     getElement('skill-description').value = skill?.description || '';
-    getElement('skill-category').value = skill?.category || 'engineering';
-    getElement('skill-group').value = skill?.group || skillGroups[0].value;
+    getElement('skill-category').value = skill?.category || categories[0]?.value || '';
     getElement('skill-level').value = skill?.level || '미정';
     getElement('skill-error').textContent = '';
-    updateGroupField();
+    updateGroupField(skill?.group || '');
     getElement('skill-dialog').showModal();
   }
 
@@ -50,11 +56,11 @@
       name: getElement('skill-name').value.trim(),
       description: getElement('skill-description').value.trim(),
       category,
-      group: category === 'engineering' ? getElement('skill-group').value : '',
+      group: getElement('skill-group').value,
       level: getElement('skill-level').value,
     };
     try {
-      PortfolioSkills.validateSkill(skill);
+      PortfolioSkills.validateSkill(skill, categories);
       applySkill(skill);
       getElement('skill-dialog').close();
     } catch (error) {

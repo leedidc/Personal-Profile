@@ -93,6 +93,7 @@
     const rows = data[sectionKey] || [];
     getElement('section-title').textContent = section.title + ' · ' + rows.length;
     getElement('add-item').setAttribute('aria-label', section.title + ' 추가');
+    getElement('manage-skill-categories').hidden = sectionKey !== 'skills';
     for (const button of getElement('editor-tabs').children) {
       button.setAttribute('aria-pressed', String(button.dataset.section === sectionKey));
     }
@@ -105,7 +106,11 @@
       text.append(createElement('span', 'row-name', row.name));
       if (sectionKey === 'skills') {
         text.append(
-          createElement('span', 'row-subtitle', PortfolioSkills.categoryLabel(row)),
+          createElement(
+            'span',
+            'row-subtitle',
+            PortfolioSkills.categoryLabel(row, PortfolioSkills.getCategories(data)),
+          ),
           createElement('span', 'row-summary', '숙련도 ' + row.level),
           createElement('span', 'row-subtitle', row.description),
         );
@@ -260,6 +265,16 @@
     AdminAuth.focusLogin();
   });
 
+  getElement('manage-skill-categories').addEventListener('click', () => {
+    SkillCategoriesEditor.open(data, (categories) => {
+      validatePortfolio({ ...data, skillCategories: categories });
+      data.skillCategories = categories;
+      setDirty();
+      renderEditorList();
+      showStatus('분류를 적용했습니다. 사이트에 저장하면 공개 화면에도 반영됩니다.');
+    });
+  });
+
   function updateLogoPreview() {
     const image = getElement('logo-preview');
     const src = getSafeUrl(logoValue, 'image', '../');
@@ -276,7 +291,11 @@
 
   function openItemDialog(row) {
     if (sectionKey === 'skills') {
-      SkillsEditor.open(row, applyRow);
+      if (!PortfolioSkills.getCategories(data).length) {
+        showStatus('분류 관리에서 분류를 먼저 추가해 주세요.', true);
+        return;
+      }
+      SkillsEditor.open(row, applyRow, PortfolioSkills.getCategories(data));
       return;
     }
     uploadVersion++;

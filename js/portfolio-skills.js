@@ -2,7 +2,48 @@
   'use strict';
   const { skillCategories, skillGroups, skillLevels } = PortfolioConfig;
 
-  function validateSkill(skill) {
+  function getCategories(data = {}) {
+    // 분류 설정이 없는 이전 파일은 기존 분류로 열되 원본 데이터는 변경하지 않습니다.
+    return data.skillCategories !== undefined
+      ? data.skillCategories
+      : skillCategories.map((category) => ({
+          ...category,
+          groups: category.value === 'engineering' ? skillGroups : [],
+        }));
+  }
+
+  function validateCategories(categories) {
+    function validateOptions(options, limit) {
+      if (!Array.isArray(options) || options.length > limit) {
+        throw new Error('분류와 세부 분류는 각각 최대 30개까지 등록할 수 있습니다.');
+      }
+      const ids = new Set();
+      const labels = new Set();
+      for (const option of options) {
+        if (
+          !option ||
+          typeof option.value !== 'string' ||
+          !/^[a-z0-9][a-z0-9-]{0,79}$/.test(option.value) ||
+          ids.has(option.value) ||
+          typeof option.label !== 'string' ||
+          !option.label.trim() ||
+          option.label.length > 60 ||
+          labels.has(option.label.trim().toLowerCase())
+        ) {
+          throw new Error('분류 이름은 중복 없이 1~60자로 입력하고 분류 ID를 확인해 주세요.');
+        }
+        ids.add(option.value);
+        labels.add(option.label.trim().toLowerCase());
+      }
+    }
+    validateOptions(categories, 30);
+    for (const category of categories) {
+      validateOptions(category.groups, 30);
+    }
+    return categories;
+  }
+
+  function validateSkill(skill, categories = getCategories()) {
     if (
       typeof skill.name !== 'string' ||
       !skill.name.trim() ||
@@ -13,31 +54,31 @@
       throw new Error('도구 이름과 용도 설명을 확인해 주세요.');
     }
     if (
-      !skillCategories.some((category) => category.value === skill.category) ||
+      !categories.some((category) => category.value === skill.category) ||
       !skillLevels.includes(skill.level)
     ) {
       throw new Error('스킬 분류와 숙련도를 선택해 주세요.');
     }
-    if (
-      skill.category === 'engineering'
-        ? !skillGroups.some((group) => group.value === skill.group)
-        : skill.group !== ''
-    ) {
-      throw new Error('공학 도구의 세부 분류를 확인해 주세요.');
+    const category = categories.find((item) => item.value === skill.category);
+    if (skill.group !== '' && !category.groups.some((group) => group.value === skill.group)) {
+      throw new Error('선택한 분류에 속한 세부 분류를 확인해 주세요.');
     }
   }
 
-  function categoryLabel(skill) {
-    const category = skillCategories.find((item) => item.value === skill.category)?.label || '';
-    const group = skillGroups.find((item) => item.value === skill.group)?.label;
-    return category + (group ? ' · ' + group : '');
+  function categoryLabel(skill, categories = getCategories()) {
+    const category = categories.find((item) => item.value === skill.category);
+    const group = category?.groups.find((item) => item.value === skill.group)?.label;
+    return (category?.label || '') + (group ? ' · ' + group : '');
   }
 
-  function renderSkills(root, skills, prefix) {
+  function renderSkills(root, skills, prefix, configuredCategories = getCategories()) {
     const { createElement } = Portfolio;
-    const categories = skillCategories.filter((category) =>
+    const categories = configuredCategories.filter((category) =>
       skills.some((skill) => skill.category === category.value),
     );
+    if (!categories.length) {
+      return;
+    }
     let selectedCategory = categories[0].value;
     let selectedGroup = '';
     const introduction = createElement(
@@ -53,7 +94,7 @@
     panel.setAttribute('role', 'tabpanel');
     const groupFilters = createElement('div', 'skill-groups');
     groupFilters.setAttribute('role', 'group');
-    groupFilters.setAttribute('aria-label', '공학 도구 세부 분류');
+    groupFilters.setAttribute('aria-label', '세부 분류');
     const count = createElement('p', 'skills-count');
     count.setAttribute('role', 'status');
     const scroll = createElement('div', 'skills-scroll');
@@ -73,22 +114,11 @@
     table.append(head, body);
     scroll.append(table);
     panel.append(groupFilters, count, scroll);
-    root.append(
-      introduction,
-      tabs,
-      panel,
-      createElement(
-        'p',
-        'skills-note',
-        '숙련도는 본인 평가입니다. ‘미정’은 아직 정하지 않은 항목입니다.',
-      ),
-    );
+    root.append(introduction, tabs, panel);
 
     function renderRows() {
       const rows = skills.filter(
-        (skill) =>
-          skill.category === selectedCategory &&
-          (selectedCategory !== 'engineering' || skill.group === selectedGroup),
+        (skill) => skill.category === selectedCategory && skill.group === selectedGroup,
       );
       body.replaceChildren();
       for (const skill of rows) {
@@ -106,10 +136,9 @@
         row.append(name, proficiency);
         body.append(row);
       }
+      const category = categories.find((item) => item.value === selectedCategory);
       const label =
-        selectedCategory === 'engineering'
-          ? skillGroups.find((group) => group.value === selectedGroup).label
-          : skillCategories.find((category) => category.value === selectedCategory).label;
+        category.groups.find((group) => group.value === selectedGroup)?.label || category.label;
       count.textContent = label + ' · ' + rows.length + '개 도구';
       for (const button of groupFilters.children) {
         button.setAttribute('aria-pressed', String(button.dataset.group === selectedGroup));
@@ -128,14 +157,18 @@
         }
       }
       groupFilters.replaceChildren();
-      groupFilters.hidden = selectedCategory !== 'engineering';
-      if (selectedCategory === 'engineering') {
-        const groups = skillGroups.filter((group) =>
-          skills.some((skill) => skill.category === 'engineering' && skill.group === group.value),
-        );
-        if (!groups.some((group) => group.value === selectedGroup)) {
-          selectedGroup = groups[0].value;
-        }
+      groupFilters.setAttribute('aria-label', category.label + ' 세부 분류');
+      const groups = category.groups.filter((group) =>
+        skills.some((skill) => skill.category === selectedCategory && skill.group === group.value),
+      );
+      if (skills.some((skill) => skill.category === selectedCategory && skill.group === '')) {
+        groups.push({ value: '', label: '미분류' });
+      }
+      groupFilters.hidden = !category.groups.length;
+      if (!groups.some((group) => group.value === selectedGroup)) {
+        selectedGroup = groups[0].value;
+      }
+      if (!groupFilters.hidden) {
         for (const group of groups) {
           const button = createElement('button', '', group.label);
           button.type = 'button';
@@ -188,5 +221,11 @@
     selectCategory(categories[0]);
   }
 
-  globalThis.PortfolioSkills = { validateSkill, categoryLabel, renderSkills };
+  globalThis.PortfolioSkills = {
+    getCategories,
+    validateCategories,
+    validateSkill,
+    categoryLabel,
+    renderSkills,
+  };
 })();

@@ -16,7 +16,7 @@ function loadService(fetch) {
     clearTimeout,
   });
   context.window = context;
-  for (const file of ['portfolio-config.js', 'ai-chatbot-service.js']) {
+  for (const file of ['portfolio-config.js', 'portfolio-skills.js', 'ai-chatbot-service.js']) {
     vm.runInContext(fs.readFileSync(path.join(root, 'js', file), 'utf8'), context);
   }
   return context;
@@ -28,12 +28,19 @@ test('최신 공개 이력과 순서를 전달하고 연락처·번호·예상�
   data.profile.apiKey = 'synthetic-secret-not-for-transmission';
   data.certifications[0].maskedNumber = 'SYNTHETIC-***';
   data.certifications.reverse();
+  data.skillCategories = [
+    {
+      value: 'custom-toolset',
+      label: '편집한 도구 분류',
+      groups: [{ value: 'custom-analysis', label: '편집한 세부 분류' }],
+    },
+  ];
   data.skills = [
     {
       id: 'test-skill',
       name: '검증용 도구',
-      category: 'engineering',
-      group: 'security-analysis',
+      category: 'custom-toolset',
+      group: 'custom-analysis',
       level: '미정',
       description: '검증용 설명',
       apiKey: 'synthetic-secret',
@@ -64,8 +71,8 @@ test('최신 공개 이력과 순서를 전달하고 연락처·번호·예상�
     assert.deepEqual(source.skills, [
       {
         name: '검증용 도구',
-        category: '공학 도구',
-        group: '보안 분석 · 진단',
+        category: '편집한 도구 분류',
+        group: '편집한 세부 분류',
         level: '미정',
         description: '검증용 설명',
       },
