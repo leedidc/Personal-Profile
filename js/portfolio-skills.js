@@ -81,11 +81,6 @@
     }
     let selectedCategory = categories[0].value;
     let selectedGroup = '';
-    const introduction = createElement(
-      'p',
-      'skills-introduction',
-      '분류를 선택하면 도구의 용도와 숙련도를 확인할 수 있습니다.',
-    );
     const tabs = createElement('div', 'skill-tabs');
     tabs.setAttribute('role', 'tablist');
     tabs.setAttribute('aria-label', '스킬 분류');
@@ -114,7 +109,7 @@
     table.append(head, body);
     scroll.append(table);
     panel.append(groupFilters, count, scroll);
-    root.append(introduction, tabs, panel);
+    root.append(tabs, panel);
 
     function renderRows() {
       const rows = skills.filter(

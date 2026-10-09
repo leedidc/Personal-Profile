@@ -1,11 +1,3 @@
-.skills-introduction {
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.8;
-}
-.skills-introduction {
-  margin-bottom: 16px;
-}
 .skill-tabs {
   display: flex;
   overflow-x: auto;
