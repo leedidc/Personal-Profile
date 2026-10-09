@@ -3,7 +3,6 @@
 
   const maxDocumentBytes = 3 * 1024 * 1024;
   const idPattern = /^[a-z0-9][a-z0-9-]{0,79}$/;
-  const colors = ['#252330', '#6951c8', '#c0392b', '#217a52', '#2463a6', '#ffffff'];
 
   function createElement(tag, className = '', text) {
     const element = document.createElement(tag);
@@ -328,6 +327,5 @@
     renderPost,
     categoryName,
     maxDocumentBytes,
-    colors,
   };
 })();

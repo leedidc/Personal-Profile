@@ -78,7 +78,11 @@ def check_posts(browser, base, root, artifacts):
         assert page.evaluate("document.documentElement.scrollWidth <= innerWidth"), page.url
 
     public = context.new_page()
-    public.goto(base + "/posts/")
+    public.goto(base + "/html/admin.html")
+    expect(public).to_have_url(base + "/admin/posts.html")
+    expect(public.locator("#login-form")).to_be_visible()
+    public.goto(base + "/html/article.html")
+    expect(public).to_have_url(base + "/posts/")
     expect(public.locator("#posts-list tr")).to_have_count(original_count)
     public.locator("#category-filter").select_option("microsoft")
     expect(public.locator("#posts-list tr")).to_have_count(1)
