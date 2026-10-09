@@ -12,12 +12,6 @@
   ],
   "posts": [
     {
-      "id": "legacy-4",
-      "title": "test",
-      "date": "2026-06-01",
-      "categoryId": ""
-    },
-    {
       "id": "legacy-2",
       "title": "create",
       "date": "2026-06-01",
