@@ -465,11 +465,15 @@ p {
 .row-details[open] .when-open {
   display: inline;
 }
-.row-details .chevron {
-  font-size: 15px;
-  line-height: 1;
+.row-details .disclosure-icon {
+  flex: 0 0 auto;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 6px solid currentColor;
 }
-.row-details[open] .chevron {
+.row-details[open] .disclosure-icon {
   transform: rotate(180deg);
 }
 .row-details ul,
@@ -523,8 +527,7 @@ p {
   font-weight: 400;
   color: var(--muted);
 }
-.course-details .chevron {
-  margin-left: 4px;
+.course-details .disclosure-icon {
   color: var(--accent);
 }
 .course-details .course-list {

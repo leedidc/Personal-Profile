@@ -338,15 +338,19 @@
     return item;
   }
 
+  function createDisclosureIcon() {
+    const icon = createElement('span', 'disclosure-icon');
+    icon.setAttribute('aria-hidden', 'true');
+    return icon;
+  }
+
   function createCourses(row) {
     const details = createElement('details', 'row-details course-details');
     details.open = row.courses.length <= 3;
     const summary = createElement('summary');
     summary.setAttribute('aria-label', row.name + ' 이수과목');
     const count = createElement('span', 'course-count', row.courses.length + '과목');
-    const chevron = createElement('span', 'chevron', '⌄');
-    chevron.setAttribute('aria-hidden', 'true');
-    summary.append(createElement('span', '', '이수과목'), count, chevron);
+    summary.append(createElement('span', '', '이수과목'), createDisclosureIcon(), count);
     const list = createElement('ul', 'course-list');
     row.courses.forEach((course) => list.append(createCourseItem(course)));
     details.append(summary, list);
@@ -396,7 +400,7 @@
         summary.append(
           createElement('span', 'when-closed', '자세히 보기'),
           createElement('span', 'when-open', '접기'),
-          createElement('span', 'chevron', '⌄'),
+          createDisclosureIcon(),
         );
         details.append(summary, list);
         content.append(details);
