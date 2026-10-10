@@ -11,6 +11,18 @@ def check_posts(browser, base, root, artifacts):
     errors = []
     context.on("page", lambda page: page.on("pageerror", lambda error: errors.append(str(error))))
     files = {str(path.relative_to(root)).replace("\\", "/"): json.loads(path.read_text(encoding="utf-8")) for path in (root / "data/posts").glob("*.json")}
+    # 이전 주소 변환은 공개 글의 삭제 여부와 무관한 가상 자료로 검사합니다.
+    files["data/posts/index.json"] = {
+        "version": 1,
+        "categories": [{"id": "microsoft", "name": "가상 분류"}, {"id": "fixture-images", "name": "이미지 테스트"}],
+        "posts": [
+            {"id": "legacy-1", "title": "SC-200 Study Notes", "date": "2026-10-10", "categoryId": "microsoft"},
+            {"id": "legacy-4", "title": "가상 이미지 글", "date": "2026-10-10", "categoryId": "fixture-images"},
+        ],
+    }
+    files["data/posts/legacy-1.json"] = {"version": 1, "id": "legacy-1", "content": {"ops": [{"insert": "SC-200"}, {"insert": "\n", "attributes": {"header": 1}}]}}
+    fixture_image = "data:image/png;base64," + base64.b64encode((root / "image/mois.png").read_bytes()).decode()
+    files["data/posts/legacy-4.json"] = {"version": 1, "id": "legacy-4", "content": {"ops": [{"insert": {"image": fixture_image}}, {"insert": "\n"}]}}
     state = {"head": "head-0", "tree": "tree-0", "writes": 0, "failure": None, "pending": None, "permission_denied": False}
     original_count = len(files["data/posts/index.json"]["posts"])
 

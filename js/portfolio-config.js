@@ -98,6 +98,8 @@
 
   const visitor = {
     endpoint: admin.origin + '/api/visitor',
+    statsEndpoint: admin.origin + '/api/visitor-stats',
+    connectionEndpoint: admin.origin + '/api/connection',
     requestTimeoutMs: 6000,
   };
 

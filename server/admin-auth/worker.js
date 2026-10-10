@@ -2,6 +2,9 @@ import { createHash, randomBytes, timingSafeEqual } from 'node:crypto';
 import { verifyPassword } from './password.js';
 import { handleContent, RequestError, requireValue } from './content.js';
 import { handleVisitor } from './visitor.js';
+import { handleVisitorStats } from './visitor-stats.js';
+import { handleConnection } from './connection-info.js';
+export { VisitorStats } from './visitor-stats.js';
 
 const cookieName = '__Host-portfolio-admin';
 const sessionLifetime = 2 * 60 * 60 * 1000;
@@ -285,6 +288,12 @@ export default {
     const url = new URL(request.url);
     if (url.pathname === '/api/visitor') {
       return handleVisitor(request, env);
+    }
+    if (url.pathname === '/api/visitor-stats') {
+      return handleVisitorStats(request, env);
+    }
+    if (url.pathname === '/api/connection') {
+      return handleConnection(request, env);
     }
     if (!url.pathname.startsWith('/api/')) {
       if (url.pathname === '/') {

@@ -18,8 +18,14 @@
     "ADMIN_USERNAME": "classer"
   },
   "durable_objects": {
-    "bindings": [{ "name": "ADMIN_STATE", "class_name": "AdminState" }]
+    "bindings": [
+      { "name": "ADMIN_STATE", "class_name": "AdminState" },
+      { "name": "VISITOR_STATS", "class_name": "VisitorStats" }
+    ]
   },
-  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["AdminState"] }],
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["AdminState"] },
+    { "tag": "v2", "new_sqlite_classes": ["VisitorStats"] }
+  ],
   "observability": { "enabled": false }
 }

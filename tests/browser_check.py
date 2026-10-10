@@ -18,6 +18,7 @@ from admin_auth_browser_check import check_admin_auth
 from training_browser_check import check_training
 from section_order_browser_check import check_section_order
 from visitor_info_browser_check import check_visitor_info, ENDPOINT as VISITOR_ENDPOINT
+from site_insights_browser_check import check_site_insights
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACTS = ROOT / ".test-artifacts"
@@ -407,6 +408,7 @@ try:
         check_training(browser, BASE, ROOT, ARTIFACTS)
         check_section_order(browser, BASE, ROOT, ARTIFACTS)
         check_visitor_info(browser, BASE, ARTIFACTS)
+        check_site_insights(browser, BASE, ARTIFACTS)
         assert not errors, errors
         browser.close()
         print("PASS: public tables, logos, responsive layouts, expandable details, admin access, add/edit/delete/reorder, logo upload, preview, failed save, conflict, Unicode persistence, logout and read-only access.")

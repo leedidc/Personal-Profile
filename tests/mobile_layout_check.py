@@ -6,9 +6,13 @@ def check_mobile_layout(browser, base, artifacts):
     page = context.new_page()
     errors = []
     page.on('pageerror', lambda error: errors.append(str(error)))
+    routes = [('/', '#skills'), ('/posts/', '#posts-list'), ('/admin/', '#login-form'), ('/admin/posts.html', '#login-form')]
+    posts = context.request.get(base + '/data/posts/index.json').json()['posts']
+    if posts:
+        routes.insert(2, ('/posts/view.html?id=' + posts[0]['id'], '.post-body'))
     for width, height in [(320, 568), (360, 740), (390, 844), (430, 932), (681, 900), (768, 1024), (844, 390)]:
         page.set_viewport_size({'width': width, 'height': height})
-        for path, ready in [('/', '#skills'), ('/posts/', '#posts-list'), ('/posts/view.html?id=legacy-1', '.post-body'), ('/admin/', '#login-form'), ('/admin/posts.html', '#login-form')]:
+        for path, ready in routes:
             page.goto(base + path)
             expect(page.locator(ready)).to_be_visible()
             assert page.evaluate('(width) => document.documentElement.scrollWidth <= width + 1 && innerWidth <= width + 1', width), f'Overflow at {width}: {path}'
