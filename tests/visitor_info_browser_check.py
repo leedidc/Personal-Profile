@@ -29,7 +29,9 @@ def check_visitor_info(browser, base, artifacts):
         expect(page.locator('#visitor-time')).to_have_attribute('title', zone)
         page.clock.run_for(1100)
         expect(page.locator('#visitor-time')).to_contain_text(expected_hour[:-2] + '01')
-        assert page.evaluate('localStorage.length === 0 && sessionStorage.length === 0')
+        assert page.evaluate("""localStorage.length === 0 && Object.entries(sessionStorage).every(
+            ([key, value]) => key === 'portfolio-intro-seen-v1' && value === '1'
+        )""")
 
         payload.update(ip='2001:db8:1234:5678:abcd:ef01:2345:6789', country='US')
         page.reload()

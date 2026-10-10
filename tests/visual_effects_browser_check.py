@@ -24,6 +24,7 @@ def check_visual_effects(browser, base, artifacts):
     errors = []
     page.on('pageerror', lambda error: errors.append(str(error)))
     page.goto(base)
+    expect(page.locator('#site-intro')).not_to_be_visible()
     visual = page.locator('.network-visual')
     expect(visual).to_be_visible()
     expect(visual.locator('.network-caption')).to_have_text('SECURITY')
@@ -77,6 +78,7 @@ def check_visual_effects(browser, base, artifacts):
     touch = browser.new_context(viewport={'width': 390, 'height': 844}, is_mobile=True, has_touch=True, reduced_motion='no-preference')
     page = touch.new_page()
     page.goto(base)
+    expect(page.locator('#site-intro')).not_to_be_visible()
     page.locator('.network-visual').scroll_into_view_if_needed()
     page.locator('.network-art').tap()
     assert page.locator('.network-art').evaluate("el => el.style.getPropertyValue('--network-tilt-y') === ''")

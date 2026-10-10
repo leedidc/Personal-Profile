@@ -19,6 +19,7 @@ from training_browser_check import check_training
 from section_order_browser_check import check_section_order
 from visitor_info_browser_check import check_visitor_info, ENDPOINT as VISITOR_ENDPOINT
 from site_insights_browser_check import check_site_insights
+from site_intro_browser_check import check_site_intro
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACTS = ROOT / ".test-artifacts"
@@ -77,6 +78,7 @@ try:
         context.on("page", lambda page: page.on("pageerror", lambda error: errors.append(str(error))))
         page = context.new_page()
         page.goto(BASE)
+        expect(page.locator('#site-intro')).not_to_be_visible()
         expect(page.locator('#profile-links a[href^="mailto:"]')).to_have_attribute("href", "mailto:" + original["profile"]["email"])
         expect(page.locator(".profile-introduction p")).to_have_text(original["profile"]["introduction"])
         expect(page.locator(".profile-interests li")).to_have_text(original["profile"]["interests"])
@@ -409,6 +411,7 @@ try:
         check_section_order(browser, BASE, ROOT, ARTIFACTS)
         check_visitor_info(browser, BASE, ARTIFACTS)
         check_site_insights(browser, BASE, ARTIFACTS)
+        check_site_intro(browser, BASE, ARTIFACTS)
         assert not errors, errors
         browser.close()
         print("PASS: public tables, logos, responsive layouts, expandable details, admin access, add/edit/delete/reorder, logo upload, preview, failed save, conflict, Unicode persistence, logout and read-only access.")

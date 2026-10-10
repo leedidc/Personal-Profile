@@ -11,12 +11,14 @@
     <title>이찬형 | 포트폴리오</title>
     <link rel="icon" href="image/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="css/site-common.css" />
+    <link rel="stylesheet" href="css/site-intro.css" />
     <link rel="stylesheet" href="css/award-research.css" />
     <link rel="stylesheet" href="css/ai-chatbot.css" />
     <link rel="stylesheet" href="css/portfolio-skills.css" />
     <link rel="stylesheet" href="css/portfolio-effects.css" />
     <link rel="stylesheet" href="css/visitor-info.css" />
     <link rel="stylesheet" href="css/site-insights.css" />
+    <script src="js/site-intro.js" defer></script>
     <script src="js/portfolio-config.js" defer></script>
     <script src="js/portfolio-core.js" defer></script>
     <script src="js/portfolio-skills.js" defer></script>
@@ -31,6 +33,26 @@
     <script src="js/visitor-statistics.js" defer></script>
   </head>
   <body class="portfolio-page">
+    <dialog id="site-intro" class="site-intro" aria-labelledby="site-intro-title">
+      <div class="intro-scene">
+        <p class="intro-eyebrow">SECURITY</p>
+        <div class="intro-lock-stage" aria-hidden="true">
+          <span class="intro-orbit"></span>
+          <span class="intro-orbit intro-orbit-inner"></span>
+          <svg class="intro-lock" viewBox="0 0 160 180" focusable="false">
+            <path class="intro-shackle" d="M48 80V53A32 32 0 0 1 112 53V80" />
+            <rect class="intro-lock-body" x="32" y="76" width="96" height="80" rx="18" />
+            <circle class="intro-keyhole" cx="80" cy="110" r="7" />
+            <path class="intro-keyhole-stem" d="M80 116V128" />
+          </svg>
+        </div>
+        <h2 id="site-intro-title">PORTFOLIO</h2>
+        <div class="intro-progress" aria-hidden="true"><span></span></div>
+      </div>
+      <button id="site-intro-skip" class="intro-skip" type="button" autofocus>
+        건너뛰기 <span aria-hidden="true">↗</span>
+      </button>
+    </dialog>
     <a class="skip-link" href="#main">본문으로 이동</a>
     <header class="site-header portfolio-header">
       <div class="reading-progress" aria-hidden="true"><span id="reading-progress"></span></div>

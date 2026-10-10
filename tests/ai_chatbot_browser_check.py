@@ -73,7 +73,9 @@ def check_chatbot(browser, base, artifacts):
     page.locator('#ai-chat-input').press('Enter')
     expect(page.locator('#ai-chat-messages .is-assistant')).to_have_count(2)
     assert '이전 대화: []' in state['requests'][-1]['message']
-    assert page.evaluate('localStorage.length === 0 && sessionStorage.length === 0')
+    assert page.evaluate("""localStorage.length === 0 && Object.entries(sessionStorage).every(
+        ([key, value]) => key === 'portfolio-intro-seen-v1' && value === '1'
+    )""")
     for width, height in [(1440, 1000), (390, 844), (320, 568)]:
         page.set_viewport_size({'width': width, 'height': height})
         assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')

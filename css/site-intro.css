@@ -1,0 +1,194 @@
+html.intro-playing {
+  overflow: hidden;
+}
+.site-intro {
+  --intro-ready: 1;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 24px;
+  border: 0;
+  color: var(--on-dark);
+  background: radial-gradient(ellipse at center, #1e4858 0%, transparent 65%), var(--navy);
+  overflow: hidden;
+}
+.site-intro[open] {
+  display: grid;
+  place-items: center;
+  animation: intro-reveal 2.4s ease-in-out both;
+}
+.site-intro::backdrop {
+  background: transparent;
+}
+.intro-scene {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  animation: intro-arrive 550ms ease-out both;
+}
+.intro-eyebrow {
+  color: var(--on-dark-accent);
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.24em;
+}
+.intro-lock-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(260px, 68vw);
+  aspect-ratio: 1;
+}
+.intro-orbit {
+  position: absolute;
+  inset: 0;
+  border: 1px solid #79cbd035;
+  border-radius: 50%;
+  animation: intro-orbit 1.5s ease-out 700ms both;
+}
+.intro-orbit-inner {
+  inset: 22px;
+  border-style: dashed;
+  border-color: #79cbd025;
+  animation-delay: 850ms;
+}
+.intro-lock {
+  width: 142px;
+  height: 160px;
+  overflow: visible;
+  filter: drop-shadow(0 0 18px #79cbd020);
+}
+.intro-shackle {
+  fill: none;
+  stroke: var(--on-dark-accent);
+  stroke-width: 8;
+  stroke-linecap: round;
+  transform-origin: 112px 76px;
+  animation: intro-unlock 700ms cubic-bezier(0.2, 0.7, 0.3, 1) 750ms both;
+}
+.intro-lock-body {
+  fill: #1b3b4c;
+  stroke: var(--on-dark-accent);
+  stroke-width: 2;
+}
+.intro-keyhole {
+  fill: var(--on-dark-accent);
+}
+.intro-keyhole-stem {
+  stroke: var(--on-dark-accent);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+#site-intro-title {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+}
+.intro-progress {
+  width: 100px;
+  height: 2px;
+  border-radius: 2px;
+  background: #79cbd025;
+  overflow: hidden;
+}
+.intro-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--on-dark-accent);
+  transform-origin: left;
+  animation: intro-progress 1.9s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+.intro-skip {
+  position: absolute;
+  right: max(24px, env(safe-area-inset-right));
+  bottom: max(24px, env(safe-area-inset-bottom));
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #79cbd030;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--on-dark-muted);
+  font-size: 12px;
+}
+.intro-skip:hover {
+  color: var(--on-dark);
+  border-color: var(--on-dark-accent);
+}
+.intro-skip:focus-visible {
+  outline-color: var(--on-dark-accent);
+}
+@keyframes intro-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes intro-unlock {
+  0% {
+    transform: translateY(0) rotate(0);
+  }
+  35% {
+    transform: translateY(-10px) rotate(0);
+  }
+  100% {
+    transform: translateY(0) rotate(28deg);
+  }
+}
+@keyframes intro-orbit {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.25);
+  }
+}
+@keyframes intro-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes intro-reveal {
+  0%,
+  78% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@media (max-height: 480px) {
+  .intro-scene {
+    gap: 10px;
+  }
+  .intro-lock-stage {
+    width: 170px;
+  }
+  .intro-lock {
+    width: 100px;
+    height: 112px;
+  }
+}
+@media (prefers-reduced-motion: reduce), print {
+  .site-intro[open] {
+    display: none;
+  }
+}
