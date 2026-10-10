@@ -1,25 +1,20 @@
 {
   "schemaVersion": 1,
   "comparisonVersion": 2,
-  "checkedAt": "2026-10-10T17:05:19+00:00",
+  "checkedAt": "2026-10-10T17:16:08+00:00",
   "status": "partial",
-  "resourcesChecked": 104,
+  "resourcesChecked": 105,
   "resourcesTotal": 112,
   "boardsChecked": 8,
   "boardsTotal": 8,
-  "filesChecked": 139,
+  "filesChecked": 141,
   "metadataOnlyFiles": 6,
   "changes": [],
   "errors": [
     {
-      "title": "2026 개인정보 처리방침 작성지침",
-      "sourceUrl": "https://www.privacy.go.kr/front/bbs/bbsView.do?bbsNo=BBSMSTR_000000000049&bbscttNo=20885",
-      "reason": "첨부파일: 기관 연결 실패"
-    },
-    {
-      "title": "개인정보 질의응답 모음집",
-      "sourceUrl": "https://www.privacy.go.kr/front/bbs/bbsView.do?bbsNo=BBSMSTR_000000000049&bbscttNo=20861",
-      "reason": "첨부파일: 기관 연결 실패"
+      "title": "개인정보 보호 교육 업무 안내서",
+      "sourceUrl": "https://www.privacy.go.kr/front/bbs/bbsView.do?bbsNo=BBSMSTR_000000000049&bbscttNo=20793",
+      "reason": "기관 연결 실패"
     },
     {
       "title": "개인정보 처리방침 표준(안)",
@@ -27,29 +22,29 @@
       "reason": "첨부파일: 기관 연결 실패"
     },
     {
-      "title": "스마트도시 개인정보 보호 안내서",
-      "sourceUrl": "https://www.privacy.go.kr/front/bbs/bbsView.do?bbsNo=BBSMSTR_000000000049&bbscttNo=20780",
-      "reason": "기관 연결 실패"
-    },
-    {
       "title": "개인정보 손해배상책임 보장제도 안내서",
       "sourceUrl": "https://www.privacy.go.kr/front/bbs/bbsView.do?bbsNo=BBSMSTR_000000000049&bbscttNo=20788",
-      "reason": "기관 연결 실패"
-    },
-    {
-      "title": "해외사업자의 개인정보 보호법 적용 안내서",
-      "sourceUrl": "https://www.privacy.go.kr/front/bbs/bbsView.do?bbsNo=BBSMSTR_000000000049&bbscttNo=20691",
-      "reason": "기관 연결 실패"
-    },
-    {
-      "title": "우리 기업을 위한 EU 일반 개인정보보호법(GDPR) 가이드북",
-      "sourceUrl": "https://www.privacy.go.kr/front/bbs/bbsView.do?bbsNo=BBSMSTR_000000000049&bbscttNo=14518",
-      "reason": "기관 연결 실패"
-    },
-    {
-      "title": "AI 프라이버시 리스크 관리 모델",
-      "sourceUrl": "https://www.privacy.go.kr/front/bbs/bbsView.do?bbsNo=BBSMSTR_000000000049&bbscttNo=20799",
       "reason": "첨부파일: 기관 연결 실패"
+    },
+    {
+      "title": "가명정보 처리 가이드라인",
+      "sourceUrl": "https://www.privacy.go.kr/front/bbs/bbsView.do?bbsNo=BBSMSTR_000000000049&bbscttNo=20877",
+      "reason": "첨부파일: 기관 연결 실패"
+    },
+    {
+      "title": "합성데이터 생성 참조모델",
+      "sourceUrl": "https://www.privacy.go.kr/front/bbs/bbsView.do?bbsNo=BBSMSTR_000000000049&bbscttNo=20714",
+      "reason": "기관 연결 실패"
+    },
+    {
+      "title": "전 분야 마이데이터 전송 절차 및 기술 가이드라인",
+      "sourceUrl": "https://pipc.go.kr/np/cop/bbs/selectBoardArticle.do?bbsId=BS217&mCode=G010030000&nttId=11106",
+      "reason": "응답 시간 초과"
+    },
+    {
+      "title": "개인정보관리 전문기관 지정안내서",
+      "sourceUrl": "https://pipc.go.kr/np/cop/bbs/selectBoardArticle.do?bbsId=BS217&mCode=G010030000&nttId=11090",
+      "reason": "첨부파일: 응답 시간 초과"
     }
   ],
   "snapshots": {
@@ -61,7 +56,7 @@
       "metadataHash": "cf1d724a34dee72b99df8760bc9d14dca25c02b585d14ebdc6a0dbd2c3840099",
       "checkedFiles": 1,
       "metadataOnlyFiles": 1,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "privacy-impact-assessment": {
       "catalogHash": "a2eb5885b2ef46648d2440b3afff079d2c6389f9d1c337e9f3ebcadf34098c08",
@@ -71,7 +66,7 @@
       "metadataHash": "48b95182ac6e446b58dd5dd5d33a32a7716a19a39fc154242646869291059fe6",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "isms-p-certification": {
       "catalogHash": "bc41e11e7dc8fdb4f6333cbc223528a0680f28d76949b4acfffa41aff78fbf52",
@@ -79,7 +74,7 @@
       "metadataHash": "c6d997b575a376d143ce829b5a03b6f4084af0c3cb0c33ebcdbbcd6dcc14e0e7",
       "checkedFiles": 0,
       "metadataOnlyFiles": 1,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "privacy-breach-response": {
       "catalogHash": "a5d2230d3e332a17e36e789bcc53acbd4b10c5e71eb9c839e6796a8d1a7aa682",
@@ -89,7 +84,7 @@
       "metadataHash": "675d76eb7767377e3f9e2c075d75cad8c99b1b48fc6439e307210db4c4555517",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "privacy-policy-writing": {
       "catalogHash": "bc7f71f17a8f187025bacddfe183091907893cc1bb50da25d2bc43bb139f297b",
@@ -97,9 +92,9 @@
         "83d65701758ba8d7bbf8889fc173f354ba0173f47591a078a24b038c728a0bff": "56363ea6c1a72a685b4103ef4636a8cc3b5eafa0f9d7e5a2a413f8d24b564f0e"
       },
       "metadataHash": "a89cc5d4f0254c5d6c9495a96bf3fae24d6243e6d1ecf6fec16cd0a8506c000f",
-      "checkedFiles": 0,
+      "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T16:54:04+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "infrastructure-technical-assessment": {
       "catalogHash": "692af9ccffc401d5ca76f20227650f94e16b752ee351d359c7d9ea82975ab5c5",
@@ -109,7 +104,7 @@
       "metadataHash": "e3bcb0450231831685caa237f6d424e3e055262850503e314e93d1fda5d8e10a",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "infrastructure-management-assessment": {
       "catalogHash": "6c3130b50a8bf406dcc2a79e8195993c59318ba16c42226e552428b0955ea82a",
@@ -119,7 +114,7 @@
       "metadataHash": "d5f4bac3c96c54f05926bdc208b75eb618c64b8c63a2ba4e3012081bc64a69ff",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "zero-trust-guidelines": {
       "catalogHash": "324ea89f9ee83ccc47bcd1ff1caa15c3e113b62e663a68395ace257ffb0b2653",
@@ -129,7 +124,7 @@
       "metadataHash": "03cf997b0ecd0869fc2a0d0abb529b950b5b77d83d4f951712afc2d7d5ebac20",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "ai-security-guide": {
       "catalogHash": "d40c8b3c2463bc3780d6e1a41c3e0020641ab2fc69149a774dbd5b9aca45be51",
@@ -140,7 +135,7 @@
       "metadataHash": "33d6138c6a13c3a6daf7d24dc079ababd16b5adf027664ca1aa9c6d113d20340",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "privacy-safeguards": {
       "catalogHash": "867419db01c3105fc07732c82305e2c09cd7d7f20f5e66bf1805adc693694981",
@@ -150,7 +145,7 @@
       "metadataHash": "2948d31068eecf5ce2b3f37dd1b0040981d3284c1f0a318345e321bacc536dc1",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "privacy-cpo-registration": {
       "catalogHash": "abf3aa240cf75d84669df1b86f4decc79ff800f23ce7f9ed637e0d8785255bdb",
@@ -160,7 +155,7 @@
       "metadataHash": "ebfd091c961ee6893aef7f7a9e18615e493b00251194574b1d35ab1a3bea4846",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "privacy-integrated-guide": {
       "catalogHash": "ec99d916529015155b483fc6dccdb1574f49009a0795f31438739342e5425203",
@@ -170,7 +165,7 @@
       "metadataHash": "8769ad100fcd42ab37ef606935b6943d7dbde12ab37e22ed3d6e745c3077b690",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "privacy-investment-reduction": {
       "catalogHash": "12d7f310bd5c0345895b68a45ad91b62457937f5f62190c9fc6aa3fecfa4291d",
@@ -180,7 +175,7 @@
       "metadataHash": "c67c67a392d3e713792fa75401544d6fbab5f74d5fa88e8906b39c8b087b7671",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "privacy-questions": {
       "catalogHash": "83a23b42f2217c0f075dd81277fd4c7a52b2fe001f8ad1e64fcb905cb26fc39d",
@@ -188,15 +183,16 @@
         "4700b0f7d7eeb433d70fb40b68ab166fda330bbb8443cb49332b44f1e582997f": "3a3e6c47f84933d6e3fcb4be6866dd33c43a998995e2e5f33f5f7e53e14c1130"
       },
       "metadataHash": "a28ecf75d7fcedf86f5f87c83c30774e2606176905d67f8de7e3d15ea7d90ea7",
-      "checkedFiles": 0,
+      "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T16:54:04+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "privacy-policy-templates": {
       "catalogHash": "3a996efca01d150725460c20f31445202a79675d58455cee541372ba8fa80cc7",
       "fileHashes": {
         "d9c261d30a762e796ff2eada4dfc7bda10774bfb46e203211c05a0e024376f49": "4502f77a500ff4c23c2b119b5c89d8eefabfcf802e4dee27e74bc9a430ea24c4",
-        "eeb02e871dfd045850c2a2fb2905c8ef0ea233c2f5a177abe8639bb643114efe": "10224cb0c5ff50220f079fc6571ccaef5a507104f163d3117e4ec4cee6064e9e"
+        "eeb02e871dfd045850c2a2fb2905c8ef0ea233c2f5a177abe8639bb643114efe": "10224cb0c5ff50220f079fc6571ccaef5a507104f163d3117e4ec4cee6064e9e",
+        "a6354895548ce11cf1fc249ee81d40c3d8834b6f51591f21d1d3d3af06347e17": "a1d19334060130b3dab2b9e5c2dbec51ccfd62e5d31c9410c9f54a010b956a29"
       },
       "metadataHash": "b9837d692b8e3abf2b51354db68880bbcb5e55e4b494356c0cad0c76f007a6e1",
       "checkedFiles": 2,
@@ -208,7 +204,7 @@
         "0eed6e29245c4f74831cece24f1080ad74e26fce1ede4dad1ac928d3292da3b2": "11e7da09b9efadec83931a3fb2655fd7e8f0be48a0376f6c801fa63e5ab368ec"
       },
       "metadataHash": "fa8a1cb3e39b41b0ea4e2930b732a25965b0d4f36f59d35f3621604711d67510",
-      "checkedFiles": 1,
+      "checkedFiles": 0,
       "metadataOnlyFiles": 0,
       "lastSuccessAt": "2026-10-10T17:05:19+00:00"
     },
@@ -220,7 +216,7 @@
       "metadataHash": "bc2d38da308a66e4cc16dac866e19148540f850e019dae0b770670d62a4c6e82",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "privacy-small-business": {
       "catalogHash": "e47143d810cf7583ab5ee1158f54794ebf0e4abdf0cdedfc49ffc7e1f21e5bfb",
@@ -230,7 +226,7 @@
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
       "metadataHash": "ced85254e2b97601ac8f1ea468e0c34871fa092b8e4af9bd0a624d9c4ea678f5",
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "privacy-emergency": {
       "catalogHash": "7a051782dbf0cd020caa7890758cced928130546c4b1ba4c7e3428a82156a237",
@@ -240,7 +236,7 @@
       "metadataHash": "406dd2c64605068da2ff41f721347064670a3a58e39400e976bb4ba6eb1a6a0a",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "privacy-children": {
       "catalogHash": "a4b34b2eeba4c87bea9e7ab79b03a65c36e0b00393e5528fb5e316b7890ec390",
@@ -250,7 +246,7 @@
       "metadataHash": "fd06a977bddc16c8184917759d9e94ded83d8423891b1a848938c6f01a4a9b57",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "privacy-post-removal": {
       "catalogHash": "a34a70991ea5f99c47dd40b5ef19d1b5432126d3e27c5ef8ba706d0fe09dc52b",
@@ -260,7 +256,7 @@
       "metadataHash": "7f078ab0fb4fabe8f0f197e6e11de0f26e5d94d9ba143efe2edb94f75c309e38",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "privacy-biometrics": {
       "catalogHash": "b3b26100e1181d10895597159ab0058f4aabaa3f1f8dc1619173c3ff3b530850",
@@ -270,13 +266,17 @@
       "metadataHash": "adf1b3aef4ead46978729a2e247bc7c1b499745a19537fcdfa182885164149fd",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "privacy-smart-city": {
       "catalogHash": "d296274adc9c94762034ced8c56df2091a6c6a8905a738e4a6a6d78b353b4a55",
-      "fileHashes": {},
-      "checkedFiles": 0,
-      "metadataOnlyFiles": 0
+      "fileHashes": {
+        "f21d2207c8194db786eb8e981b75bf68f052409dab988078ea487f887588c045": "c307d8bbcbb93645dd9af0185e38e3db3a583fb7248ce41f1a6f96a60a1494d5"
+      },
+      "checkedFiles": 1,
+      "metadataOnlyFiles": 0,
+      "metadataHash": "736bcdcbb767d81ec42877b4c1bc52c235fe400f7f0e77788cfc5ae1da4d7ac5",
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "privacy-fixed-cameras": {
       "catalogHash": "b7c0bf090d98e0977a9ac6dd429e59e2b9511a4825060bddfc62959b6da91172",
@@ -286,7 +286,7 @@
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
       "metadataHash": "514b92c3386498a4f0291a7d8c2817470381a7d2fa282a841412fdc5cefeb33c",
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "privacy-mobile-cameras": {
       "catalogHash": "9e3fa3fe16b8ae84bf7d0db916935d22032fcdc837d583738db28ddaf8393111",
@@ -296,7 +296,7 @@
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
       "metadataHash": "ef755e16789296f4381cc6d7267908b20c3fe7d3ac22ca8cb06662c3dadd1622",
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "privacy-website-exposure": {
       "catalogHash": "33009384fd47d2e23d676b87b1e6c6f201f8a46641e6aa3c814e7b917129d4a0",
@@ -306,28 +306,36 @@
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
       "metadataHash": "ec77ecf2bef2403328e582536d1b8b07105f4e9bd0e467ee13ee8ab0b3b9ad7a",
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "privacy-damages-insurance": {
       "catalogHash": "b6e12c91f000b65d889e5ccc9aa1a0c0f7e8e5e0206d8d2bcc9aa8a1d7b4b3ea",
       "fileHashes": {},
       "checkedFiles": 0,
-      "metadataOnlyFiles": 0
+      "metadataOnlyFiles": 0,
+      "metadataHash": "ae8a56462476c60612599026b2572f2d2dde6a948f41cd212cd2c95abbfbc144"
     },
     "privacy-foreign-business": {
       "catalogHash": "8fde4bf66997377b8bfcf889300fb64770fc0cb29740247e1ae1fe27ab392976",
       "fileHashes": {
-        "b4895e8504d113da7cff4a462158ff3293c21c7d7a18cc26a374887c69f29a4f": "3d6ea16669da297d51f4470306c3c7f47195239efe6d8ed9b88a15f548d94d91"
+        "b4895e8504d113da7cff4a462158ff3293c21c7d7a18cc26a374887c69f29a4f": "3d6ea16669da297d51f4470306c3c7f47195239efe6d8ed9b88a15f548d94d91",
+        "f011a3b3307fd1eef644dc2a77703ccde10364c76f059bb25a9508b493072eb3": "b5a8a4ad53f3ec27bebd2f07c461c319468365cc70565573d68fa36d4a235540",
+        "90a0ce6e3b25496cb7c19227f48ec92307cf204d56d2b80de448cccc61fb409a": "a080f61fd41a5d6daacec2262004b67e4aef5c096fe208204f9befac66faaa2d"
       },
       "metadataHash": "335b4175dfbdca7cc01d786362de320f4829f8a1d9c5d06095d47dc32144fa26",
-      "checkedFiles": 0,
-      "metadataOnlyFiles": 0
+      "checkedFiles": 3,
+      "metadataOnlyFiles": 0,
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "privacy-gdpr-guide": {
       "catalogHash": "c1215fbf6f0ec48826ed4bf10278e20ae1163c983bffd99e7da7f36f380cd549",
-      "fileHashes": {},
-      "checkedFiles": 0,
-      "metadataOnlyFiles": 0
+      "fileHashes": {
+        "726d3ffb7e95e088def8ddd2170013e204ba327ad200b2fa19a3ab91fcd8063a": "e51a8cc34f44076625d275c98bbb3aea9309f16250a21a87c3edfa49d76444d4"
+      },
+      "checkedFiles": 1,
+      "metadataOnlyFiles": 0,
+      "metadataHash": "eefba428c1ea2b766a2ba6d46c8cf76d8e47708110c1f260b2a53dd6b327a0ac",
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "privacy-impact-cost": {
       "catalogHash": "701ebe9e6902834103071a536783613a1d06ab6dfcc32f52c8085a1f85b472ce",
@@ -337,14 +345,14 @@
       "metadataHash": "f1bc69df0af97dd8988f7412511b25a072eec3c3a3dc19ddb48d3576c1c482e7",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "pseudonymization-guide": {
       "catalogHash": "bdf840863c745e8d6023b841733fa27ccae83cfb26a4eb7b95f09d2e557f07ee",
       "fileHashes": {
         "f763654528db88d32f5633336ce41322100bc5d9db14d2efff5aaa9c8c023fca": "618083cd93fcd3741bd9897a1baa9dd67db14f7fbf54524919647a41348d2947"
       },
-      "checkedFiles": 1,
+      "checkedFiles": 0,
       "metadataOnlyFiles": 0,
       "metadataHash": "f3aa4ec1d3aa317d1927d8888456b7b293d4d1dfb4b59af14f4d2950bb802aed",
       "lastSuccessAt": "2026-10-10T17:05:19+00:00"
@@ -358,7 +366,7 @@
       "metadataHash": "d9a9051e4ba926271e988411e44e1d3713b204f96d565cbdc1218adf2fbc7eb5",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "education-data-guide": {
       "catalogHash": "4f786302c8a2236f9b9571e6f9885817455a48358f36016f1c82430301cf2d0d",
@@ -369,7 +377,7 @@
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
       "metadataHash": "4d6ec345ad1c790c2105caf4711a7fd53904c3a174c622a229643d8900bab093",
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "synthetic-data-guide": {
       "catalogHash": "1a4e70a2ec3b035677ca4f28a79b19ad29e64299df0d55d3fc034faf45a3321e",
@@ -379,7 +387,7 @@
       "metadataHash": "ab3a2eba477fc135ff5effe72f01e0e725e3e9443ecdd44509baf858db0cee8b",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "synthetic-data-reference": {
       "catalogHash": "b43b0a19c28b9ff8eb5ae364ce7705db45a6d1317bd335e2e24bd6b63a852ed3",
@@ -387,7 +395,7 @@
         "6c6f6a99462827e885362ca2bc6228a5fc1bc48b99d9076612e308752995e3fe": "0797b15a46aa2af57efb2f6752702ea357262026f1f7b5aacbb35aa2cbfbe706"
       },
       "metadataHash": "97e5c4d366a5981a5563de82937e4dcb8aa2ae6491ec37d9559953e41268f34e",
-      "checkedFiles": 1,
+      "checkedFiles": 0,
       "metadataOnlyFiles": 0,
       "lastSuccessAt": "2026-10-10T17:05:19+00:00"
     },
@@ -399,7 +407,7 @@
       "metadataHash": "79966c57f4f8ff36663decb184902321656c7a026f7fc4adfb9484c202f3eac5",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "mydata-transfer-right": {
       "catalogHash": "0505614f92393002b930665a1aec36e25dedb46d2de42b30118df81a6f87b224",
@@ -409,7 +417,7 @@
       "metadataHash": "7610090ecc01ead634f309c57059dda68892669b270486799b2a46404c380442",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "mydata-technical-guide": {
       "catalogHash": "a1c35e6866a96cdb26fe22b63c34e945ac6107e8a00127bed8df336596ac6791",
@@ -418,7 +426,7 @@
         "f1d543c91d21829668a5b77113672ccb1b045d3bd89fcde97b4281c418000eb6": "8c03c867fdbf009ab979a2b33bb3b2c605ea4d8c2b238a344d2d52a0e7d3d22e"
       },
       "metadataHash": "c16669640ff0140179300719b8ea487b82b1b58d6ff9d152e4c40d0cf02cc659",
-      "checkedFiles": 2,
+      "checkedFiles": 0,
       "metadataOnlyFiles": 0,
       "lastSuccessAt": "2026-10-10T17:05:19+00:00"
     },
@@ -434,7 +442,7 @@
         "998ed68ab60eef8e82f2f1c320ebb9a531adaddd4e3e82f575d9d9fb38b99acd": "d5c27cddc56793cfbe7bfdd59b0853b290f864b56a3de1cb5e3d1df557d58d8d"
       },
       "metadataHash": "3d0b07cbc202c1bf6ee6e8b5dfad40e13fc3cfe7e6410a0372ade0d422f9e7b4",
-      "checkedFiles": 7,
+      "checkedFiles": 6,
       "metadataOnlyFiles": 0,
       "lastSuccessAt": "2026-10-10T17:05:19+00:00"
     },
@@ -446,7 +454,7 @@
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
       "metadataHash": "c5ee98e22d401bb518870b7d0d2ee8bff938c7087d3169e7897bbfd7587ebe94",
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "generative-ai-privacy": {
       "catalogHash": "5e47a5594f6f5cca98d84d8f267639c1d03fdd337cb8fa4515e3a1a965cb0c66",
@@ -456,7 +464,7 @@
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
       "metadataHash": "178adf8744880b90bc199d120528493c8789514a4a67abdd441b6cceb8634aca",
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "ai-privacy-risk-model": {
       "catalogHash": "5096920c8a0fc517bc1dd4bd82b0579ea961008e83f4b593d45dca3b1b09b91a",
@@ -464,9 +472,9 @@
         "a347f22e26b3d1960e93fe3713e4cfe9c0b64fa06f7366ffaffcae2102381c9e": "818ff8765ab67e16a2933d5642c9a78c4a43f817ff5b99ad98145810f2575e7a"
       },
       "metadataHash": "1d2502ebe1f87f57fa9a863b800847a5da3c28c5a1eb15e29ce24ad42dbc83f6",
-      "checkedFiles": 0,
+      "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T16:54:04+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "ai-public-data": {
       "catalogHash": "c34e87b42a35ea4d488841e430bdb52d0b93f291f21e360cf7a9d8effeb28666",
@@ -476,7 +484,7 @@
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
       "metadataHash": "2843b3c74ee93b053029341229595ea06650c481b478c82edc9e332b8c6dd7bc",
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "ai-red-teaming": {
       "catalogHash": "2a2e5e99abe281e2e73627fb0c42e119cbf58192ebe16489e4bcae939195b729",
@@ -486,7 +494,7 @@
       "metadataHash": "37afd24f4a512bcbf7ec4c4eb3a72a309593f494ce6a4727df7c81e41cd436fc",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "ai-threat-response": {
       "catalogHash": "14e8b69151faafc84b8ca5e4ab94d30abd2605e1455f1d42db1f30bb7e8ac268",
@@ -496,7 +504,7 @@
       "metadataHash": "8574cfb015a8efed056fff4fcb94835586d600a94b85615fca417fe34f99e178",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "zero-trust-maturity": {
       "catalogHash": "5c51eebffd7a1e767e6e0fea4ad643fa53aa45c84bde43561799479b01877ade",
@@ -506,7 +514,7 @@
       "metadataHash": "a559ae3e8f656e4823070eb8a71e0a8c219348c9ae44186db22a620e7f47b44c",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "zero-trust-ot": {
       "catalogHash": "36cfc8a14e08b63752f7dfdf836fbc5178ce36616d57d9709aadf0e53b4ab07d",
@@ -516,7 +524,7 @@
       "metadataHash": "4776874ba8708b0bc8f144919949312187769aa31e48fca93584fcb7f1ca62f8",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "national-network-security": {
       "catalogHash": "8b76ccae4f04e8445e712fd9368fc8e66713277f92fa17c3fee081433163d249",
@@ -527,7 +535,7 @@
       "metadataHash": "b3d7a663e25e8845ce61cf687698e225e41659cbbaee3fcc813ab7e05d5b83e6",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "private-5g-security": {
       "catalogHash": "3bf9f567092ecc1f63aaa57f6a88e1604da9070af2f45f7d4c042edcccc20ec0",
@@ -537,7 +545,7 @@
       "metadataHash": "87826365a0f72781b9f849cad8c4eb350d30b6fafa2b86c8cfa1b507d498e066",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "software-supply-chain": {
       "catalogHash": "9744f0c4b997fe6df855d8524b6ce495af030f2614e668121b6c049c08ecee25",
@@ -548,7 +556,7 @@
       "metadataHash": "8b28e3ff739a7ba525a32329dce0ee326c2f5ac0df9e8b0af5e82bfa07483610",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "secure-development": {
       "catalogHash": "d50e5e2753c1b9de1b3251dfe51c2813342bed6ecaa098ea9d096efa7953c89b",
@@ -559,7 +567,7 @@
       "metadataHash": "e266769cfc1881d6bd5bb4c758d5e74fa9fdd9706d157fb2b0a6d911e9ceec0d",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "software-weakness-diagnosis": {
       "catalogHash": "0611d849eca4753853c1f31ce5f3e0ef2dc6126d8b18ab3dfe297f45513bf261",
@@ -570,7 +578,7 @@
       "metadataHash": "12407101d7abb54b331b763103b37f41774d1d01f39ba696b01788f1deab4a6c",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "javascript-secure-coding": {
       "catalogHash": "36bffd4d30361389de5b19cd4350c0a1448f023dbeb457dec17adf3b2e754cd4",
@@ -580,7 +588,7 @@
       "metadataHash": "cce447b31471b880a505b083b486cde5ae120925a50811388ec3935fc10bad68",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "python-secure-coding": {
       "catalogHash": "adef89e0947c0e09bb8a7f5a117641232d6fbb1d3b0fa9859dbdebec0496d3b4",
@@ -590,7 +598,7 @@
       "metadataHash": "bd15ce9893637ac7b53df03b32c0578c7f0ffdc81dfb320bb4abec9a41323e1b",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "mobile-egov-source-review": {
       "catalogHash": "94663ef0ef8d986dacd30df3ea8917999ad389348b916b7237fe5c5d1a131dac",
@@ -601,7 +609,7 @@
       "metadataHash": "b2637979704cb03a2d65d9d83dd1e4d472258ac1ecc80e0c01b16e0a3cedfede",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "open-source-security-check": {
       "catalogHash": "0acf725f44e079d1fc66005f5b81c436d274139b71a5bac3177a64e0583d3d70",
@@ -612,7 +620,7 @@
       "metadataHash": "b576034f389c2601c2c1ae426f193d57cbacbbd3b5bd94eb43a9bdfb8255186f",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "web-editor-security": {
       "catalogHash": "09709122fc5ba3245e2f34d213142f31f3c8cdb772466f22fcb067917817cc41",
@@ -622,7 +630,7 @@
       "metadataHash": "ff5f15e067a9a26526e7b7d05cd5712dcf23361a037594f67d8c1a70b2cf4fb4",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "secure-by-design": {
       "catalogHash": "64f14a328ecb979424a544ac59e0ce0cfd64b6cce298d39c50d6984e01c0ba4c",
@@ -632,7 +640,7 @@
       "metadataHash": "4e1d6fb9ac0822e2ef5ec3da94ff1285898720e0f114391b86d457abfdcc1c43",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "csap-certification-guide": {
       "catalogHash": "8155abe2f4f2271024a0ac8b52a11990744c22af152355d8f0ef09f981ec52c0",
@@ -640,7 +648,7 @@
       "metadataHash": "54579919d4a51c94bc053cda30ef58dcab1a93188c898e1e01cc51d07fb6165b",
       "checkedFiles": 0,
       "metadataOnlyFiles": 1,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "csap-criteria": {
       "catalogHash": "e49775f366f9f53de8e1ba2f821837fb8a6206ab0f4fb8c4f36388fb841530df",
@@ -648,7 +656,7 @@
       "metadataHash": "219904b9c1816690f73dc2c23ae08aea1e8298fd338efdf38c45c9bca12fce51",
       "checkedFiles": 0,
       "metadataOnlyFiles": 1,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "csap-faq": {
       "catalogHash": "4f2fcd6622e2c71bece9b20dc31633a55229b2e4568577192d0ec95f2f57a64c",
@@ -656,7 +664,7 @@
       "metadataHash": "4660d7664c420ef556c250e9156c2ba9e44f9ed2d23d9554964c26db8e3cd7a3",
       "checkedFiles": 0,
       "metadataOnlyFiles": 1,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "cloud-vulnerability-check": {
       "catalogHash": "5851b7a7020ac0de3c2a635a35c2c7ac94e74903da78b46b0bf3c66f71400778",
@@ -664,7 +672,7 @@
       "metadataHash": "3661bce8ecce3a2b5cb2fdca45a86982c14d56248fafab74a0598143cbfcaaea",
       "checkedFiles": 0,
       "metadataOnlyFiles": 1,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "critical-infrastructure-cloud": {
       "catalogHash": "88320ffeedae1e9078ae12ce51e81f664f64dc2015f6b9a34de78a09af1cf91a",
@@ -675,7 +683,7 @@
       "metadataHash": "92f9ea2202bd3a6bfcaf07cc8cb25b37c25c6f6d27122102516bc68983a32cc0",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "security-disclosure-guide": {
       "catalogHash": "faa7c1d1850008d262ae7f09a5f03bd0c8004e22ce50e275b551464cb5af7871",
@@ -686,7 +694,7 @@
       "metadataHash": "95e3386bf1049e2f0447b06ae3ddf783acf67ca6301ad230711c8f3688ce43b1",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "security-disclosure-faq": {
       "catalogHash": "f457f20aacfcc3819207c8cf28b17ae83b812134ae8d1c687de2b07bbadbcb72",
@@ -696,7 +704,7 @@
       "metadataHash": "96e91fa94394f8064d681ad96bc482ba86b3ea149b55921f6c020b6b8a8de8a8",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "ciso-registration": {
       "catalogHash": "1e9a446d27c183dac4a8f3a0b278b4ee9d9b4ab713692a07c686e78302ea2d35",
@@ -706,7 +714,7 @@
       "metadataHash": "068ac806cb8fb1b43c8cfe7417144a202db7fe4b4fd1e639ecbbf04407aba112",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "ciso-concurrent-roles": {
       "catalogHash": "85f63b5127ded56b4d31f98f689235fabd1969b478602109cc53cb79adafdf13",
@@ -716,7 +724,7 @@
       "metadataHash": "12c278201421ede746e91a86db082ac593106805cd2df96c4cbdb53662f5c568",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "ciso-practice-cases": {
       "catalogHash": "e8225112b6945065abeb7bead5fa1658381c20474a053273a86dbacd0d94fc8c",
@@ -726,7 +734,7 @@
       "metadataHash": "a69dbc7fb307285d33ccdb17bc66687628d57d83e04ebffab363d3c2bff5840f",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "security-service-designation": {
       "catalogHash": "a9b4c5de85b7bad54b9db2cf2e13ee652730f4f82b8a6ee39d1d639a8799790a",
@@ -737,7 +745,7 @@
       "metadataHash": "bd1798986d42fa3ecf7b81fbadb7bacce1d2a4535eaf0258925d65ca6271bfb9",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "security-monitoring-designation": {
       "catalogHash": "0de48ade5dfddbe66db356f183d299d78491d5c3fa86ac8ac9d4a482037fe762",
@@ -748,7 +756,7 @@
       "metadataHash": "2b1257ea9d63e6716b8367087c88f862954c95c823b4f7fb30bf249434f593a6",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "incident-response-guide": {
       "catalogHash": "453da2f4f9adf07f22707a5d3bedc900e905cfc22aad6bdf4ec33abd3552ed98",
@@ -758,7 +766,7 @@
       "metadataHash": "5da0534fc4cc23aec0b63f4ee6125091d1c3296efe6af63aef07670a93fb426f",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "ransomware-response": {
       "catalogHash": "272ba4f02216ca15bd5fcad2ae384dbb174cbfc6b2675b1a298ccef020f33f7a",
@@ -768,7 +776,7 @@
       "metadataHash": "b41dc8d9ce045eb5c6f65f5dcfc5e74155b43ab665d3bf0cae82717a39e98313",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "ransomware-backup": {
       "catalogHash": "845114b632bf8564b4169c430ed7aabf04e7d2d61c040d0a8ffd31ec2c4080ac",
@@ -778,7 +786,7 @@
       "metadataHash": "6dddbc5b1d4a9f22dccf07cbec4e6c9e9343ee6066cdc952757a9fede0116ca3",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "ddos-response": {
       "catalogHash": "0f6fc034deffc43c3f497e2a4f14628d3657f649228fd25cd40c3fc1c19c9887",
@@ -788,7 +796,7 @@
       "metadataHash": "ccc9c701b06a61744cf3b3ff26374753813fbe2d329f6584b60661a1871bccda",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "enterprise-attack-surface": {
       "catalogHash": "3e4a0b186d132bb0a498296729835f4f3dfcc47b944ac08056ad27c9745763ca",
@@ -798,7 +806,7 @@
       "metadataHash": "693643fd98ee7bc341851091230ed4770a45d814944b32971331315affc3176d",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "hunting-supply-chain": {
       "catalogHash": "d957e69b2da9b8f891a00d174c6b821c06e7498369be1eba98db82587f5e46ae",
@@ -808,7 +816,7 @@
       "metadataHash": "384a74e451583b1488d12128f090e5d36336179612433eceaa46a161d53870e8",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "hunting-vpn": {
       "catalogHash": "89eec688eb1ebe9aec3cb61be7a6ef0471f79501126ffaaed42b35c68046e09e",
@@ -818,7 +826,7 @@
       "metadataHash": "d95eac68e5aeed99b44e929c70f2668abdf320124c8a770e71d9b7136f543f8f",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "hunting-exposed-server": {
       "catalogHash": "e3b44bf00cda5eb6e75ff450b003a7da665da9d43ffe5fd3d7a987d204a4dc44",
@@ -828,7 +836,7 @@
       "metadataHash": "e209ce7a45b956ac7042a0395d6fbd6a2c98493f2d3a1f680955373448bedeef",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "hunting-smb-ad": {
       "catalogHash": "b9c528d8c5548f3906b06a328e636c2837401eff460b8d65ba7e56a94ee73408",
@@ -838,7 +846,7 @@
       "metadataHash": "e5bad9966c83380f85b965f24769a954a1a76eaf9336d17dbbec8639c888f17b",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "hunting-admin-account": {
       "catalogHash": "1cd46acb8fdbf36dfbead92ab0eca05aa1947fa6511362c5d46a3f773c6ca990",
@@ -848,7 +856,7 @@
       "metadataHash": "54425a8343e328eb4197a0639a20dd51593c73abcada264a70d83dfd0f7f8294",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "hunting-ad-rat": {
       "catalogHash": "3da536342040a9b808a35628c4facee4524c687582686aa8a8d23a97805d2fd9",
@@ -858,7 +866,7 @@
       "metadataHash": "12f31c17c61e2c868b1a569b56372af327b8d961d01a2fed53c4b45c2a9313fc",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "hunting-mssql-ransomware": {
       "catalogHash": "366cbf2c0292513e1bfff4ab987745785e1e37eb628c7b0adf5ee59a9da7d0d1",
@@ -868,7 +876,7 @@
       "metadataHash": "0a22da09a608ff7df187e451959679aa2b11efa7119bc967659de79243b75c57",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "ip-camera-security": {
       "catalogHash": "ac9140d56246dbeae091d7a40aa80fe4f6fe9a1b733ee7c3c47c837512b49500",
@@ -879,7 +887,7 @@
       "metadataHash": "da343c6f62ba5d12eb03f4649e16515b8ba05de7944507f8cc07e0fd23abb014",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "nas-security": {
       "catalogHash": "7839398e810f2832994bf8da4ad4617f77a104610abe04b73f1ec90f9d84f522",
@@ -890,7 +898,7 @@
       "metadataHash": "98e0df497d8e0d0cac09dcf73b23c9273467e2296f4fc9db55a4280e72f8a04e",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "network-device-check": {
       "catalogHash": "c64639c9f3ccc2f793e01178dbf442f49be2e6d023e21386f80730d7c6e4016f",
@@ -900,7 +908,7 @@
       "metadataHash": "5c5574f79f9d6caf60fbefc6a70f327469c42d2a433e1d129012c074b6ddf912",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "small-business-security-cases": {
       "catalogHash": "22d558d199b82a4ed08228c169d8419dc7a9838a19c78d33bd6104cde3ef5b10",
@@ -910,7 +918,7 @@
       "metadataHash": "21bc53d5a3f78a1b8b3d53e1a14dca82c4981e27bbd8495fddc7b4b4a3537fbd",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "browser-security": {
       "catalogHash": "1939f1c648a3dbd72454aa6f404be6201cea03d0d54322be2e67084e43f86938",
@@ -921,7 +929,7 @@
       "metadataHash": "ffb8c84a92ef89fd1116897b74a0fe706b30ab3c7ec9eb245869c35d64290a17",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "remote-work-security": {
       "catalogHash": "2bde8b6958fab6db9da84d7b5bab1dc78dfd0af12e46e8f5fa1ce2710cd7522e",
@@ -931,7 +939,7 @@
       "metadataHash": "00d2e91b4974074a18e788ab2fe5256e6911b9457f0ed204c6e7d0b4b7e51986",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "password-security": {
       "catalogHash": "efd7571981b9dec84cdff1c7c7493949935dd3d031921ae22d76c693a61e9299",
@@ -941,7 +949,7 @@
       "metadataHash": "d3b1e559c4c8c13c8befb6baa07676626ebd39eaa021ed5085c47ab629ed5f18",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "space-security-model": {
       "catalogHash": "91b00568029b576e9fdacaf97d06485e137acbc2ab501c8009f0934a4fccf678",
@@ -954,7 +962,7 @@
       "metadataHash": "2e9cf87daa959d720c0eb27d7b5bd6f6541c5c0711bee3a1c689846b7097e45a",
       "checkedFiles": 4,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "space-security-cases": {
       "catalogHash": "775dfc3f7417626f19d8a505e5151be33770ac5785918e6448b64b75d105a023",
@@ -964,7 +972,7 @@
       "metadataHash": "aa4ca3470abfff6c07679f65b06466f1e2b8e136d4ff6c4978b648415d754cf4",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "robot-security-model": {
       "catalogHash": "5dd7d8ceecf1a5efd377a54d25e470b7332a749b900315bb684276803df1bf14",
@@ -975,7 +983,7 @@
       "metadataHash": "166c71636ff6d1ff7210fc68c4939abf71af15e0723c3bf7031d2653b618ff4a",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "robot-security-checklist": {
       "catalogHash": "a13196bbfcad4eda53ebb26e4e18d61205be8d2c5f59aef24d6c89c107a8ea11",
@@ -985,7 +993,7 @@
       "metadataHash": "741b936d5e11685475b542b1f516de5f860ccbd360d23c88e3423414e3e3a5c0",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "vehicle-security-testing": {
       "catalogHash": "0ea7ba702224e61d70966bf272c8f82689820d35329fe90b3b0c8167e87f646f",
@@ -995,7 +1003,7 @@
       "metadataHash": "07b1ab7236961d1c2d29370e8cad47cbb2a50dbef94d2926a2a5afcb1c98f417",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "vehicle-threat-assessment": {
       "catalogHash": "784b725d44490b085d09cc68b36263d786f380e24dd55cc94c10eb43887e5ee7",
@@ -1005,7 +1013,7 @@
       "metadataHash": "8f69653417631dfabcd003c62c7d0bff4e6474313dc73bd9e2abfd5119943524",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "autonomous-vehicle-security": {
       "catalogHash": "b00ffc2b149458cdf5fb66952c81a58fe2ed491568e2b7f8ae0598e901fed42f",
@@ -1017,7 +1025,7 @@
       "metadataHash": "3af4de2a750f5b227a0fc2165ecc98d504d78bcd919f749157300fa70606050f",
       "checkedFiles": 3,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "vehicle-security-cases": {
       "catalogHash": "276c7786b2b4bbd8cf4f36670821dfd61a69c498acf0fcadbea7e2536d9c7a35",
@@ -1028,7 +1036,7 @@
       "metadataHash": "ca83c45ca45c5881aa6a88b2747d26623bf777bd703723f3158fe6b8b3a54b0c",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "autonomous-ship-security": {
       "catalogHash": "bcb8c50cbb787d2ba3e66030cc62d2c505a6b9474cb57d2c7c61372dd39d9d93",
@@ -1038,7 +1046,7 @@
       "metadataHash": "2d205de8f148636b9a03e013100f94329279b1157815e614616cff9e292c4ece",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "smart-ship-security": {
       "catalogHash": "95a303b606ed04e66f0157c3eb927a7c071599921564e031fabe0dc0d4c666a6",
@@ -1048,7 +1056,7 @@
       "metadataHash": "aab189d97644784f13ead2175a1f1447b1acc4720d4009b2daa516f1006be21c",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "smart-ship-security-cases": {
       "catalogHash": "2eb8d32673b8fed35048f72466c5ad8506cff76f001c16690635febb2901257c",
@@ -1058,7 +1066,7 @@
       "metadataHash": "0c893484c06794a913b78b6ba7f52c0987b57c0e3fd3b530464f3d6e2e56fa60",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "shipping-security-requirements": {
       "catalogHash": "68dbc3c093d9156fc3030669d69549f799078cf3431806141f73db9b56ed5f92",
@@ -1068,7 +1076,7 @@
       "metadataHash": "f4f0a75123d79e91adfaa987f538fd8d8a824b76cae7b3a98884676fa14395ea",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "ship-crew-security-training": {
       "catalogHash": "e7003709424dd92ce2ed7fcabaa7bfa52f9585b5e449fd720c26248c1081010d",
@@ -1080,7 +1088,7 @@
       "metadataHash": "f4432a876bdf065f861f1d7af0b5e8e056a26262c6e7cd18db8f03b989d64594",
       "checkedFiles": 3,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "smart-city-security": {
       "catalogHash": "f185a9c25980156590c571b0b4e2aa3c1a40b0e2617a4abce9a6062990a3b70f",
@@ -1091,7 +1099,7 @@
       "metadataHash": "cfed35e673abd0e8dc8d6823cb2eb520d90eaafb4e62c4af7411d587ac63cb78",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "digital-healthcare-security": {
       "catalogHash": "31746dd5c67526504775063f0db6bb5ead7ccb3aeafc36698a04ed9fa7918bc2",
@@ -1102,7 +1110,7 @@
       "metadataHash": "e78961049e93c4f9fab86ed345caac8857ffffb57c99f261a904acda50c6d7e7",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "healthcare-security-cases": {
       "catalogHash": "816f2e5b4a96eecc87359622ce7dc745255948d5a2e196296e526c900dd17db3",
@@ -1113,7 +1121,7 @@
       "metadataHash": "a8d115a1136c5b023b81c14e9d4476b8659e7d4d309583cbb16fe81ad087b679",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "metaverse-security": {
       "catalogHash": "b822224c6e49664a46092883f333818f1346e4feb66fe9407ba9cf5cf319e5e6",
@@ -1123,7 +1131,7 @@
       "metadataHash": "055377d040c856751a76723e611e7438865b1cada7c519f901222a96acacbf80",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "smart-factory-security": {
       "catalogHash": "50df2b21cde945b76c2b5400adfaaeb383aba348b28da1cc337eddbea797ee81",
@@ -1134,7 +1142,7 @@
       "metadataHash": "fcc5fec2c4584bc85d09dd42bd26e1ed7b7056522bdb8e336a70b3c660650ad6",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "smart-factory-security-cases": {
       "catalogHash": "9ee16b7d1c6dddf04ee904bb412d622825ca3a1ea5de00923d731f98e5ab48eb",
@@ -1145,7 +1153,7 @@
       "metadataHash": "ad938a29641becf561127643e8a4854a7e30f7c475451a841622f0464bad25cb",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "immersive-content-security": {
       "catalogHash": "0aa9338de49ec0282722441032e4d0754a965155ab887c62bbef6868ee997dce",
@@ -1156,7 +1164,7 @@
       "metadataHash": "1f8b740ca7ea40d99d534779ce13210a76dedc87b5a6b26c4cd2af187b1ce1dc",
       "checkedFiles": 2,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "immersive-content-cases": {
       "catalogHash": "6ded03c9bab30af480a898bd2e2bf5d90e40926c0f579fbb8356f655b164f871",
@@ -1166,7 +1174,7 @@
       "metadataHash": "6d3ca054c217bd8ad9ac9eb04c72ad6a2ae80833ace94fb7d7628a8354b21d94",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "drone-security": {
       "catalogHash": "50dfa0f424d3ea6e9bac887a8962aa6495189935786f2aba6dccadf87d2bf896",
@@ -1176,7 +1184,7 @@
       "metadataHash": "dfe4e71faf0f63f6f2f2a34c2561379c003bc01c944e4a579ed6668f4083f3c4",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     },
     "home-iot-security": {
       "catalogHash": "762f460d87c8475f943c92623c40e7c7954629d689740822dbf312d3b5ca9dd7",
@@ -1186,7 +1194,7 @@
       "metadataHash": "adcb40832745ebab1780d762b9c37491b15c88e12844e7ef00e9f296c636eaca",
       "checkedFiles": 1,
       "metadataOnlyFiles": 0,
-      "lastSuccessAt": "2026-10-10T17:05:19+00:00"
+      "lastSuccessAt": "2026-10-10T17:16:08+00:00"
     }
   },
   "boards": {
@@ -1317,58 +1325,58 @@
       "https://isms-p.or.kr/ntcn/rcsrm/selectGnrlRcsrmDetail.do?searchRcsrmMngId=RCSRMID_000000010043": "정보보호 및 개인정보보호 관리체계 인증에 관한 고시"
     },
     "38c367fe669dcd433cfa4677ea75e87b00557f4c0cbf2fa7de319aa199560403": {
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=72145": "사이버 위협 동향 보고서(2026년 상반기)",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=72167": "2026년 상반기 침해사고 원인분석 및 대응조치 서비스 동향보고서 - 가상화 인프라 타겟 공격과 대응방안",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=72138": "TTPs$ 국내 기업 환경의 공격표면 분석 및 대응전략",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=72125": "AI 보안 레드티밍 가이드",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=72124": "AI 보안위협 대응 매뉴얼",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=72122": "해킹진단도구 활용 방안#7(AXIOS 공급망 공격을 통한 서버 침해 및 정보 유출)",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=72121": "해킹진단도구 활용 방안#6(유출된 VPN 계정을 통한 내부망 침투 및 장악)",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=72093": "[2026 정보보호 인식제고 캠페인] 정보보호 실천수칙(개인·기업편)",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=72067": "AI 기반 사이버 위협 확대 우려에 따른 보안 점검 및 대비태세 강화 요청",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=72042": "「AI 기반 사이버공격 대비 기업 대응 요령 및 CEO 행동 수칙 」안내",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=72016": "IP카메라 설치·운영 보안 가이드",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=71958": "해킹진단도구 활용 방안#5(취약한 외부 노출 서버를 통한 웹 서버 데이터 삭제)",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=71951": "25년 사이버 위협 하반기 동향 및 26년 전망",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=71946": "정보보호최고책임자(CISO) 우수사례집",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=71929": "주요정보통신기반시설 관리·물리적 취약점 분석·평가 방법 안내서",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=71928": "주요정보통신기반시설 기술적 취약점 분석·평가 방법 상세가이드",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=71902": "해킹진단도구 활용 방안#4(노출된 SMB 파일 서버를 통한 AD 환경 장악)",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=71877": "CISO기업 대상 긴급 보안점검 관련 안내",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=71857": "안전한 로봇청소기 사용 보안 수칙",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=72205": "정보통신분야 침해사고 대응 안내서(개정본)",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=71851": "해킹진단도구 활용 방안#3(취약한 관리자 계정을 악용한 데이터 유출)",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=71845": "중소기업 침해사고 피해지원 서비스 동향 보고서(2025년 상반기)-기업 타깃형 스피어 피싱 사례 및 대응방안",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=71829": "사이버 위협 동향 보고서(2025년 상반기)",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=71822": "피싱 KISA에 신고하세요",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=71819": "랜섬웨어 대응을 위한 데이터백업 8대 보안수칙",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=71808": "스미싱·피싱 보호나라에 물어보세요!",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=71806": "안전한 공유기 사용 보안 수칙",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=71657": "중소기업 침해사고 피해지원서비스 동향보고서(2024년 4분기) - 정보유출 침해사고 사례",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=71642": "사이버 위협 동향 보고서(2024년 하반기)",
-      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=71637": "TTPs$ 포털사이트 피싱을 통한 가상자산 탈취 위협 분석"
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=72145": "사이버 위협 동향 보고서(2026년 상반기)",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=72167": "2026년 상반기 침해사고 원인분석 및 대응조치 서비스 동향보고서 - 가상화 인프라 타겟 공격과 대응방안",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=72138": "TTPs$ 국내 기업 환경의 공격표면 분석 및 대응전략",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=72125": "AI 보안 레드티밍 가이드",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=72124": "AI 보안위협 대응 매뉴얼",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=72122": "해킹진단도구 활용 방안#7(AXIOS 공급망 공격을 통한 서버 침해 및 정보 유출)",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=72121": "해킹진단도구 활용 방안#6(유출된 VPN 계정을 통한 내부망 침투 및 장악)",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=72093": "[2026 정보보호 인식제고 캠페인] 정보보호 실천수칙(개인·기업편)",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=72067": "AI 기반 사이버 위협 확대 우려에 따른 보안 점검 및 대비태세 강화 요청",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=72042": "「AI 기반 사이버공격 대비 기업 대응 요령 및 CEO 행동 수칙 」안내",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=72016": "IP카메라 설치·운영 보안 가이드",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=71958": "해킹진단도구 활용 방안#5(취약한 외부 노출 서버를 통한 웹 서버 데이터 삭제)",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=71951": "25년 사이버 위협 하반기 동향 및 26년 전망",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=71946": "정보보호최고책임자(CISO) 우수사례집",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=71929": "주요정보통신기반시설 관리·물리적 취약점 분석·평가 방법 안내서",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=71928": "주요정보통신기반시설 기술적 취약점 분석·평가 방법 상세가이드",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=71902": "해킹진단도구 활용 방안#4(노출된 SMB 파일 서버를 통한 AD 환경 장악)",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=71877": "CISO기업 대상 긴급 보안점검 관련 안내",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=71857": "안전한 로봇청소기 사용 보안 수칙",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=72205": "정보통신분야 침해사고 대응 안내서(개정본)",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=71851": "해킹진단도구 활용 방안#3(취약한 관리자 계정을 악용한 데이터 유출)",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=71845": "중소기업 침해사고 피해지원 서비스 동향 보고서(2025년 상반기)-기업 타깃형 스피어 피싱 사례 및 대응방안",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=71829": "사이버 위협 동향 보고서(2025년 상반기)",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=71822": "피싱 KISA에 신고하세요",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=71819": "랜섬웨어 대응을 위한 데이터백업 8대 보안수칙",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=71808": "스미싱·피싱 보호나라에 물어보세요!",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=71806": "안전한 공유기 사용 보안 수칙",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=71657": "중소기업 침해사고 피해지원서비스 동향보고서(2024년 4분기) - 정보유출 침해사고 사례",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=71642": "사이버 위협 동향 보고서(2024년 하반기)",
+      "https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&menuNo=205021&nttId=71637": "TTPs$ 포털사이트 피싱을 통한 가상자산 탈취 위협 분석"
     },
     "6ae3a98f2700373bd1d14538c25a978e3bfc7c0acd315a78cae620e7c673f07d": {
-      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&nttId=90": "정보보호 공시 사전점검확인서 양식",
-      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&nttId=40": "정보보호 공시내용 양식 및 검증 동의서 양식",
-      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&nttId=185": "정보보호 공시 자료산출 양식 배포(2026.06)",
-      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&nttId=176": "2026년 정보보호 공시 실무교육 자료",
-      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&nttId=164": "2025 정보보호 공시 현황 분석보고서",
-      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&nttId=102": "2025년 정보보호 공시 실무교육 자료",
-      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&nttId=97": "정보보호 공시 이행확인서",
-      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&nttId=94": "정보보호 공시 FAQ 사례집 개정본(2025.2.)",
-      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&nttId=93": "정보보호 공시내용 주석 양식",
-      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&nttId=92": "정보보호 공시 가이드라인 개정본(2025.2.)",
-      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&nttId=91": "정보보호 공시 자료산출 양식 배포(2025.2)",
-      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&nttId=86": "2024 정보보호 공시 현황 분석보고서 배포",
-      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&nttId=47": "공시내용 수정 사유서",
-      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&nttId=46": "정보보호 공시 종합 포털 안내서(2025.7.)",
-      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&nttId=42": "2024 정보보호 공시 실무교육 자료 배포",
-      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&nttId=38": "정보보호 공시 가이드라인 개정본(2024.3.)",
-      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&nttId=25": "2023 정보보호 공시 현황 분석보고서 배포",
-      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&nttId=23": "정보보호 공시 제도 소개자료(국문, 영문)",
-      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&nttId=16": "정보보호 공시 FAQ 사례집",
-      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&nttId=9": "2022 정보보호 공시 현황 분석보고서 배포(수정)"
+      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&menuNo=204948&nttId=90": "정보보호 공시 사전점검확인서 양식",
+      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&menuNo=204948&nttId=40": "정보보호 공시내용 양식 및 검증 동의서 양식",
+      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&menuNo=204948&nttId=185": "정보보호 공시 자료산출 양식 배포(2026.06)",
+      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&menuNo=204948&nttId=176": "2026년 정보보호 공시 실무교육 자료",
+      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&menuNo=204948&nttId=164": "2025 정보보호 공시 현황 분석보고서",
+      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&menuNo=204948&nttId=102": "2025년 정보보호 공시 실무교육 자료",
+      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&menuNo=204948&nttId=97": "정보보호 공시 이행확인서",
+      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&menuNo=204948&nttId=94": "정보보호 공시 FAQ 사례집 개정본(2025.2.)",
+      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&menuNo=204948&nttId=93": "정보보호 공시내용 주석 양식",
+      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&menuNo=204948&nttId=92": "정보보호 공시 가이드라인 개정본(2025.2.)",
+      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&menuNo=204948&nttId=91": "정보보호 공시 자료산출 양식 배포(2025.2)",
+      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&menuNo=204948&nttId=86": "2024 정보보호 공시 현황 분석보고서 배포",
+      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&menuNo=204948&nttId=47": "공시내용 수정 사유서",
+      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&menuNo=204948&nttId=46": "정보보호 공시 종합 포털 안내서(2025.7.)",
+      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&menuNo=204948&nttId=42": "2024 정보보호 공시 실무교육 자료 배포",
+      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&menuNo=204948&nttId=38": "정보보호 공시 가이드라인 개정본(2024.3.)",
+      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&menuNo=204948&nttId=25": "2023 정보보호 공시 현황 분석보고서 배포",
+      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&menuNo=204948&nttId=23": "정보보호 공시 제도 소개자료(국문, 영문)",
+      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&menuNo=204948&nttId=16": "정보보호 공시 FAQ 사례집",
+      "https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&menuNo=204948&nttId=9": "2022 정보보호 공시 현황 분석보고서 배포(수정)"
     },
     "ccd94d35983ba5c2504683c14390c94d15e842af589cc9c9e282a50fb3598d12": {
       "https://www.privacy.go.kr/front/bbs/bbsView.do?bbsNo=BBSMSTR_000000000049&bbscttNo=20919": "과징금 투자감경제도 안내서",
