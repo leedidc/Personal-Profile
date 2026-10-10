@@ -1,12 +1,13 @@
 import copy
 import sys
 import unittest
+import requests
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
-from check_resource_updates import check, inspect_resource, make_event, merge_history
+from check_resource_updates import check, fetch, inspect_resource, make_event, merge_history
 from resource_monitor_sources import canonical_url, official_url, parse_board, parse_document
 
 
@@ -85,6 +86,15 @@ class ResourceMonitorTests(unittest.TestCase):
         for url in ["http://www.kisa.or.kr/", "https://www.kisa.or.kr.evil.test/", "https://user:pass@www.kisa.or.kr/", "https://127.0.0.1/", "https://www.kisa.or.kr:8080/"]:
             with self.assertRaises(ValueError):
                 official_url(url)
+
+    def test_transient_connection_failure_is_retried(self):
+        with patch('check_resource_updates.fetch_once', side_effect=[requests.Timeout(), 'file-hash']) as request, patch('check_resource_updates.time.sleep'):
+            self.assertEqual(fetch(self.source, binary=True), 'file-hash')
+            self.assertEqual(request.call_count, 2)
+        with patch('check_resource_updates.fetch_once', side_effect=requests.exceptions.SSLError()) as request:
+            with self.assertRaises(requests.exceptions.SSLError):
+                fetch(self.source)
+            self.assertEqual(request.call_count, 1)
 
     def test_board_identifies_posts_without_navigation_and_sessions(self):
         html = """<a href="/2060204">메뉴</a><a href="/2060204/form?postSeq=10&amp;page=2">새 안내서 N</a>"""

@@ -24,7 +24,7 @@ USER_AGENT = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
               "(KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 PersonalProfileGuideMonitor/1.0")
 
 
-def fetch(url, binary=False):
+def fetch_once(url, binary=False):
     """리디렉션도 출처를 검사하고 파일은 저장 없이 스트리밍 해시만 계산합니다."""
     started = time.monotonic()
     for redirect in range(5):
@@ -60,6 +60,21 @@ def fetch(url, binary=False):
                 encoding = "utf-8"
             return b"".join(chunks).decode(encoding)
     raise ValueError("리디렉션 횟수 초과")
+
+
+def fetch(url, binary=False):
+    for attempt in range(2):
+        try:
+            return fetch_once(url, binary)
+        except requests.exceptions.SSLError:
+            raise
+        except requests.HTTPError as error:
+            if attempt or error.response.status_code not in (429, 500, 502, 503, 504):
+                raise
+        except (requests.ConnectionError, requests.Timeout, requests.exceptions.ChunkedEncodingError):
+            if attempt:
+                raise
+        time.sleep(2)
 
 
 def error_message(error):
