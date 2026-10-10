@@ -13,7 +13,7 @@ def check_visitor_info(browser, base, artifacts):
         ('Asia/Seoul', '2026. 10. 10.', '09:00:00'),
         ('America/New_York', '2026. 10. 09.', '20:00:00'),
     ]:
-        context = browser.new_context(timezone_id=zone, viewport={'width': 1440, 'height': 1000})
+        context = browser.new_context(timezone_id=zone, viewport={'width': 1440, 'height': 1000}, reduced_motion='reduce')
         page = context.new_page()
         page.on('pageerror', lambda error: errors.append(str(error)))
         payload = {'ip': '192.0.2.10', 'country': 'KR'}
@@ -29,9 +29,7 @@ def check_visitor_info(browser, base, artifacts):
         expect(page.locator('#visitor-time')).to_have_attribute('title', zone)
         page.clock.run_for(1100)
         expect(page.locator('#visitor-time')).to_contain_text(expected_hour[:-2] + '01')
-        assert page.evaluate("""localStorage.length === 0 && Object.entries(sessionStorage).every(
-            ([key, value]) => key === 'portfolio-intro-seen-v1' && value === '1'
-        )""")
+        assert page.evaluate('localStorage.length === 0 && sessionStorage.length === 0')
 
         payload.update(ip='2001:db8:1234:5678:abcd:ef01:2345:6789', country='US')
         page.reload()

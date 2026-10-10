@@ -135,6 +135,7 @@ try:
         for width in [390, 320]:
             page.set_viewport_size({"width": width, "height": 844})
             page.goto(BASE)
+            expect(page.locator('#site-intro')).not_to_be_visible()
             expect(page.locator(".resume-section")).to_have_count(7 + bool(original.get('skills')) + bool(original.get('training')))
             no_overflow(page)
         page.set_viewport_size({"width": 390, "height": 844})

@@ -5,16 +5,8 @@
     return;
   }
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  const storageKey = 'portfolio-intro-seen-v1';
   const durationMs = 2400;
-  let alreadySeen = false;
-  try {
-    alreadySeen = sessionStorage.getItem(storageKey) === '1';
-  } catch {
-    // 저장소를 사용할 수 없어도 사이트 진입은 계속합니다.
-  }
   if (
-    alreadySeen ||
     reducedMotion.matches ||
     document.hidden ||
     location.hash ||
@@ -73,10 +65,5 @@
   } catch {
     finish();
     return;
-  }
-  try {
-    sessionStorage.setItem(storageKey, '1');
-  } catch {
-    // 저장이 차단된 환경에서는 이번 진입에서만 재생합니다.
   }
 })();

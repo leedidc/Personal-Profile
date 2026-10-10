@@ -43,7 +43,15 @@ def check_site_intro(browser, base, artifacts):
     assert 2 <= time.monotonic() - started < 4
     assert page.evaluate("!document.documentElement.classList.contains('intro-playing')")
     expect(page.locator('#profile h1')).to_be_visible()
+    # 이전 버전의 재생 기록이 남은 탭에서도 주소 재입력과 새로고침은 재생합니다.
+    page.evaluate("sessionStorage.setItem('portfolio-intro-seen-v1', '1')")
+    page.goto(base, wait_until='domcontentloaded')
+    expect(page.locator('#site-intro')).to_be_visible()
+    page.locator('#site-intro-skip').click()
+    expect(page.locator('#site-intro')).to_have_count(0)
     page.reload(wait_until='domcontentloaded')
+    expect(page.locator('#site-intro')).to_be_visible()
+    page.keyboard.press('Escape')
     expect(page.locator('#site-intro')).to_have_count(0)
     context.close()
 
@@ -110,4 +118,4 @@ def check_site_intro(browser, base, artifacts):
     expect(page.locator('main noscript')).to_be_visible()
     context.close()
     assert not errors, errors
-    print('PASS: no content flash with delayed intro loading, 2.4-second intro, unlock frames, once per tab, keyboard/skip, mobile/landscape, reduced motion, deep links, blocked storage and missing assets/JavaScript.')
+    print('PASS: no content flash with delayed intro loading, 2.4-second intro, unlock frames, repeat visits/reloads with old session flags, keyboard/skip, mobile/landscape, reduced motion, deep links, blocked storage and missing assets/JavaScript.')
