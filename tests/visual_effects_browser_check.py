@@ -27,7 +27,7 @@ def check_visual_effects(browser, base, artifacts):
     visual = page.locator('.network-visual')
     expect(visual).to_be_visible()
     expect(visual.locator('.network-caption')).to_have_text('SECURITY')
-    expect(visual).to_have_attribute('aria-label', '보안 연결 과정 살펴보기')
+    expect(visual).to_have_attribute('aria-label', '보안 연결 안내')
     expect(visual).to_have_class('network-visual is-animating')
     radar = visual.locator('.network-radar')
     assert radar.evaluate("el => el.getAnimations()[0].playState === 'running'")

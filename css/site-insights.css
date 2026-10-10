@@ -47,14 +47,34 @@
   color: var(--muted);
   font-size: 10px;
 }
-.security-card .insight-badge {
+.connection-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   color: var(--on-dark-muted);
-  border-color: var(--navy-line);
+  font-size: 10px;
 }
-.insight-description {
-  margin-top: 12px;
-  color: var(--on-dark-muted);
-  font-size: 12px;
+.connection-state::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.is-secure .connection-state {
+  color: var(--on-dark-accent);
+}
+.is-secure .connection-state::before {
+  box-shadow: 0 0 0 4px #79cbd015;
+}
+#connection-heading {
+  margin-top: 22px;
+  font-size: 24px;
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  line-height: 1.5;
+  word-break: keep-all;
+  text-wrap: balance;
 }
 .security-path {
   position: relative;
@@ -87,6 +107,7 @@
   animation-play-state: running;
 }
 .security-path button {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -95,6 +116,17 @@
   border: 0;
   background: transparent;
   color: inherit;
+}
+.security-path button:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: -2px;
+  width: 5px;
+  height: 5px;
+  border-top: 1px solid var(--on-dark-accent);
+  border-right: 1px solid var(--on-dark-accent);
+  transform: rotate(45deg);
 }
 .security-node {
   display: grid;
@@ -121,6 +153,11 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+.is-secure .security-path [data-security-step='1'] .security-node {
+  border-color: var(--on-dark-accent);
+  background: #214d5a;
+  box-shadow: 0 0 22px #79cbd020;
+}
 .security-path button:hover .security-node,
 .security-path button:focus-visible .security-node {
   transform: translateY(-3px);
@@ -133,29 +170,33 @@
   color: var(--on-dark-muted);
   font-size: 10px;
 }
-.connection-facts {
+.connection-protections {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 20px;
-  color: var(--on-dark-accent);
-  font-size: 11px;
-}
-.connection-facts span {
-  border: 1px solid #79cbd03d;
-  border-radius: 5px;
-  padding: 4px 8px;
-}
-.security-more {
-  display: flex;
-  justify-content: space-between;
-  padding: 14px 0 0;
-  border: 0;
+  gap: 6px;
   border-top: 1px solid var(--navy-line);
-  background: none;
-  color: var(--on-dark);
-  text-align: left;
-  font-size: 12px;
+  padding-top: 16px;
+  color: var(--on-dark-accent);
+  font-size: 10px;
+}
+.connection-protections span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 6px;
+}
+.connection-protections span::before {
+  content: '';
+  width: 7px;
+  height: 4px;
+  border-left: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(-45deg);
+}
+.connection-protocol {
+  margin-top: 8px;
+  color: var(--on-dark-muted);
+  font-size: 10px;
 }
 .security-card button:focus-visible {
   outline-color: var(--on-dark-accent);
@@ -247,19 +288,16 @@
   min-height: 20px;
 }
 .visitor-map-notice,
-.visitor-map-method {
+.visitor-map-source {
   margin-top: 8px;
   color: var(--muted);
   font-size: 10px;
 }
-.visitor-map-method p {
-  margin-top: 8px;
-}
-.visitor-map-method a {
+.visitor-map-source a {
   text-decoration: underline;
 }
 .security-dialog {
-  width: min(720px, calc(100% - 32px));
+  width: min(560px, calc(100% - 32px));
   max-height: calc(100dvh - 40px);
   padding: 0;
   border: 1px solid var(--line);
@@ -306,41 +344,12 @@
   padding: 28px 26px;
 }
 .security-explanation h3 {
-  margin: 6px 0 12px;
-  font-size: 23px;
+  margin: 0 0 12px;
+  font-size: 20px;
 }
-.security-explanation > p:not(.insight-eyebrow) {
+.security-explanation p {
   font-size: 13px;
   line-height: 1.8;
-}
-.security-explanation ol {
-  display: grid;
-  gap: 12px;
-  padding-left: 22px;
-  margin: 20px 0;
-  color: var(--text-secondary);
-  font-size: 13px;
-}
-.security-explanation li::marker {
-  color: var(--accent);
-  font-weight: 700;
-}
-.security-observation {
-  padding: 14px;
-  background: var(--accent-soft);
-  border-left: 3px solid var(--accent);
-  border-radius: 4px;
-}
-.security-dialog-footer {
-  border-top: 1px solid var(--line);
-  padding: 18px 26px;
-  color: var(--muted);
-  font-size: 11px;
-}
-.security-dialog-footer a {
-  display: inline-block;
-  margin-top: 10px;
-  color: var(--accent);
 }
 @keyframes secure-packet {
   0% {
@@ -369,6 +378,9 @@
   }
 }
 @media (max-width: 480px) {
+  #connection-heading {
+    font-size: 21px;
+  }
   .security-path strong {
     font-size: 10px;
     white-space: nowrap;
@@ -381,8 +393,7 @@
     flex-wrap: wrap;
   }
   .security-dialog-heading,
-  .security-explanation,
-  .security-dialog-footer {
+  .security-explanation {
     padding: 20px;
   }
   .security-dialog-steps {
