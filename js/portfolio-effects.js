@@ -53,16 +53,8 @@
       return;
     }
     const visual = template.content.firstElementChild.cloneNode(true);
-    const panels = document.createElement('div');
-    panels.className = 'profile-visuals';
-    panels.append(visual);
-    const visitorMap = document.getElementById('site-insights');
-    if (visitorMap) {
-      // 통계와 이벤트 연결을 유지하도록 기존 지도 요소를 옮깁니다.
-      panels.append(visitorMap);
-    }
     overview.classList.add('has-network-visual');
-    overview.append(panels);
+    overview.append(visual);
     const resetTilt = initializeNetworkTilt(visual);
     let visible = false;
 

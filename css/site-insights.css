@@ -1,33 +1,5 @@
 .site-insights {
-  margin: 0 0 48px;
-}
-.profile-visuals .site-insights {
-  display: flex;
-  min-width: 0;
-  margin: 0;
-}
-.profile-visuals .visitor-map-card {
-  flex: 1;
-  padding: 16px;
-}
-.profile-visuals .insight-heading {
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.profile-visuals .insight-heading h2 {
-  margin-bottom: 0;
-  font-size: 15px;
-}
-.profile-visuals .insight-badge {
-  font-size: 9px;
-}
-.profile-visuals .visitor-map-layout {
-  grid-template-columns: minmax(0, 1fr);
-  gap: 10px;
-}
-.profile-visuals .visitor-map-summary {
-  border-top: 1px solid var(--line);
-  padding-top: 10px;
+  margin: 48px 0;
 }
 .security-card,
 .visitor-map-card {
@@ -44,7 +16,7 @@
   align-items: center;
   gap: 24px;
   margin-top: 10px;
-  padding: 16px 20px;
+  padding: 10px 20px;
   border-radius: 8px;
   color: var(--on-dark);
   background: radial-gradient(ellipse at 70% 45%, #1c4354, var(--navy) 75%);
@@ -128,7 +100,7 @@
 .security-path::after {
   content: '';
   position: absolute;
-  top: 16px;
+  top: 14px;
   left: 12%;
   width: 76%;
   height: 1px;
@@ -151,7 +123,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
   padding: 0 3px;
   border: 0;
   border-radius: 6px;
@@ -161,7 +133,7 @@
 .security-path button:not(:last-child)::after {
   content: '';
   position: absolute;
-  top: 13px;
+  top: 11px;
   right: -2px;
   width: 5px;
   height: 5px;
@@ -172,10 +144,10 @@
 .security-node {
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border: 1px solid #79cbd060;
-  border-radius: 10px;
+  border-radius: 8px;
   background: var(--navy);
   color: var(--on-dark-accent);
   font:
@@ -186,8 +158,8 @@
     box-shadow 180ms ease;
 }
 .security-node svg {
-  width: 17px;
-  height: 17px;
+  width: 16px;
+  height: 16px;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.5;
@@ -215,7 +187,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 4px 10px;
-  margin-top: 7px;
+  margin-top: 5px;
   color: var(--on-dark-accent);
   font-size: 9px;
 }
@@ -413,12 +385,12 @@
 @media (max-width: 800px) {
   .security-card {
     grid-template-columns: minmax(0, 1fr);
-    gap: 16px;
-    padding: 14px 16px;
+    gap: 12px;
+    padding: 12px 16px;
   }
   .connection-status {
     position: absolute;
-    top: 14px;
+    top: 12px;
     right: 16px;
     flex-direction: row;
     align-items: center;
@@ -427,7 +399,7 @@
     border: 0;
   }
   #connection-heading {
-    margin-top: 10px;
+    margin-top: 8px;
   }
   .visitor-map-layout {
     grid-template-columns: minmax(0, 1fr);

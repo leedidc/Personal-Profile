@@ -85,7 +85,7 @@
     const names = { h2: 'HTTP/2', h3: 'HTTP/3', 'http/1.1': 'HTTP/1.1' };
     card.classList.toggle('is-secure', secure);
     document.getElementById('connection-heading').textContent = secure
-      ? '이 사이트는 보안 연결로 보호되고 있습니다.'
+      ? '해당 사이트는 안전하게 보호되고 있습니다.'
       : '현재 페이지는 HTTPS로 연결되지 않았습니다.';
     document.getElementById('connection-https').textContent = secure
       ? 'HTTPS 연결'

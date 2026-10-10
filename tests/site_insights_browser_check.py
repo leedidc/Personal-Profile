@@ -113,7 +113,7 @@ def check_site_insights(browser, base, artifacts):
     secure_page = secure_context.new_page()
     secure_page.on('pageerror', lambda error: errors.append(str(error)))
     secure_page.goto('https://portfolio.example/')
-    expect(secure_page.locator('#connection-heading')).to_have_text('이 사이트는 보안 연결로 보호되고 있습니다.')
+    expect(secure_page.locator('#connection-heading')).to_have_text('해당 사이트는 안전하게 보호되고 있습니다.')
     expect(secure_page.locator('#connection-https')).to_have_text('HTTPS 연결')
     expect(secure_page.locator('#connection-protections')).to_be_visible()
     for width in [1440, 390, 320]:
