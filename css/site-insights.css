@@ -1,7 +1,4 @@
 .site-insights {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: 24px;
   margin: 0 0 48px;
 }
 .security-card,
@@ -13,11 +10,29 @@
   background: var(--white);
 }
 .security-card {
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(230px, 0.9fr) minmax(0, 1.25fr) auto;
+  align-items: center;
+  gap: 24px;
+  margin-top: 10px;
+  padding: 16px 20px;
+  border-radius: 8px;
   color: var(--on-dark);
   background: radial-gradient(ellipse at 70% 45%, #1c4354, var(--navy) 75%);
   border-color: var(--navy-line);
+}
+.security-summary {
+  min-width: 0;
+}
+.connection-status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  border-left: 1px solid var(--navy-line);
+  padding-left: 20px;
+  white-space: nowrap;
 }
 .insight-heading {
   display: flex;
@@ -68,27 +83,24 @@
   box-shadow: 0 0 0 4px #79cbd015;
 }
 #connection-heading {
-  margin-top: 22px;
-  font-size: 24px;
+  margin-top: 5px;
+  font-size: 14px;
   font-weight: 650;
   letter-spacing: -0.04em;
   line-height: 1.5;
   word-break: keep-all;
-  text-wrap: balance;
 }
 .security-path {
   position: relative;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin: auto 0;
-  padding: 34px 0;
   isolation: isolate;
 }
 .security-path::before,
 .security-path::after {
   content: '';
   position: absolute;
-  top: 57px;
+  top: 16px;
   left: 12%;
   width: 76%;
   height: 1px;
@@ -111,16 +123,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   padding: 0 3px;
   border: 0;
+  border-radius: 6px;
   background: transparent;
   color: inherit;
 }
 .security-path button:not(:last-child)::after {
   content: '';
   position: absolute;
-  top: 20px;
+  top: 13px;
   right: -2px;
   width: 5px;
   height: 5px;
@@ -131,10 +144,10 @@
 .security-node {
   display: grid;
   place-items: center;
-  width: 46px;
-  height: 46px;
+  width: 32px;
+  height: 32px;
   border: 1px solid #79cbd060;
-  border-radius: 14px;
+  border-radius: 10px;
   background: var(--navy);
   color: var(--on-dark-accent);
   font:
@@ -145,8 +158,8 @@
     box-shadow 180ms ease;
 }
 .security-node svg {
-  width: 22px;
-  height: 22px;
+  width: 17px;
+  height: 17px;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.5;
@@ -164,26 +177,24 @@
   box-shadow: 0 0 22px #79cbd028;
 }
 .security-path strong {
-  font-size: 11px;
+  font-size: 10px;
 }
 .security-path small {
   color: var(--on-dark-muted);
-  font-size: 10px;
+  font-size: 9px;
 }
 .connection-protections {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  border-top: 1px solid var(--navy-line);
-  padding-top: 16px;
+  gap: 4px 10px;
+  margin-top: 7px;
   color: var(--on-dark-accent);
-  font-size: 10px;
+  font-size: 9px;
 }
 .connection-protections span {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 4px 6px;
 }
 .connection-protections span::before {
   content: '';
@@ -194,7 +205,6 @@
   transform: rotate(-45deg);
 }
 .connection-protocol {
-  margin-top: 8px;
   color: var(--on-dark-muted);
   font-size: 10px;
 }
@@ -213,6 +223,15 @@
   padding: 0 16px 14px;
   color: var(--accent);
   font-size: 11px;
+}
+.visitor-map-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 32px;
+}
+.visitor-map-details {
+  min-width: 0;
 }
 .visitor-map {
   position: relative;
@@ -259,8 +278,6 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  border-top: 1px solid var(--line);
-  padding-top: 12px;
   font-size: 11px;
 }
 .visitor-map-summary strong {
@@ -365,27 +382,42 @@
     opacity: 0;
   }
 }
-@media (max-width: 950px) {
-  .site-insights {
+@media (max-width: 800px) {
+  .security-card {
     grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    padding: 14px 16px;
   }
-  .security-path {
-    padding-block: 28px;
+  .connection-status {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+    border: 0;
   }
-  .security-path::before,
-  .security-path::after {
-    top: 51px;
+  #connection-heading {
+    margin-top: 10px;
+  }
+  .visitor-map-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+  .visitor-map-summary {
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
   }
 }
 @media (max-width: 480px) {
   #connection-heading {
-    font-size: 21px;
+    font-size: 13px;
   }
   .security-path strong {
     font-size: 10px;
     white-space: nowrap;
   }
-  .security-card,
   .visitor-map-card {
     padding: 20px 16px;
   }
@@ -424,6 +456,7 @@
   }
 }
 @media print {
+  .security-card,
   .site-insights,
   .security-dialog {
     display: none;

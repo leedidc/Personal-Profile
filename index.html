@@ -75,64 +75,10 @@
           </div>
         </dl>
       </aside>
-      <div id="profile"></div>
-      <section id="site-insights" class="site-insights" aria-label="연결 보안과 국가별 방문">
-        <article class="security-card" aria-labelledby="connection-heading">
-          <div class="insight-heading">
-            <p class="insight-eyebrow">CONNECTION</p>
-            <span id="connection-https" class="connection-state">연결 확인 중</span>
-          </div>
+      <section id="security-connection" class="security-card" aria-labelledby="connection-heading">
+        <div class="security-summary">
+          <p class="insight-eyebrow">CONNECTION</p>
           <h2 id="connection-heading">보안 연결 상태를 확인하고 있습니다.</h2>
-          <div class="security-path" aria-label="브라우저에서 웹페이지까지의 연결 흐름">
-            <button
-              type="button"
-              data-security-step="0"
-              aria-haspopup="dialog"
-              aria-controls="security-dialog"
-            >
-              <span class="security-node" aria-hidden="true"
-                ><svg viewBox="0 0 24 24">
-                  <rect x="3" y="4" width="18" height="16" rx="2" />
-                  <path d="M3 9H21M6 6.5H6.1M9 6.5H9.1" /></svg></span
-              ><strong>브라우저</strong><small>접속 요청</small>
-            </button>
-            <button
-              type="button"
-              data-security-step="1"
-              aria-haspopup="dialog"
-              aria-controls="security-dialog"
-            >
-              <span class="security-node" aria-hidden="true"
-                ><svg viewBox="0 0 24 24">
-                  <rect x="5" y="10" width="14" height="11" rx="2" />
-                  <path d="M8 10V7A4 4 0 0 1 16 7V10M12 14V17" /></svg></span
-              ><strong>TLS</strong><small>인증·암호화</small>
-            </button>
-            <button
-              type="button"
-              data-security-step="2"
-              aria-haspopup="dialog"
-              aria-controls="security-dialog"
-            >
-              <span class="security-node" aria-hidden="true"
-                ><svg viewBox="0 0 24 24">
-                  <path
-                    d="M6 19A4 4 0 0 1 5 11A7 7 0 0 1 18.5 10A4.5 4.5 0 0 1 18 19ZM8 14L11 17L16 12"
-                  /></svg></span
-              ><strong>Cloudflare</strong><small>사이트 제공</small>
-            </button>
-            <button
-              type="button"
-              data-security-step="3"
-              aria-haspopup="dialog"
-              aria-controls="security-dialog"
-            >
-              <span class="security-node" aria-hidden="true"
-                ><svg viewBox="0 0 24 24">
-                  <path d="M5 3H14L19 8V21H5ZM14 3V8H19M8 12H16M8 16H14" /></svg></span
-              ><strong>웹페이지</strong><small>콘텐츠 표시</small>
-            </button>
-          </div>
           <div
             id="connection-protections"
             class="connection-protections"
@@ -143,8 +89,64 @@
             <span>전송 암호화</span>
             <span>변조 감지</span>
           </div>
+        </div>
+        <div class="security-path" aria-label="브라우저에서 웹페이지까지의 연결 흐름">
+          <button
+            type="button"
+            data-security-step="0"
+            aria-haspopup="dialog"
+            aria-controls="security-dialog"
+          >
+            <span class="security-node" aria-hidden="true"
+              ><svg viewBox="0 0 24 24">
+                <rect x="3" y="4" width="18" height="16" rx="2" />
+                <path d="M3 9H21M6 6.5H6.1M9 6.5H9.1" /></svg></span
+            ><strong>브라우저</strong><small>접속 요청</small>
+          </button>
+          <button
+            type="button"
+            data-security-step="1"
+            aria-haspopup="dialog"
+            aria-controls="security-dialog"
+          >
+            <span class="security-node" aria-hidden="true"
+              ><svg viewBox="0 0 24 24">
+                <rect x="5" y="10" width="14" height="11" rx="2" />
+                <path d="M8 10V7A4 4 0 0 1 16 7V10M12 14V17" /></svg></span
+            ><strong>TLS</strong><small>인증·암호화</small>
+          </button>
+          <button
+            type="button"
+            data-security-step="2"
+            aria-haspopup="dialog"
+            aria-controls="security-dialog"
+          >
+            <span class="security-node" aria-hidden="true"
+              ><svg viewBox="0 0 24 24">
+                <path
+                  d="M6 19A4 4 0 0 1 5 11A7 7 0 0 1 18.5 10A4.5 4.5 0 0 1 18 19ZM8 14L11 17L16 12"
+                /></svg></span
+            ><strong>Cloudflare</strong><small>사이트 제공</small>
+          </button>
+          <button
+            type="button"
+            data-security-step="3"
+            aria-haspopup="dialog"
+            aria-controls="security-dialog"
+          >
+            <span class="security-node" aria-hidden="true"
+              ><svg viewBox="0 0 24 24">
+                <path d="M5 3H14L19 8V21H5ZM14 3V8H19M8 12H16M8 16H14" /></svg></span
+            ><strong>웹페이지</strong><small>콘텐츠 표시</small>
+          </button>
+        </div>
+        <div class="connection-status">
+          <span id="connection-https" class="connection-state">연결 확인 중</span>
           <p id="connection-protocol" class="connection-protocol" hidden></p>
-        </article>
+        </div>
+      </section>
+      <div id="profile"></div>
+      <section id="site-insights" class="site-insights" aria-label="국가별 방문">
         <article class="visitor-map-card" aria-labelledby="visitor-map-heading">
           <div class="insight-heading">
             <div>
@@ -153,46 +155,54 @@
             </div>
             <span class="insight-badge">최근 30일 · UTC</span>
           </div>
-          <div class="visitor-map" id="visitor-map" aria-label="국가 대표 위치에 표시한 방문 통계">
-            <img
-              src="image/visitor-map/world.svg"
-              alt=""
-              width="1000"
-              height="500"
-              loading="lazy"
-            />
-            <div id="visitor-map-points"></div>
-          </div>
-          <div class="visitor-map-summary">
-            <p>
-              <strong id="visitor-total">—</strong>회 방문 <span aria-hidden="true">·</span>
-              <strong id="visitor-country-count">—</strong>개국
-            </p>
-            <label class="sr-only" for="visitor-country-select">국가별 방문 횟수</label>
-            <select id="visitor-country-select" disabled>
-              <option>국가별 통계</option>
-            </select>
-          </div>
-          <p id="visitor-map-selection" class="visitor-map-selection" role="status">
-            방문 통계를 불러오는 중…
-          </p>
-          <p class="visitor-map-notice">
-            점은 국가별 대표 위치이며, 개별 IP와 접속 위치는 공개하지 않습니다.
-          </p>
-          <p class="visitor-map-notice">
-            VPN을 사용하면 실제 위치와 다른 국가로 표시될 수 있습니다.
-          </p>
-          <p class="visitor-map-source">
-            <a
-              href="https://www.naturalearthdata.com/about/terms-of-use/"
-              target="_blank"
-              rel="noopener noreferrer"
-              >지도: Natural Earth · Public Domain</a
+          <div class="visitor-map-layout">
+            <div
+              class="visitor-map"
+              id="visitor-map"
+              aria-label="국가 대표 위치에 표시한 방문 통계"
             >
-          </p>
-          <button id="visitor-map-retry" class="button small" type="button" hidden>
-            통계 다시 불러오기
-          </button>
+              <img
+                src="image/visitor-map/world.svg"
+                alt=""
+                width="1000"
+                height="500"
+                loading="lazy"
+              />
+              <div id="visitor-map-points"></div>
+            </div>
+            <div class="visitor-map-details">
+              <div class="visitor-map-summary">
+                <p>
+                  <strong id="visitor-total">—</strong>회 방문 <span aria-hidden="true">·</span>
+                  <strong id="visitor-country-count">—</strong>개국
+                </p>
+                <label class="sr-only" for="visitor-country-select">국가별 방문 횟수</label>
+                <select id="visitor-country-select" disabled>
+                  <option>국가별 통계</option>
+                </select>
+              </div>
+              <p id="visitor-map-selection" class="visitor-map-selection" role="status">
+                방문 통계를 불러오는 중…
+              </p>
+              <p class="visitor-map-notice">
+                점은 국가별 대표 위치이며, 개별 IP와 접속 위치는 공개하지 않습니다.
+              </p>
+              <p class="visitor-map-notice">
+                VPN을 사용하면 실제 위치와 다른 국가로 표시될 수 있습니다.
+              </p>
+              <p class="visitor-map-source">
+                <a
+                  href="https://www.naturalearthdata.com/about/terms-of-use/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >지도: Natural Earth · Public Domain</a
+                >
+              </p>
+              <button id="visitor-map-retry" class="button small" type="button" hidden>
+                통계 다시 불러오기
+              </button>
+            </div>
+          </div>
         </article>
       </section>
       <div id="portfolio"><p class="load-message" role="status">불러오는 중…</p></div>

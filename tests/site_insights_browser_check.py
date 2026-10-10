@@ -122,7 +122,7 @@ def check_site_insights(browser, base, artifacts):
         secure_page.locator('.security-path [data-security-step="1"]').click()
         expect(secure_page.locator('#security-step-description')).to_contain_text('TLS로 암호화됩니다')
         secure_page.keyboard.press('Escape')
-        secure_page.locator('#site-insights').screenshot(path=str(artifacts / f'security-status-{width}.png'))
+        secure_page.locator('#security-connection').screenshot(path=str(artifacts / f'security-status-{width}.png'))
     assert not errors, errors
     secure_context.close()
     print('PASS: HTTPS/HTTP status, concise connection flow, shield keyboard/dialog, country map, private aggregates, session deduplication, empty/error states and mobile/reduced motion.')
