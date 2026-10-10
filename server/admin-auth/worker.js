@@ -212,6 +212,7 @@ export class AdminState {
         '/session': 'GET',
         '/logout': 'POST',
         '/portfolio': 'GET PUT',
+        '/resource-updates': 'GET',
         '/posts/snapshot': 'GET',
         '/posts/read': 'POST',
         '/posts/save': 'POST',

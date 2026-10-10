@@ -26,6 +26,7 @@
     <script src="../js/award-research-editor.js" defer></script>
     <script src="../js/admin-auth.js" defer></script>
     <script src="../js/portfolio-github.js" defer></script>
+    <script src="../js/resource-update-admin.js" defer></script>
     <script src="../js/portfolio-editor.js" defer></script>
   </head>
   <body>
@@ -46,6 +47,7 @@
       <div class="admin-title">
         <h1>관리자<span class="unsaved" id="unsaved" hidden>저장하지 않은 변경사항</span></h1>
         <div class="admin-header-actions" id="publish-actions" hidden>
+          <button class="button" id="open-resource-monitor" type="button">자료실 점검</button>
           <button class="button" id="preview" type="button">미리보기</button>
           <button class="button primary" id="publish" type="button" disabled>사이트에 저장</button>
         </div>
@@ -140,6 +142,36 @@
         <div class="editor-list" id="editor-list"></div>
       </section>
     </main>
+    <dialog id="resource-monitor-dialog" aria-labelledby="resource-monitor-title">
+      <div class="dialog-header">
+        <h2 id="resource-monitor-title">자료실 자동 점검</h2>
+        <button
+          class="button icon"
+          type="button"
+          data-close="resource-monitor-dialog"
+          aria-label="닫기"
+        >
+          ×
+        </button>
+      </div>
+      <div class="dialog-body resource-monitor-body">
+        <p id="resource-monitor-status" role="status"></p>
+        <p id="resource-monitor-coverage"></p>
+        <p>
+          매일 09:17(한국 시간)에 점검합니다. 최근 90일의 변경 후보를 확인한 뒤 자료 목록에 반영해
+          주세요.
+        </p>
+        <ul id="resource-update-list" aria-label="변경 감지 이력"></ul>
+        <p id="resource-monitor-errors"></p>
+        <ul id="resource-error-list" aria-label="확인하지 못한 출처"></ul>
+        <a
+          href="https://github.com/leedidc/Personal-Profile/actions/workflows/resource-updates.yml"
+          target="_blank"
+          rel="noopener noreferrer"
+          >점검 실행 기록 ↗</a
+        >
+      </div>
+    </dialog>
     <dialog id="item-dialog" aria-labelledby="item-title">
       <form id="item-form">
         <div class="dialog-header">

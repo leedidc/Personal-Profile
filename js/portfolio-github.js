@@ -124,5 +124,24 @@
     return saved.content.sha;
   }
 
-  globalThis.PortfolioStorage = { loadPortfolio, savePortfolio, verifyWriteAccess };
+  async function loadResourceUpdates(token) {
+    if (token?.type === 'session') {
+      return AdminAuth.request('/resource-updates', token);
+    }
+    const remote = await requestGitHub(
+      `/repos/${repository}/contents/data/resource-updates.json?ref=${branch}`,
+      token,
+    );
+    if (remote.encoding !== 'base64' || !remote.content) {
+      throw new Error('자료실 점검 결과를 읽을 수 없습니다.');
+    }
+    return decodePortfolio(remote.content);
+  }
+
+  globalThis.PortfolioStorage = {
+    loadPortfolio,
+    savePortfolio,
+    verifyWriteAccess,
+    loadResourceUpdates,
+  };
 })();

@@ -442,3 +442,25 @@ dialog::backdrop {
     margin-left: 8px;
   }
 }
+
+.resource-monitor-body {
+  padding: 0 18px 18px;
+  color: var(--muted);
+}
+.resource-monitor-body p {
+  margin-bottom: 10px;
+}
+.resource-monitor-body ul {
+  max-height: 280px;
+  overflow-y: auto;
+  list-style: none;
+  padding: 0;
+}
+.resource-monitor-body li {
+  padding: 10px 0;
+  border-top: 1px solid var(--control-line);
+}
+.resource-monitor-body li span {
+  display: block;
+  margin-top: 3px;
+}

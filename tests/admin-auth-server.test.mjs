@@ -8,6 +8,32 @@ const origin = 'https://portfolio.example';
 const testPassword = 'synthetic-password-for-tests';
 const hash = hashPassword(testPassword);
 
+test('자료 점검 기록은 인증 후 고정된 GitHub 경로에서 읽고 쓰기는 허용하지 않는다', async () => {
+  const { auth } = setup();
+  const session = await login(auth);
+  const originalFetch = globalThis.fetch;
+  const report = { schemaVersion: 1, changes: [], errors: [] };
+  try {
+    globalThis.fetch = async (url, options) => {
+      assert.match(url, /\/contents\/data\/resource-updates\.json\?ref=main$/);
+      assert.equal(options.headers.Authorization, 'Bearer synthetic-github-token');
+      return Response.json({
+        encoding: 'base64',
+        content: Buffer.from(JSON.stringify(report)).toString('base64'),
+      });
+    };
+    const response = await call(auth, '/resource-updates', session);
+    assert.equal(response.status, 200);
+    assert.deepEqual(await response.json(), report);
+    assert.equal(
+      (await call(auth, '/resource-updates', { ...session, method: 'POST', body: {} })).status,
+      404,
+    );
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
 function setup() {
   const data = new Map();
   const storage = {
@@ -74,6 +100,7 @@ test('비밀번호는 해시로 검증하고 보안 쿠키·만료·로그아웃
 test('인증 없는 저장·CSRF·외부 Origin·다른 저장소 경로를 거부한다', async () => {
   const { auth } = setup();
   assert.equal((await call(auth, '/portfolio', { method: 'PUT', body: {} })).status, 401);
+  assert.equal((await call(auth, '/resource-updates')).status, 401);
   const session = await login(auth);
   assert.equal(
     (await call(auth, '/portfolio', { method: 'PUT', body: {}, cookie: session.cookie })).status,

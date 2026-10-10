@@ -254,6 +254,7 @@
       setBusy(false);
     }
     token = '';
+    ResourceMonitor.clear();
     sha = '';
     data = null;
     setDirty(false);
@@ -279,6 +280,11 @@
       renderEditorList();
       showStatus('분류를 적용했습니다. 사이트에 저장하면 공개 화면에도 반영됩니다.');
     });
+  });
+  getElement('open-resource-monitor').addEventListener('click', () => {
+    if (token && !busy) {
+      ResourceMonitor.open(token);
+    }
   });
 
   getElement('edit-section-order').addEventListener('click', () => {

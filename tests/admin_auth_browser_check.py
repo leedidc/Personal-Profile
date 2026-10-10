@@ -1,5 +1,6 @@
 import copy
 import json
+from datetime import datetime, timezone
 from playwright.sync_api import expect
 
 
@@ -8,6 +9,14 @@ def check_admin_auth(browser, base, root, artifacts):
     index = json.loads((root / 'data/posts/index.json').read_text(encoding='utf-8'))
     state = {'authenticated': False, 'portfolio': copy.deepcopy(portfolio), 'index': index, 'writes': 0, 'logins': 0}
     csrf = 'a' * 64
+    report = {
+        'schemaVersion': 1, 'checkedAt': datetime.now(timezone.utc).isoformat(), 'status': 'partial',
+        'resourcesChecked': 111, 'resourcesTotal': 112, 'boardsChecked': 8, 'boardsTotal': 8,
+        'filesChecked': 140, 'metadataOnlyFiles': 6,
+        'changes': [{'title': '<img src=x onerror=alert(1)>개정 안내서', 'sourceUrl': 'https://www.kisa.or.kr/2060207', 'kind': '첨부파일 내용 변경', 'detectedAt': datetime.now(timezone.utc).isoformat()}],
+        'errors': [{'title': '기관 점검', 'sourceUrl': 'https://pipc.go.kr/', 'reason': '응답 시간 초과'}],
+    }
+    report_requests = []
     context = browser.new_context(viewport={'width': 320, 'height': 844})
     errors = []
     github_requests = []
@@ -35,6 +44,9 @@ def check_admin_auth(browser, base, root, artifacts):
             assert 'authorization' not in request.headers
             if path == '/session':
                 route.fulfill(json={'csrf': csrf, 'expires': 9999999999999})
+            elif path == '/resource-updates':
+                report_requests.append(path)
+                route.fulfill(json=report)
             elif path == '/portfolio' and request.method == 'GET':
                 route.fulfill(json={'data': state['portfolio'], 'sha': 'test-sha'})
             elif path == '/portfolio' and request.method == 'PUT':
@@ -67,6 +79,8 @@ def check_admin_auth(browser, base, root, artifacts):
         assert page.evaluate("!JSON.stringify({...localStorage, ...sessionStorage}).includes('synthetic-browser-password')")
 
     page.goto(base + '/admin/')
+    expect(page.locator('#open-resource-monitor')).to_be_hidden()
+    assert not report_requests
     page.get_by_role('button', name='아이디 · 비밀번호', exact=True).click()
     page.locator('#username').fill("' OR 1=1 --")
     page.locator('#password').fill('wrong')
@@ -75,6 +89,15 @@ def check_admin_auth(browser, base, root, artifacts):
     page.locator('#login-form').screenshot(path=str(artifacts / 'password-login-mobile.png'))
     assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
     login()
+    page.locator('#open-resource-monitor').click()
+    expect(page.locator('#resource-monitor-dialog')).to_be_visible()
+    expect(page.locator('#resource-update-list a')).to_have_text(report['changes'][0]['title'])
+    expect(page.locator('#resource-update-list img')).to_have_count(0)
+    expect(page.locator('#resource-error-list')).to_contain_text('응답 시간 초과')
+    assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
+    page.keyboard.press('Escape')
+    expect(page.locator('#resource-update-list a')).to_have_count(0)
+    assert len(report_requests) == 1
     page.locator('#edit-profile').click()
     page.locator('#profile-form [name="introduction"]').fill('인증 만료 후에도 보존할 편집 내용')
     page.locator('#profile-form').get_by_role('button', name='적용', exact=True).click()
@@ -92,6 +115,7 @@ def check_admin_auth(browser, base, root, artifacts):
     page.locator('#logout').click()
     expect(page.locator('#login-form')).to_be_visible()
     assert not state['authenticated']
+    expect(page.locator('#open-resource-monitor')).to_be_hidden()
 
     page.goto(base + '/admin/posts.html')
     page.get_by_role('button', name='아이디 · 비밀번호', exact=True).click()

@@ -4,7 +4,7 @@
 
 자료실의 분류·목록·출처·판본·다운로드 링크·확인일은 [data/resources.json](data/resources.json)에서 편집합니다.
 
-공식 자료의 변경은 [자동 점검 코드](scripts/check_resource_updates.py)와 [GitHub Actions](https://github.com/leedidc/Personal-Profile/actions/workflows/resource-updates.yml)로 매일 09:17(KST)에 확인합니다. `data/resource-updates.json`에 저장된 변경 이력·점검 오류를 자료실에 표시하며, 자료 목록은 검토 후 갱신합니다.
+공식 자료는 [자동 점검 코드](scripts/check_resource_updates.py)와 [GitHub Actions](https://github.com/leedidc/Personal-Profile/actions/workflows/resource-updates.yml)로 매일 09:17(KST)에 확인합니다. 공개 자료실에는 기준일·점검일만 표시하고, 상세 기록은 로그인 후 **관리자 → 자료실 점검**에서 확인합니다.
 
 [웹사이트 방문](https://lee.chanhyeong.kro.kr/)
 

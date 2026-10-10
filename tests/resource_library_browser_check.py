@@ -18,9 +18,11 @@ def check_resource_library(browser, base, root, artifacts):
         'resourcesChecked': 112, 'resourcesTotal': 112, 'boardsChecked': 8, 'boardsTotal': 8,
         'filesChecked': 134, 'metadataOnlyFiles': 5, 'changes': [], 'errors': [],
     }
-    page.route('**/data/resource-updates.json', lambda route: route.fulfill(json=monitor))
+    page.route('**/data/resource-update-status.json', lambda route: route.fulfill(json={'schemaVersion': 1, 'checkedAt': monitor['checkedAt']}))
+    report_requests = []
+    page.on('request', lambda request: report_requests.append(request.url) if request.url.endswith('/data/resource-updates.json') else None)
     page.goto(base + '/resources/')
-    expect(page.locator('#resource-monitor-status')).to_contain_text('자동 점검 완료')
+    expect(page.locator('#resource-monitor-status')).to_contain_text('마지막 자동 점검')
     cards = page.locator('.resource-card')
     search = page.get_by_label('자료 검색')
     page_size = 12
@@ -197,35 +199,16 @@ def check_resource_library(browser, base, root, artifacts):
     page.reload()
     expect(page.locator('#resources-status')).to_have_text('아직 등록된 자료가 없습니다.')
     expect(page.locator('#retry-resources')).to_be_hidden()
-    # 개정 감지, 기관 장애, 점검 중단과 잘못된 출처가 정상 점검으로 보이지 않아야 합니다.
+    # 공개 화면은 점검 날짜만 받고 상세 보고서나 실행 링크를 표시하지 않습니다.
     state['data'] = copy.deepcopy(original)
-    monitor['changes'] = [{
-        'title': '<img src=x onerror=alert(1)>개정 안내서', 'sourceUrl': 'https://www.kisa.or.kr/2060207',
-        'kind': '첨부파일 내용 변경', 'detectedAt': monitor['checkedAt'],
-    }]
-    monitor['status'] = 'partial'
-    monitor['resourcesChecked'] = 111
-    monitor['errors'] = [{'title': '확인 실패 자료', 'sourceUrl': 'https://pipc.go.kr/', 'reason': '응답 시간 초과'}]
     page.reload()
-    expect(page.locator('#resource-monitor-status')).to_contain_text('일부 출처 확인 필요')
-    page.locator('#resource-monitor summary').click()
-    expect(page.locator('#resource-update-list a')).to_have_text(monitor['changes'][0]['title'])
-    expect(page.locator('#resource-update-list img')).to_have_count(0)
-    expect(page.locator('#resource-error-list')).to_contain_text('응답 시간 초과')
-    for width in [1440, 390, 320]:
-        page.set_viewport_size({'width': width, 'height': 1000})
-        assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
-    monitor['checkedAt'] = '2020-01-01T00:00:00Z'
+    expect(page.locator('#resource-monitor-status')).to_contain_text('마지막 자동 점검')
+    expect(page.locator('#resource-update-list, #resource-error-list')).to_have_count(0)
+    expect(page.get_by_role('link', name='점검 실행 기록 ↗')).to_have_count(0)
+    assert not report_requests, report_requests
+    page.route('**/data/resource-update-status.json', lambda route: route.fulfill(status=503))
     page.reload()
-    expect(page.locator('#resource-monitor-status')).to_contain_text('점검이 지연')
-    monitor['changes'][0]['sourceUrl'] = 'https://www.kisa.or.kr.evil.example/'
-    page.reload()
-    expect(page.locator('#resource-monitor-status')).to_contain_text('확인할 수 없습니다')
-    expect(page.locator('#resource-update-list a')).to_have_count(0)
-    expect(cards).to_have_count(len(first_page))
-    page.route('**/data/resource-updates.json', lambda route: route.fulfill(status=503))
-    page.reload()
-    expect(page.locator('#resource-monitor-status')).to_contain_text('확인할 수 없습니다')
+    expect(page.locator('#resource-monitor-status')).to_be_hidden()
     expect(cards).to_have_count(len(first_page))
     assert not errors, errors
     context.close()

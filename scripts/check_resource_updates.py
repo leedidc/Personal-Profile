@@ -243,6 +243,9 @@ def main():
     report = check(catalog, previous)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    summary = {"schemaVersion": 1, "checkedAt": report["checkedAt"]}
+    summary_path = args.output.with_name("resource-update-status.json")
+    summary_path.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     write_summary(report)
     print(f"결과: 자료 {report['resourcesChecked']}/{report['resourcesTotal']}, 파일 {report['filesChecked']}, 오류 {len(report['errors'])}")
 

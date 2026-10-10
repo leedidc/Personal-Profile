@@ -284,7 +284,7 @@
       currentPage = 1;
       renderCategories();
       renderList();
-      checked.textContent = '출처 확인 ' + catalog.checkedOn.replaceAll('-', '.');
+      checked.textContent = '자료 기준일 ' + catalog.checkedOn.replaceAll('-', '.');
       checked.hidden = false;
       filters.hidden = false;
     } catch {

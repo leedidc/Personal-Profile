@@ -27,6 +27,9 @@ function validate(validator, value) {
 }
 
 export async function handleContent(path, method, body, token) {
+  if (path === '/resource-updates' && method === 'GET') {
+    return PortfolioStorage.loadResourceUpdates(token);
+  }
   if (path === '/portfolio' && method === 'GET') {
     return PortfolioStorage.loadPortfolio(token);
   }

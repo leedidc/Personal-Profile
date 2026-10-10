@@ -5,6 +5,7 @@ import requests
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import patch
+from urllib.parse import parse_qs, urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from check_resource_updates import check, fetch, inspect_resource, make_event, merge_history
@@ -23,6 +24,8 @@ class ResourceMonitorTests(unittest.TestCase):
 
     def test_counters_do_not_create_revisions(self):
         first = parse_document(self.html, self.source)
+        self.assertEqual(urlsplit(first['files'][0]['url']).path, '/post/fileDownload')
+        self.assertEqual(parse_qs(urlsplit(first['files'][0]['url']).query)['postSeq'], ['999'])
         second = parse_document(self.html.replace("조회 123", "조회 900"), self.source)
         self.assertEqual(first, second)
         revised = parse_document(self.html.replace("안내서 본문", "수정된 내용"), self.source)

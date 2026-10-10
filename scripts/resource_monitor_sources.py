@@ -66,13 +66,13 @@ def document_files(soup, source_url):
             # 암호화된 세션별 파일 ID를 개정으로 오인하거나 공개 데이터에 보관하지 않습니다.
             url = source_url
         elif kisa and kisa[1] != "99999999":
-            url = urljoin(source_url, "/post/fileDownload?") + urlencode(dict(zip(
+            url = urljoin(source_url, "/post/fileDownload") + "?" + urlencode(dict(zip(
                 ["menuSeq", "postSeq", "attachSeq", "lang_type"], kisa.groups())))
         elif pipc:
-            url = urljoin(source_url, "/np/cmm/fms/FileDown.do?") + urlencode(dict(zip(
+            url = urljoin(source_url, "/np/cmm/fms/FileDown.do") + "?" + urlencode(dict(zip(
                 ["atchFileId", "fileSn", "fileExtsn"], pipc.groups())))
         elif other:
-            url = urljoin(source_url, "/common/cmm/fms/FileDown.do?") + urlencode(dict(zip(
+            url = urljoin(source_url, "/common/cmm/fms/FileDown.do") + "?" + urlencode(dict(zip(
                 ["atchFileId", "fileSn", "bbsId"], other.groups())))
         elif "/cmm/fms/FileDown.do?" in href or "/component/file/ND_fileDownload.do?" in href:
             url = urljoin(source_url, href)
