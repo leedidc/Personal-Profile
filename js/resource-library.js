@@ -9,9 +9,25 @@
   const retry = document.getElementById('retry-resources');
   const empty = document.getElementById('resources-empty');
   const checked = document.getElementById('resources-checked');
-  const sourceHosts = new Set(['isms-p.or.kr', 'www.privacy.go.kr', 'www.kisa.or.kr']);
+  const pagination = document.getElementById('resource-pagination');
+  const pageStatus = document.getElementById('resource-page-status');
+  const previous = document.getElementById('resource-previous');
+  const next = document.getElementById('resource-next');
+  const sort = document.getElementById('resource-sort');
+  const pageSize = 12;
+  const sourceHosts = new Set([
+    'isms-p.or.kr',
+    'www.privacy.go.kr',
+    'pipc.go.kr',
+    'www.kisa.or.kr',
+    'www.krcert.or.kr',
+    'isds.kisa.or.kr',
+    'www.sen.go.kr',
+  ]);
+  const fileFormats = new Set(['PDF', 'HWP', 'HWPX', 'XLS', 'XLSX', 'ZIP', 'PPTX']);
   let catalog;
   let selectedCategory = 'all';
+  let currentPage = 1;
 
   function createElement(tag, className, text) {
     const element = document.createElement(tag);
@@ -94,7 +110,20 @@
         resource.publishedOn > data.checkedOn ||
         !Array.isArray(resource.keywords) ||
         resource.keywords.length > 20 ||
-        !resource.keywords.every((word) => isText(word, 60))
+        !resource.keywords.every((word) => isText(word, 60)) ||
+        !Array.isArray(resource.downloads) ||
+        resource.downloads.length === 0 ||
+        resource.downloads.length > 10 ||
+        !resource.downloads.every(
+          (file) =>
+            file &&
+            isText(file.label, 200) &&
+            isText(file.url, 1500) &&
+            isOfficialUrl(file.url) &&
+            fileFormats.has(file.format) &&
+            (file.viaSourcePage === undefined ||
+              (file.viaSourcePage === true && file.url === resource.sourceUrl)),
+        )
       ) {
         invalid();
       }
@@ -105,6 +134,42 @@
 
   function categoryName(id) {
     return catalog.categories.find((category) => category.id === id).name;
+  }
+
+  function createDownloadLink(file, title, primary) {
+    const action = file.viaSourcePage ? '공식 페이지에서 다운로드 ↗' : file.format + ' 다운로드 ↓';
+    const link = createElement(
+      'a',
+      primary ? 'resource-download' : '',
+      primary ? action : file.label,
+    );
+    link.href = file.url;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.setAttribute('aria-label', title + ' — ' + file.label + ' 다운로드');
+    return link;
+  }
+
+  function createDownloads(resource) {
+    const actions = createElement('div', 'resource-downloads');
+    actions.append(createDownloadLink(resource.downloads[0], resource.title, true));
+    if (resource.downloads.length > 1) {
+      const details = createElement('details', 'resource-extra-files');
+      const summary = createElement(
+        'summary',
+        '',
+        '추가 파일 ' + (resource.downloads.length - 1) + '개',
+      );
+      const files = createElement('ul', '');
+      for (const file of resource.downloads.slice(1)) {
+        const item = createElement('li', '');
+        item.append(createDownloadLink(file, resource.title, false));
+        files.append(item);
+      }
+      details.append(summary, files);
+      actions.append(details);
+    }
+    return actions;
   }
 
   function createResourceCard(resource) {
@@ -134,6 +199,7 @@
       createElement('p', 'resource-summary', resource.summary),
       source,
       published,
+      createDownloads(resource),
     );
     return card;
   }
@@ -156,7 +222,19 @@
         terms.every((term) => text.includes(term))
       );
     });
-    list.replaceChildren(...visible.map(createResourceCard));
+    if (sort.value === 'recent') {
+      visible.sort((first, second) => second.publishedOn.localeCompare(first.publishedOn));
+    } else if (sort.value === 'title') {
+      visible.sort((first, second) => first.title.localeCompare(second.title, 'ko'));
+    }
+    const totalPages = Math.max(1, Math.ceil(visible.length / pageSize));
+    currentPage = Math.min(currentPage, totalPages);
+    const offset = (currentPage - 1) * pageSize;
+    list.replaceChildren(...visible.slice(offset, offset + pageSize).map(createResourceCard));
+    pagination.hidden = totalPages <= 1;
+    previous.disabled = currentPage === 1;
+    next.disabled = currentPage === totalPages;
+    pageStatus.textContent = currentPage + ' / ' + totalPages + ' 페이지';
     for (const button of categories.querySelectorAll('button')) {
       button.setAttribute('aria-pressed', String(button.dataset.category === selectedCategory));
     }
@@ -182,7 +260,7 @@
       button.append(badge);
       button.addEventListener('click', () => {
         selectedCategory = category.id;
-        renderList();
+        resetPage();
       });
       categories.append(button);
     }
@@ -202,6 +280,8 @@
       catalog = validateCatalog(await response.json());
       selectedCategory = 'all';
       search.value = '';
+      sort.value = 'default';
+      currentPage = 1;
       renderCategories();
       renderList();
       checked.textContent = '출처 확인 ' + catalog.checkedOn.replaceAll('-', '.');
@@ -212,17 +292,35 @@
       filters.hidden = true;
       checked.hidden = true;
       empty.hidden = true;
+      pagination.hidden = true;
       status.textContent = '자료를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.';
       retry.hidden = false;
     }
   }
 
+  function resetPage() {
+    currentPage = 1;
+    renderList();
+  }
+
+  function changePage(direction) {
+    currentPage += direction;
+    renderList();
+    const heading = document.getElementById('resource-list-title');
+    heading.focus({ preventScroll: true });
+    heading.scrollIntoView({ block: 'start' });
+  }
+
   filters.addEventListener('submit', (event) => event.preventDefault());
-  search.addEventListener('input', renderList);
+  search.addEventListener('input', resetPage);
+  sort.addEventListener('change', resetPage);
+  previous.addEventListener('click', () => changePage(-1));
+  next.addEventListener('click', () => changePage(1));
   document.getElementById('reset-resource-filters').addEventListener('click', () => {
     search.value = '';
     selectedCategory = 'all';
-    renderList();
+    sort.value = 'default';
+    resetPage();
     search.focus();
   });
   retry.addEventListener('click', load);

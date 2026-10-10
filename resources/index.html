@@ -52,29 +52,49 @@
             aria-labelledby="resource-category-label"
           ></div>
         </div>
-        <div class="resource-search-field">
-          <label class="filter-label" for="resource-search">자료 검색</label>
-          <input
-            id="resource-search"
-            type="search"
-            placeholder="자료명, 기관, 키워드"
-            maxlength="200"
-            autocomplete="off"
-          />
+        <div class="resource-search-row">
+          <div class="resource-search-field">
+            <label class="filter-label" for="resource-search">자료 검색</label>
+            <input
+              id="resource-search"
+              type="search"
+              placeholder="자료명, 기관, 키워드"
+              maxlength="200"
+              autocomplete="off"
+            />
+          </div>
+          <div class="resource-sort-field">
+            <label class="filter-label" for="resource-sort">정렬</label>
+            <select id="resource-sort">
+              <option value="default">기본순</option>
+              <option value="recent">최근 게시순</option>
+              <option value="title">제목순</option>
+            </select>
+          </div>
         </div>
       </form>
       <div class="resources-list-heading">
-        <h2>자료 목록</h2>
+        <h2 id="resource-list-title" tabindex="-1">자료 목록</h2>
         <p id="resources-status" role="status">자료를 불러오는 중입니다.</p>
       </div>
       <ul id="resource-list" class="resource-list" aria-label="공식 자료 목록"></ul>
+      <nav
+        id="resource-pagination"
+        class="resource-pagination"
+        aria-label="자료 목록 페이지"
+        hidden
+      >
+        <button id="resource-previous" type="button" aria-controls="resource-list">← 이전</button>
+        <span id="resource-page-status" aria-live="polite"></span>
+        <button id="resource-next" type="button" aria-controls="resource-list">다음 →</button>
+      </nav>
       <div id="resources-empty" class="resources-empty" hidden>
         <p>검색 조건에 맞는 자료가 없습니다.</p>
         <button id="reset-resource-filters" class="button" type="button">전체 자료 보기</button>
       </div>
       <button id="retry-resources" class="button" type="button" hidden>다시 불러오기</button>
       <p class="resources-note">
-        자료의 원문과 첨부파일은 각 기관의 공식 게시처에서 확인할 수 있습니다.
+        파일은 발행기관에서 직접 제공합니다. 다운로드가 되지 않으면 출처 링크에서 확인해 주세요.
       </p>
       <noscript
         ><p>
