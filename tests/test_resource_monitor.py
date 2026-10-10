@@ -38,6 +38,14 @@ class ResourceMonitorTests(unittest.TestCase):
         self.assertTrue(first["files"][0]["sessionOnly"])
         self.assertNotIn("session-one", str(first))
 
+    def test_environment_specific_file_ids_do_not_create_revisions(self):
+        html = '<div class="board-header"><h1 class="b_title">안내서</h1></div><article class="board"><section class="content">본문</section></article><a onclick="fileDown(\'encoded-a\',\'1\',\'B0000127\')">가이드.pdf</a>'
+        url = 'https://www.krcert.or.kr/kr/bbs/view.do?nttId=1'
+        first = parse_document(html, url)
+        second = parse_document(html.replace('encoded-a', 'encoded-b'), url)
+        self.assertEqual(first['metadataHash'], second['metadataHash'])
+        self.assertNotEqual(first['files'][0]['url'], second['files'][0]['url'])
+
     def test_login_error_page_is_not_a_new_baseline(self):
         with self.assertRaises(ValueError):
             parse_document("<h1>접근 권한이 없습니다</h1>", self.source)

@@ -104,7 +104,8 @@ def parse_document(html, url):
     for node in body.select("script, style, .file_down, .downloadTims, input, .btn_wrap"):
         node.decompose()
     metadata = {"title": compact(title.get_text(" ", strip=True)),
-                "body": compact(body.get_text(" ", strip=True)), "files": files}
+                "body": compact(body.get_text(" ", strip=True)),
+                "files": sorted(item["label"] for item in files)}
     return {"metadataHash": digest(metadata), "files": files}
 
 

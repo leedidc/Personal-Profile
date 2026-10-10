@@ -68,6 +68,8 @@ def error_message(error):
         return "HTTP " + str(error.response.status_code)
     if isinstance(error, requests.Timeout):
         return "응답 시간 초과"
+    if isinstance(error, requests.exceptions.SSLError):
+        return "기관 인증서 연결 확인 필요"
     if isinstance(error, requests.RequestException):
         return "기관 연결 실패"
     if isinstance(error, UnicodeError):
@@ -96,12 +98,13 @@ def inspect_resource(resource, previous):
         errors.append(error_message(error))
         files = []
 
-    # 등록된 다운로드와 새 첨부파일을 함께 확인합니다. 세션 전용 파일은 목록만 점검합니다.
-    urls = {item["url"] for item in files if not item["sessionOnly"]}
-    urls.update(item["url"] for item in resource["downloads"] if not item.get("viaSourcePage"))
+    # 접속 환경마다 다운로드 ID가 달라질 수 있으므로 방금 읽은 주소로 받고 파일명으로 비교합니다.
+    downloads = {item["label"]: item["url"] for item in files if not item["sessionOnly"]}
+    if "isms-p.or.kr/" in source_url:
+        downloads.update({item["label"]: item["url"] for item in resource["downloads"] if not item.get("viaSourcePage")})
     checked_files = 0
-    for url in sorted(urls):
-        key = digest(url)
+    for label, url in sorted(downloads.items()):
+        key = digest(label)
         try:
             current_hash = fetch(url, binary=True)
             old_hash = record["fileHashes"].get(key)
@@ -134,6 +137,9 @@ def make_event(title, url, kind, now, fingerprint):
 
 
 def check(catalog, previous):
+    # 1판은 접속 환경별 첨부 주소를 비교했으므로 새 비교 기준을 처음부터 수집합니다.
+    if previous.get("comparisonVersion") != 2:
+        previous = {}
     now = datetime.now(timezone.utc).replace(microsecond=0)
     events = []
     errors = []
@@ -186,7 +192,7 @@ def check(catalog, previous):
 
     snapshots = {item["id"]: snapshots[item["id"]] for item in resources}
     return {
-        "schemaVersion": 1, "checkedAt": now.isoformat(),
+        "schemaVersion": 1, "comparisonVersion": 2, "checkedAt": now.isoformat(),
         "status": "ok" if not errors else "partial",
         "resourcesChecked": successes, "resourcesTotal": len(resources),
         "boardsChecked": board_successes, "boardsTotal": len(BOARDS),
