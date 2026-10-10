@@ -1,0 +1,309 @@
+html.terminal-open {
+  overflow: hidden;
+}
+.terminal-launcher {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 46px;
+  min-height: 46px;
+  padding: 10px 14px;
+  border: 1px solid var(--control-line);
+  border-radius: 24px;
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: 0 6px 20px #152a3d14;
+  font-size: 12px;
+}
+.terminal-launcher[hidden] {
+  display: none;
+}
+.terminal-symbol {
+  font:
+    600 17px/1 Consolas,
+    monospace;
+  color: var(--accent);
+}
+.terminal-launcher:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.portfolio-terminal {
+  width: min(760px, calc(100% - 40px));
+  height: min(640px, calc(100dvh - 48px));
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  border: 1px solid #476572;
+  border-radius: 16px;
+  background: #102332;
+  color: var(--on-dark);
+  box-shadow: 0 24px 100px #07111e66;
+  overflow: hidden;
+  font-family: Consolas, 'SFMono-Regular', var(--font), monospace;
+  font-size: 13px;
+}
+.portfolio-terminal[open] {
+  display: flex;
+  flex-direction: column;
+  animation: terminal-appear 180ms ease-out;
+}
+.portfolio-terminal::backdrop {
+  background: #0b182b70;
+  backdrop-filter: blur(4px);
+}
+.portfolio-terminal button,
+.portfolio-terminal input {
+  font: inherit;
+}
+.portfolio-terminal button {
+  color: var(--on-dark-muted);
+  background: transparent;
+  border: 1px solid var(--navy-line);
+  border-radius: 7px;
+  min-height: 40px;
+  padding: 6px 10px;
+}
+.portfolio-terminal button:hover {
+  color: var(--on-dark-accent);
+  border-color: #4d8893;
+  background: #79cbd00c;
+}
+.portfolio-terminal :focus-visible {
+  outline-color: var(--on-dark-accent);
+}
+.terminal-heading,
+.terminal-shortcuts,
+.terminal-form {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.terminal-heading {
+  justify-content: space-between;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--navy-line);
+  background: #173040;
+}
+.terminal-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--on-dark-accent);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+}
+.terminal-eyebrow span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 9px #79cbd050;
+}
+.terminal-heading h2 {
+  margin-top: 5px;
+  font-size: 16px;
+  font-weight: 500;
+}
+.terminal-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+#terminal-close {
+  width: 40px;
+  font-size: 22px;
+  line-height: 1;
+}
+#terminal-description {
+  padding: 14px 22px 0;
+  color: var(--on-dark-muted);
+  font-family: var(--font);
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.terminal-shortcuts {
+  gap: 6px;
+  padding: 12px 22px;
+  overflow-x: auto;
+}
+.terminal-shortcuts button {
+  flex-shrink: 0;
+  font-size: 12px;
+}
+.terminal-shortcuts span {
+  margin-left: 5px;
+  color: var(--on-dark-muted);
+  font-family: var(--font);
+  font-size: 10px;
+}
+.terminal-output {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 10px 22px 20px;
+  scrollbar-color: #476572 #102332;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+.terminal-entry + .terminal-entry {
+  margin-top: 22px;
+}
+.terminal-command {
+  color: var(--on-dark-accent);
+  white-space: pre-wrap;
+  margin-bottom: 6px;
+}
+.terminal-response {
+  white-space: pre-wrap;
+}
+.terminal-response.is-muted {
+  color: var(--on-dark-muted);
+}
+.terminal-response.is-error {
+  color: #f0c48b;
+}
+.terminal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 10px;
+}
+.terminal-links a {
+  color: var(--on-dark-accent);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.terminal-form {
+  padding: 12px 22px;
+  gap: 10px;
+  border-top: 1px solid var(--navy-line);
+  background: #173040;
+}
+.terminal-prompt {
+  color: var(--on-dark-accent);
+  white-space: nowrap;
+}
+.terminal-form input {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  height: 40px;
+  padding: 6px;
+  border: 0;
+  border-radius: 4px;
+  color: var(--on-dark);
+  caret-color: var(--on-dark-accent);
+  background: transparent;
+}
+.terminal-form input::placeholder {
+  color: var(--on-dark-muted);
+}
+.terminal-form button {
+  min-width: 44px;
+}
+.terminal-keyboard-hint {
+  padding: 0 22px 12px;
+  color: var(--on-dark-muted);
+  background: #173040;
+  font-family: var(--font);
+  font-size: 10px;
+  flex-shrink: 0;
+}
+.portfolio-terminal.is-keyboard-open {
+  position: fixed;
+  top: calc(var(--terminal-viewport-top) + 8px);
+  bottom: auto;
+  height: calc(var(--terminal-viewport-height) - 16px);
+  margin: 0 auto;
+}
+.portfolio-terminal.is-keyboard-open .terminal-shortcuts,
+.portfolio-terminal.is-keyboard-open #terminal-description,
+.portfolio-terminal.is-keyboard-open .terminal-keyboard-hint {
+  display: none;
+}
+@keyframes terminal-appear {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 600px) {
+  .terminal-launcher {
+    left: 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    justify-content: center;
+    padding: 10px;
+  }
+  .terminal-launcher > span:last-child {
+    display: none;
+  }
+  .portfolio-terminal {
+    width: calc(100% - 24px);
+    height: min(640px, calc(100dvh - 24px));
+  }
+  .terminal-heading,
+  .terminal-form {
+    padding: 12px;
+  }
+  .terminal-heading h2 {
+    font-size: 14px;
+  }
+  .terminal-eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.04em;
+  }
+  #terminal-description {
+    padding: 12px 12px 0;
+  }
+  .terminal-shortcuts {
+    padding: 10px 12px;
+  }
+  .terminal-output {
+    padding: 8px 12px 16px;
+    font-size: 12px;
+  }
+  .terminal-prompt span {
+    display: none;
+  }
+  .terminal-form input {
+    font-size: 16px;
+  }
+  .portfolio-terminal button {
+    min-height: 44px;
+  }
+  .terminal-keyboard-hint {
+    padding-inline: 12px;
+    font-size: 9px;
+  }
+}
+@media (max-height: 440px) {
+  #terminal-description,
+  .terminal-keyboard-hint {
+    display: none;
+  }
+  .terminal-heading {
+    padding-block: 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-terminal[open] {
+    animation: none;
+  }
+}
+@media print {
+  .terminal-launcher,
+  .portfolio-terminal[open] {
+    display: none;
+  }
+}

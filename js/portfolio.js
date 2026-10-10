@@ -37,6 +37,7 @@
       Portfolio.renderPortfolio(root, data);
       PortfolioNavigation.initialize(data);
       window.PortfolioChatbot?.initialize(data);
+      window.PortfolioTerminal?.initialize(data);
       window.PortfolioEffects?.initialize();
       if (location.hash) {
         document.getElementById(location.hash.slice(1))?.scrollIntoView();
