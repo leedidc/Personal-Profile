@@ -2,7 +2,30 @@ import time
 from playwright.sync_api import expect
 
 
+def check_intro_before_content(browser, base):
+    for width, height in [(1440, 1000), (390, 844)]:
+        context = browser.new_context(viewport={'width': width, 'height': height}, reduced_motion='no-preference')
+        pending = []
+        context.route('**/js/site-intro.js', lambda route: pending.append(route))
+        page = context.new_page()
+        page.goto(base, wait_until='commit')
+        # 인트로 파일이 늦게 도착해도 본문이 먼저 노출되면 안 됩니다.
+        page.wait_for_timeout(500)
+        assert pending, 'The intro script request was not intercepted'
+        try:
+            expect(page.locator('.portfolio-header')).not_to_be_visible()
+            expect(page.locator('#main')).not_to_be_visible()
+        finally:
+            for route in pending:
+                route.continue_()
+        expect(page.locator('#site-intro')).to_be_visible()
+        expect(page.locator('#site-intro')).to_have_count(0)
+        expect(page.locator('#profile h1')).to_be_visible()
+        context.close()
+
+
 def check_site_intro(browser, base, artifacts):
+    check_intro_before_content(browser, base)
     errors = []
     context = browser.new_context(viewport={'width': 1440, 'height': 1000}, reduced_motion='no-preference')
     page = context.new_page()
@@ -87,4 +110,4 @@ def check_site_intro(browser, base, artifacts):
     expect(page.locator('main noscript')).to_be_visible()
     context.close()
     assert not errors, errors
-    print('PASS: 2.4-second intro, unlock frames, once per tab, keyboard/skip, mobile/landscape, reduced motion, deep links, blocked storage and missing assets/JavaScript.')
+    print('PASS: no content flash with delayed intro loading, 2.4-second intro, unlock frames, once per tab, keyboard/skip, mobile/landscape, reduced motion, deep links, blocked storage and missing assets/JavaScript.')
