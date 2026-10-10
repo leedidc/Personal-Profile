@@ -33,18 +33,27 @@
   pointer-events: none;
 }
 .portfolio-page .profile-overview.has-network-visual {
-  grid-template-columns: minmax(0, 1fr) 300px;
-  column-gap: 40px;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.5fr);
+  grid-template-rows: auto 1fr;
+  column-gap: 28px;
   align-items: start;
 }
 .has-network-visual .profile-introduction,
 .has-network-visual .profile-interests {
   grid-column: 1;
 }
-.network-visual {
+.profile-visuals {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 16px;
   grid-column: 2;
   grid-row: 1 / span 2;
-  align-self: center;
+  min-width: 0;
+}
+.network-visual {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
   min-width: 0;
   overflow: hidden;
   border: 1px solid var(--accent-line);
@@ -61,6 +70,8 @@
   display: block;
   width: 100%;
   height: auto;
+  max-height: 260px;
+  margin-block: auto;
   padding: 0 12px 12px;
 }
 .network-grid {
@@ -219,23 +230,32 @@
     transform: translateY(-2px);
   }
 }
+@media (max-width: 1100px) {
+  .portfolio-page .profile-overview.has-network-visual {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    column-gap: 24px;
+  }
+  .has-network-visual .profile-introduction,
+  .has-network-visual .profile-interests {
+    grid-column: auto;
+  }
+  .profile-visuals {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+}
 @media (max-width: 950px) {
   .portfolio-header nav.has-moving-indicator {
     overflow-x: auto;
     overflow-y: hidden;
-  }
-  .portfolio-page .profile-overview.has-network-visual {
-    grid-template-columns: minmax(0, 1fr) 240px;
-    column-gap: 24px;
   }
 }
 @media (max-width: 680px) {
   .portfolio-page .profile-overview.has-network-visual {
     grid-template-columns: minmax(0, 1fr);
   }
-  .network-visual {
-    grid-column: 1;
-    grid-row: auto;
+  .profile-visuals {
+    grid-template-columns: minmax(0, 1fr);
   }
   .network-art {
     height: 150px;
@@ -249,6 +269,7 @@
   }
 }
 @media print {
+  .profile-visuals,
   .network-visual,
   .reading-progress {
     display: none;
