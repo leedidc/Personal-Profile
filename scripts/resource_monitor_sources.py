@@ -34,7 +34,11 @@ def official_url(url):
 def canonical_url(url):
     parts = urlsplit(official_url(url))
     query = parse_qs(parts.query)
-    keys = ["postSeq", "nttId", "bbsId", "bbsNo", "bbscttNo", "searchRcsrmMngId", "q_bbsDocNo", "q_bbsSn"]
+    if parts.hostname == "www.krcert.or.kr":
+        query.setdefault("menuNo", ["205021"])
+    elif parts.hostname == "isds.kisa.or.kr":
+        query.setdefault("menuNo", ["204948"])
+    keys = ["postSeq", "nttId", "bbsId", "bbsNo", "bbscttNo", "searchRcsrmMngId", "q_bbsDocNo", "q_bbsSn", "menuNo"]
     return urlunsplit((parts.scheme, parts.netloc, parts.path.split(";")[0],
                       urlencode(sorted((key, query[key][0]) for key in keys if key in query)), ""))
 

@@ -182,6 +182,8 @@ def check(catalog, previous):
     for name, template in BOARDS:
         key = digest(template)
         known = boards.get(key)
+        if known is not None:
+            known = {canonical_url(url): title for url, title in known.items()}
         found = {}
         failed = False
         # 최근 3페이지의 새 게시물과 제목 변경을 확인합니다.

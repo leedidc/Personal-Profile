@@ -107,6 +107,12 @@ class ResourceMonitorTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             parse_board("<h1>시스템 점검 중</h1>", self.source)
 
+    def test_board_links_keep_required_menu_context(self):
+        url = 'https://www.krcert.or.kr/kr/bbs/view.do?bbsId=B0000127&nttId=123'
+        self.assertIn('menuNo=205021', canonical_url(url))
+        self.assertEqual(canonical_url(url), canonical_url(url + '&menuNo=205021&pageIndex=2'))
+        self.assertIn('menuNo=204948', canonical_url('https://isds.kisa.or.kr/kr/bbs/view.do?bbsId=B0000011&nttId=1'))
+
     def test_changes_persist_across_quiet_runs(self):
         now = datetime(2026, 10, 11, tzinfo=timezone.utc)
         event = make_event("가이드", self.source, "첨부파일 내용 변경", now, "new")
