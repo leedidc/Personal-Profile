@@ -41,7 +41,8 @@ def check_section_order(browser, base, root, artifacts):
         if not prefix:
             links = page.locator('.portfolio-header nav a[href^="#"]:visible')
             assert links.evaluate_all('(items) => items.map(item => item.hash.slice(1))') == expected
-            expect(page.locator('.portfolio-header nav a').last).to_have_text('글')
+            expect(page.locator('.portfolio-header nav a[href="posts/"]')).to_have_text('글')
+            expect(page.locator('.portfolio-header nav a[href="resources/"]')).to_have_text('자료실')
 
     page = context.new_page()
     page.goto(base)

@@ -1,0 +1,109 @@
+{
+  "checkedOn": "2026-10-10",
+  "categories": [
+    { "id": "isms-p", "name": "ISMS-P 인증" },
+    { "id": "privacy", "name": "개인정보보호" },
+    { "id": "security", "name": "보안 가이드" }
+  ],
+  "resources": [
+    {
+      "id": "isms-p-criteria",
+      "title": "ISMS-P 인증기준 안내서",
+      "categoryId": "isms-p",
+      "edition": "2023.11 수정본",
+      "publishedOn": "2023-11-23",
+      "summary": "관리체계 수립·운영, 보호대책, 개인정보 처리 단계별 인증기준과 점검에 참고할 해설을 담은 안내서입니다.",
+      "sourceName": "한국인터넷진흥원(KISA) · ISMS-P 누리집",
+      "sourceUrl": "https://isms-p.or.kr/ntcn/rcsrm/selectGnrlRcsrmDetail.do?searchRcsrmMngId=RCSRMID_000000010105",
+      "keywords": ["ISMS", "ISMS-P", "인증", "해설서", "심사", "관리체계"]
+    },
+    {
+      "id": "privacy-impact-assessment",
+      "title": "개인정보 영향평가 수행안내서",
+      "categoryId": "privacy",
+      "edition": "2025.10 개정 · 2025.12 수정",
+      "publishedOn": "2025-11-19",
+      "summary": "개인정보 영향평가의 수행절차와 평가항목을 확인할 수 있습니다. AI 분야 평가와 의견수렴 후 수정사항이 반영된 공식 게시물입니다.",
+      "sourceName": "개인정보보호위원회 · 개인정보 포털",
+      "sourceUrl": "https://www.privacy.go.kr/front/bbs/bbsView.do?bbsNo=BBSMSTR_000000000049&bbscttNo=20848",
+      "keywords": ["PIA", "영향평가", "인공지능", "공공기관"]
+    },
+    {
+      "id": "isms-p-certification",
+      "title": "ISMS-P 인증제도 안내서",
+      "categoryId": "isms-p",
+      "edition": "2024.07",
+      "publishedOn": "2024-07-24",
+      "summary": "인증대상과 범위, 신청 및 심사 절차 등 ISMS-P 인증을 준비할 때 살펴볼 제도 안내입니다.",
+      "sourceName": "한국인터넷진흥원(KISA) · ISMS-P 누리집",
+      "sourceUrl": "https://isms-p.or.kr/ntcn/rcsrm/selectGnrlRcsrmDetail.do?searchRcsrmMngId=RCSRMID_000000010153",
+      "keywords": ["ISMS", "ISMS-P", "인증", "신청", "심사", "관리체계"]
+    },
+    {
+      "id": "privacy-breach-response",
+      "title": "개인정보 유출등 대응 안내서",
+      "categoryId": "privacy",
+      "edition": "2026.09",
+      "publishedOn": "2026-09-14",
+      "summary": "개인정보 유출 등이 발생했을 때의 대응과 조치, 피해 확산 방지 및 피해구제를 위한 안내입니다.",
+      "sourceName": "개인정보보호위원회 · 개인정보 포털",
+      "sourceUrl": "https://www.privacy.go.kr/front/bbs/bbsView.do?bbsNo=BBSMSTR_000000000049&bbscttNo=20918",
+      "keywords": ["침해사고", "유출", "대응", "신고", "통지"]
+    },
+    {
+      "id": "privacy-policy-writing",
+      "title": "2026 개인정보 처리방침 작성지침",
+      "categoryId": "privacy",
+      "edition": "2026년판",
+      "publishedOn": "2026-04-24",
+      "summary": "개인정보 처리방침에 포함할 사항과 작성·공개 방법을 사례와 함께 확인할 수 있는 지침입니다.",
+      "sourceName": "개인정보보호위원회 · 개인정보 포털",
+      "sourceUrl": "https://www.privacy.go.kr/front/bbs/bbsView.do?bbsNo=BBSMSTR_000000000049&bbscttNo=20885",
+      "keywords": ["개인정보", "처리방침", "작성", "공개"]
+    },
+    {
+      "id": "infrastructure-technical-assessment",
+      "title": "주요정보통신기반시설 기술적 취약점 분석·평가 방법 상세가이드",
+      "categoryId": "security",
+      "edition": "2025.12 게시본",
+      "publishedOn": "2025-12-24",
+      "summary": "기반시설의 기술적 취약점 분석·평가에 참고하는 항목별 점검 및 조치 방법을 다룬 가이드입니다.",
+      "sourceName": "한국인터넷진흥원(KISA)",
+      "sourceUrl": "https://www.kisa.or.kr/2060204/form?postSeq=22&page=1",
+      "keywords": ["취약점", "인프라", "서버", "네트워크", "보안점검", "2026"]
+    },
+    {
+      "id": "infrastructure-management-assessment",
+      "title": "주요정보통신기반시설 관리·물리적 취약점 분석·평가 방법 안내서",
+      "categoryId": "security",
+      "edition": "2025.12 게시본",
+      "publishedOn": "2025-12-24",
+      "summary": "기반시설의 관리적·물리적 보호 수준을 점검할 때 참고할 취약점 분석·평가 방법 안내입니다.",
+      "sourceName": "한국인터넷진흥원(KISA)",
+      "sourceUrl": "https://www.kisa.or.kr/2060204/form?postSeq=23&page=1",
+      "keywords": ["기반시설", "관리적", "물리적", "보안점검", "2026"]
+    },
+    {
+      "id": "zero-trust-guidelines",
+      "title": "제로트러스트 가이드라인 2.0",
+      "categoryId": "security",
+      "edition": "2.0 · 2024.12",
+      "publishedOn": "2024-12-03",
+      "summary": "제로트러스트 보안 모델의 도입을 위한 개념과 적용 방향, 도입 사례 등을 정리한 가이드라인입니다.",
+      "sourceName": "한국인터넷진흥원(KISA)",
+      "sourceUrl": "https://www.kisa.or.kr/2060204/form?postSeq=18&page=1",
+      "keywords": ["Zero Trust", "제로트러스트", "아키텍처", "네트워크", "접근제어"]
+    },
+    {
+      "id": "ai-security-guide",
+      "title": "인공지능(AI) 보안 안내서",
+      "categoryId": "security",
+      "edition": "2025.12 · 2026.03 정오 수정",
+      "publishedOn": "2025-12-10",
+      "summary": "AI 모델과 서비스를 사이버 위협으로부터 보호하기 위한 안내서입니다. 정오 수정본과 정오표를 함께 확인할 수 있습니다.",
+      "sourceName": "한국인터넷진흥원(KISA)",
+      "sourceUrl": "https://www.kisa.or.kr/2060204/form?postSeq=19&page=1",
+      "keywords": ["AI", "인공지능", "모델", "서비스", "보안"]
+    }
+  ]
+}

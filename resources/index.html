@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#152a3d" />
+    <meta
+      name="description"
+      content="ISMS-P 인증, 개인정보 영향평가와 보안 실무에 참고하는 공식 안내서·가이드 자료실."
+    />
+    <meta name="referrer" content="no-referrer" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self' https://personal-profile-admin-auth.leedidc1227.workers.dev; object-src 'none'; base-uri 'self'; form-action 'self'"
+    />
+    <title>자료실 | 이찬형</title>
+    <link rel="icon" href="../image/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../css/site-common.css" />
+    <link rel="stylesheet" href="../css/resource-library.css" />
+    <script src="../js/resource-library.js" defer></script>
+    <script src="../js/portfolio-config.js" defer></script>
+    <script src="../js/visitor-statistics.js" defer></script>
+  </head>
+  <body class="resources-page">
+    <a class="skip-link" href="#main">본문으로 이동</a>
+    <header class="site-header resources-header">
+      <div class="header-inner">
+        <a class="brand" href="../"
+          ><span class="brand-mark" aria-hidden="true">CL</span><span>포트폴리오</span></a
+        >
+        <nav aria-label="주 메뉴">
+          <a href="../">프로필</a>
+          <a href="../posts/">글</a>
+          <a href="./" aria-current="page">자료실</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main" class="resources-width">
+      <header class="resources-intro">
+        <p class="resources-eyebrow">SECURITY REFERENCE</p>
+        <h1>자료실<span aria-hidden="true">.</span></h1>
+        <p>보안과 개인정보보호 실무에 참고하는 공식 안내서와 가이드.</p>
+        <p id="resources-checked" class="resources-checked" hidden></p>
+      </header>
+      <form id="resource-filters" class="resource-filters" role="search" hidden>
+        <div>
+          <span id="resource-category-label" class="filter-label">분류</span>
+          <div
+            id="resource-categories"
+            class="resource-categories"
+            role="group"
+            aria-labelledby="resource-category-label"
+          ></div>
+        </div>
+        <div class="resource-search-field">
+          <label class="filter-label" for="resource-search">자료 검색</label>
+          <input
+            id="resource-search"
+            type="search"
+            placeholder="자료명, 기관, 키워드"
+            maxlength="200"
+            autocomplete="off"
+          />
+        </div>
+      </form>
+      <div class="resources-list-heading">
+        <h2>자료 목록</h2>
+        <p id="resources-status" role="status">자료를 불러오는 중입니다.</p>
+      </div>
+      <ul id="resource-list" class="resource-list" aria-label="공식 자료 목록"></ul>
+      <div id="resources-empty" class="resources-empty" hidden>
+        <p>검색 조건에 맞는 자료가 없습니다.</p>
+        <button id="reset-resource-filters" class="button" type="button">전체 자료 보기</button>
+      </div>
+      <button id="retry-resources" class="button" type="button" hidden>다시 불러오기</button>
+      <p class="resources-note">
+        자료의 원문과 첨부파일은 각 기관의 공식 게시처에서 확인할 수 있습니다.
+      </p>
+      <noscript
+        ><p>
+          자료 검색을 사용하려면 JavaScript를 켜 주세요.
+          <a href="https://isms-p.or.kr/ntcn/rcsrm/selectGnrlRcsrmList.do">ISMS-P 공식 자료실</a> ·
+          <a href="https://www.privacy.go.kr/front/bbs/bbsList.do?bbsNo=BBSMSTR_000000000049"
+            >개인정보 포털 안내서</a
+          >
+          · <a href="https://www.kisa.or.kr/2060204">KISA 보안 가이드</a>
+        </p></noscript
+      >
+    </main>
+    <footer class="resources-width site-footer">
+      <a href="../">← 포트폴리오</a><a href="../posts/">공부한 글 보기 ↗</a>
+    </footer>
+  </body>
+</html>

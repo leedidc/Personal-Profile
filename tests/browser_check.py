@@ -21,6 +21,7 @@ from visitor_info_browser_check import check_visitor_info, ENDPOINT as VISITOR_E
 from site_insights_browser_check import check_site_insights
 from site_intro_browser_check import check_site_intro
 from terminal_browser_check import check_terminal
+from resource_library_browser_check import check_resource_library
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACTS = ROOT / ".test-artifacts"
@@ -415,6 +416,7 @@ try:
         check_site_insights(browser, BASE, ARTIFACTS)
         check_site_intro(browser, BASE, ARTIFACTS)
         check_terminal(browser, BASE, ROOT, ARTIFACTS)
+        check_resource_library(browser, BASE, ROOT, ARTIFACTS)
         assert not errors, errors
         browser.close()
         print("PASS: public tables, logos, responsive layouts, expandable details, admin access, add/edit/delete/reorder, logo upload, preview, failed save, conflict, Unicode persistence, logout and read-only access.")

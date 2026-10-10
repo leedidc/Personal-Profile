@@ -13,6 +13,9 @@
     const posts = Portfolio.createElement('a', '', '글');
     posts.href = 'posts/';
     nav.append(posts);
+    const resources = Portfolio.createElement('a', '', '자료실');
+    resources.href = 'resources/';
+    nav.append(resources);
 
     const sections = [...document.querySelectorAll('#portfolio .resume-section')];
     const links = [...nav.querySelectorAll('a[href^="#"]')];
