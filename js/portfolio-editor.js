@@ -545,7 +545,7 @@
     const root = getElement('preview-content');
     Portfolio.renderPortfolio(root, data, '../', 'preview-');
     const profile = createElement('div');
-    Portfolio.renderProfile(profile, data.profile, 'preview-');
+    Portfolio.renderProfile(profile, data.profile, 'preview-', '../');
     root.prepend(profile);
     getElement('preview-dialog').showModal();
   });

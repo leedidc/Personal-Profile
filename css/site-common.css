@@ -180,11 +180,20 @@ p {
   background: var(--on-dark-accent);
 }
 .header-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: 12px;
   color: var(--on-dark-muted);
 }
 .header-github span {
-  margin-left: 7px;
+  margin-left: 1px;
+}
+.social-logo {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  object-fit: contain;
 }
 /* 프로필 */
 .profile {
@@ -226,9 +235,16 @@ p {
   color: var(--text-secondary);
   padding-bottom: 6px;
 }
-.profile-links a:first-child {
+.profile-links a[href^='mailto:'] {
   width: 100%;
   text-align: right;
+}
+.profile-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 24px;
+  white-space: nowrap;
 }
 .profile-overview {
   display: grid;
@@ -778,7 +794,7 @@ p {
     font-size: 11px;
     padding: 0;
   }
-  .profile-links a:first-child {
+  .profile-links a[href^='mailto:'] {
     width: auto;
     text-align: left;
   }

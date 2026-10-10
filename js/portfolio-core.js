@@ -258,7 +258,7 @@
     }
   }
 
-  function renderProfile(root, profile, prefix = '') {
+  function renderProfile(root, profile, prefix = '', base = './') {
     const header = createElement('section', 'profile');
     const headingId = prefix + 'profile-name';
     header.setAttribute('aria-labelledby', headingId);
@@ -276,16 +276,23 @@
       email.href = 'mailto:' + profile.email;
       links.append(email);
     }
-    for (const [key, label] of [
-      ['github', 'GitHub ↗'],
-      ['linkedin', 'LinkedIn ↗'],
+    for (const [key, label, logo] of [
+      ['github', 'GitHub ↗', 'image/social/github.svg'],
+      ['linkedin', 'LinkedIn ↗', 'image/social/linkedin.png'],
     ]) {
       const url = getSafeUrl(profile[key]);
       if (url) {
-        const link = createElement('a', '', label);
+        const link = createElement('a', 'profile-social-link');
         link.href = url;
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
+        const icon = createElement('img', 'social-logo');
+        icon.src = getSafeUrl(logo, 'image', base);
+        icon.alt = '';
+        icon.width = 16;
+        icon.height = 16;
+        icon.setAttribute('aria-hidden', 'true');
+        link.append(icon, createElement('span', '', label));
         links.append(link);
       }
     }
