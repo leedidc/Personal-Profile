@@ -24,6 +24,11 @@ def check_visitor_info(browser, base, artifacts):
         expect(page.locator('#visitor-info')).to_be_visible()
         expect(page.locator('#visitor-ip')).to_have_text('192.0.2.10')
         expect(page.locator('#visitor-country')).to_have_text('대한민국')
+        flag = page.locator('#visitor-country img')
+        expect(flag).to_be_visible()
+        expect(flag).to_have_attribute('src', 'image/flags/kr.svg')
+        expect(flag).to_have_attribute('alt', '')
+        assert flag.evaluate('el => el.naturalWidth > 0')
         expect(page.locator('#visitor-time')).to_contain_text(expected_date)
         expect(page.locator('#visitor-time')).to_contain_text(expected_hour)
         expect(page.locator('#visitor-time')).to_have_attribute('title', zone)
@@ -35,12 +40,29 @@ def check_visitor_info(browser, base, artifacts):
         page.reload()
         expect(page.locator('#visitor-ip')).to_have_text(payload['ip'])
         expect(page.locator('#visitor-country')).to_have_text('미국')
+        expect(flag).to_be_visible()
+        expect(flag).to_have_attribute('src', 'image/flags/us.svg')
         for width in [1440, 768, 390, 320]:
             page.set_viewport_size({'width': width, 'height': 1000})
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
             assert page.locator('#visitor-info').evaluate('el => el.scrollWidth <= el.clientWidth')
+            assert page.locator('#visitor-country').evaluate('el => el.scrollWidth <= el.clientWidth')
             if zone == 'Asia/Seoul' and width in [1440, 320]:
                 page.screenshot(path=str(artifacts / f'visitor-info-{width}.png'))
+                page.locator('#visitor-info').screenshot(path=str(artifacts / f'visitor-country-flag-{width}.png'))
+
+        if zone == 'Asia/Seoul':
+            for code in ['XX', 'ZZ', 'AA', 'T1', None]:
+                payload.update(country=code)
+                page.reload()
+                expect(page.locator('#visitor-country')).to_have_text('확인 불가')
+                expect(flag).to_have_count(0)
+            payload.update(country='KR')
+            page.route('**/image/flags/kr.svg', lambda route: route.abort())
+            page.reload()
+            expect(page.locator('#visitor-country')).to_have_text('대한민국')
+            expect(flag).to_have_count(0)
+            page.unroute('**/image/flags/kr.svg')
 
         payload.update(ip='<img src=x onerror=alert(1)>', country='<script>')
         page.reload()
@@ -71,4 +93,4 @@ def check_visitor_info(browser, base, artifacts):
         route.abort()
     context.close()
     assert not errors, errors
-    print('PASS: visitor local clock, time zones, IPv4/IPv6, country, mobile layout, unavailable data and timeout.')
+    print('PASS: visitor local clock, time zones, IPv4/IPv6, local country flags, mobile layout, unknown countries, failed image, unavailable data and timeout.')

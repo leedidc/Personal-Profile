@@ -57,6 +57,25 @@
   font-family: Consolas, monospace;
 }
 
+#visitor-country {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.visitor-country-name {
+  min-width: 0;
+}
+
+.visitor-country-flag {
+  flex: 0 0 24px;
+  width: 24px;
+  height: 18px;
+  object-fit: contain;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px var(--line);
+}
+
 @media (max-width: 680px) {
   .visitor-info {
     display: block;

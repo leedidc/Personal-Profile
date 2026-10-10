@@ -39,14 +39,38 @@
   }
 
   function countryName(code) {
-    if (typeof code !== 'string' || !/^[A-Z]{2}$/.test(code) || code === 'XX') {
+    if (typeof code !== 'string' || !/^[A-Z]{2}$/.test(code) || code === 'XX' || code === 'ZZ') {
       return unavailable;
     }
     if (typeof Intl.DisplayNames === 'function') {
-      const names = new Intl.DisplayNames(['ko'], { type: 'region' });
-      return names.of(code) || code;
+      const names = new Intl.DisplayNames(['ko'], { type: 'region', fallback: 'none' });
+      return names.of(code) || unavailable;
     }
     return code;
+  }
+
+  function showCountry(code) {
+    const name = countryName(code);
+    const label = document.createElement('span');
+    label.className = 'visitor-country-name';
+    label.textContent = name;
+    countryValue.replaceChildren(label);
+    if (name === unavailable) {
+      return;
+    }
+    const flag = document.createElement('img');
+    flag.className = 'visitor-country-flag';
+    flag.alt = '';
+    flag.setAttribute('aria-hidden', 'true');
+    flag.width = 24;
+    flag.height = 18;
+    flag.hidden = true;
+    flag.addEventListener('load', () => {
+      flag.hidden = false;
+    });
+    flag.addEventListener('error', () => flag.remove());
+    flag.src = 'image/flags/' + code.toLowerCase() + '.svg';
+    countryValue.append(flag);
   }
 
   async function loadNetworkInfo() {
@@ -68,7 +92,7 @@
         typeof data?.ip === 'string' && /^[\da-fA-F.:]{3,45}$/.test(data.ip)
           ? data.ip
           : unavailable;
-      countryValue.textContent = countryName(data?.country);
+      showCountry(data?.country);
     } catch {
       ipValue.textContent = unavailable;
       countryValue.textContent = unavailable;
