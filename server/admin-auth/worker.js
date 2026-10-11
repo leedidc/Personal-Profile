@@ -4,12 +4,16 @@ import { handleContent, RequestError, requireValue } from './content.js';
 import { handleVisitor } from './visitor.js';
 import { handleVisitorStats } from './visitor-stats.js';
 import { handleConnection } from './connection-info.js';
+import {
+  AdminSecurity,
+  auditKind,
+  defaultSecuritySettings,
+  isAdminPage,
+} from './admin-security.js';
 export { VisitorStats } from './visitor-stats.js';
 
 const cookieName = '__Host-portfolio-admin';
 const sessionLifetime = 2 * 60 * 60 * 1000;
-const idleLifetime = 30 * 60 * 1000;
-const loginWindow = 15 * 60 * 1000;
 const digest = (value) => createHash('sha256').update(value).digest('hex');
 const randomToken = () => randomBytes(32).toString('hex');
 
@@ -79,18 +83,30 @@ export class AdminState {
   constructor(ctx, env) {
     this.storage = ctx.storage;
     this.env = env;
+    this.security = new AdminSecurity(this.storage);
+  }
+
+  async alarm() {
+    await this.security.prune();
   }
 
   async takeLoginAttempt(request) {
     const now = Date.now();
     const ipKey = digest(request.headers.get('CF-Connecting-IP') || 'unknown');
     await this.storage.transaction(async (transaction) => {
+      const { settings } = await this.security.configuration(transaction);
+      const loginWindow = settings.loginWindowMinutes * 60000;
       let bucket = await transaction.get('login-attempts');
       if (!bucket || now - bucket.start >= loginWindow) {
         bucket = { start: now, total: 0, addresses: {} };
       }
-      if (bucket.total >= 50 || (bucket.addresses[ipKey] || 0) >= 5) {
-        throw new RequestError(429, '로그인 시도가 많습니다. 15분 후 다시 시도해 주세요.');
+      if (bucket.total >= 50 || (bucket.addresses[ipKey] || 0) >= settings.loginAttempts) {
+        const error = new RequestError(
+          429,
+          `로그인 시도가 많습니다. ${settings.loginWindowMinutes}분 후 다시 시도해 주세요.`,
+        );
+        error.retryAfter = Math.ceil((bucket.start + loginWindow - now) / 1000);
+        throw error;
       }
       bucket.total += 1;
       bucket.addresses[ipKey] = (bucket.addresses[ipKey] || 0) + 1;
@@ -98,16 +114,28 @@ export class AdminState {
     });
   }
 
-  currentSessions(sessions = {}) {
+  currentSessions(sessions = {}, settings = defaultSecuritySettings) {
     const now = Date.now();
     const version = digest(this.env.ADMIN_USERNAME + this.env.ADMIN_PASSWORD_HASH);
     return Object.fromEntries(
-      Object.entries(sessions).filter(
-        ([, session]) =>
-          session.expires > now &&
-          now - session.lastSeen < idleLifetime &&
-          session.version === version,
-      ),
+      Object.entries(sessions)
+        .map(([key, session]) => {
+          const issuedAt = session.issuedAt ?? session.expires - sessionLifetime;
+          return [
+            key,
+            {
+              ...session,
+              issuedAt,
+              expires: Math.min(session.expires, issuedAt + settings.sessionMinutes * 60000),
+            },
+          ];
+        })
+        .filter(
+          ([, session]) =>
+            session.expires > now &&
+            now - session.lastSeen < settings.idleMinutes * 60000 &&
+            session.version === version,
+        ),
     );
   }
 
@@ -127,15 +155,17 @@ export class AdminState {
     const token = randomToken();
     const csrf = randomToken();
     const now = Date.now();
+    const { settings } = await this.security.configuration();
     const session = {
       csrf,
-      expires: now + sessionLifetime,
+      issuedAt: now,
+      expires: now + settings.sessionMinutes * 60000,
       lastSeen: now,
       version: digest(this.env.ADMIN_USERNAME + this.env.ADMIN_PASSWORD_HASH),
       requests: { start: now, count: 0 },
     };
     await this.storage.transaction(async (transaction) => {
-      const sessions = this.currentSessions(await transaction.get('sessions'));
+      const sessions = this.currentSessions(await transaction.get('sessions'), settings);
       const previousToken = readSessionToken(request);
       if (previousToken) {
         delete sessions[digest(previousToken)];
@@ -147,7 +177,9 @@ export class AdminState {
       sessions[digest(token)] = session;
       await transaction.put('sessions', sessions);
     });
-    return json({ csrf, expires: session.expires }, 200, { 'Set-Cookie': sessionCookie(token) });
+    return json({ csrf, expires: session.expires }, 200, {
+      'Set-Cookie': sessionCookie(token, settings.sessionMinutes * 60),
+    });
   }
 
   async authorize(request, path) {
@@ -156,7 +188,8 @@ export class AdminState {
       throw new RequestError(401, '다시 로그인해 주세요. 편집 내용은 유지됩니다.');
     }
     return this.storage.transaction(async (transaction) => {
-      const sessions = this.currentSessions(await transaction.get('sessions'));
+      const { settings } = await this.security.configuration(transaction);
+      const sessions = this.currentSessions(await transaction.get('sessions'), settings);
       const session = sessions[digest(token)];
       if (!session) {
         throw new RequestError(401, '로그인이 만료되었습니다. 다시 로그인해 주세요.');
@@ -175,7 +208,9 @@ export class AdminState {
         session.requests = { start: now, count: 0 };
       }
       if (++session.requests.count > 60) {
-        throw new RequestError(429, '요청이 많습니다. 잠시 후 다시 시도해 주세요.');
+        const error = new RequestError(429, '요청이 많습니다. 잠시 후 다시 시도해 주세요.');
+        error.retryAfter = 60;
+        throw error;
       }
       session.lastSeen = now;
       if (path === '/logout') {
@@ -187,9 +222,27 @@ export class AdminState {
   }
 
   async fetch(request) {
+    const response = await this.handleRequest(request);
+    const kind = auditKind(request, response.status);
+    if (kind) {
+      await this.security.record(request, kind, response.status);
+    }
+    return response;
+  }
+
+  async handleRequest(request) {
     try {
       const url = new URL(request.url);
       const origin = request.headers.get('Origin');
+      // 전용 관리자 HTML을 제공할 때만 서버가 접속 기록을 생성합니다.
+      if (
+        isAdminPage(url.pathname) &&
+        request.method === 'GET' &&
+        url.origin === this.env.SITE_ORIGIN &&
+        url.protocol === 'https:'
+      ) {
+        return new Response(null, { status: 200 });
+      }
       if (
         url.origin !== this.env.SITE_ORIGIN ||
         url.protocol !== 'https:' ||
@@ -211,6 +264,8 @@ export class AdminState {
         '/login': 'POST',
         '/session': 'GET',
         '/logout': 'POST',
+        '/security': 'GET PUT',
+        '/security/revoke': 'POST',
         '/portfolio': 'GET PUT',
         '/resource-updates': 'GET',
         '/posts/snapshot': 'GET',
@@ -238,6 +293,31 @@ export class AdminState {
       if (path === '/logout') {
         return json({ loggedOut: true }, 200, { 'Set-Cookie': sessionCookie('', 0) });
       }
+      if (path === '/security' && request.method === 'GET') {
+        const snapshot = await this.security.snapshot();
+        const sessions = this.currentSessions(
+          await this.storage.get('sessions'),
+          snapshot.settings,
+        );
+        return json({ ...snapshot, activeSessions: Object.keys(sessions).length });
+      }
+      if (path === '/security' && request.method === 'PUT') {
+        return json(await this.security.update(await readBody(request, 2048)));
+      }
+      if (path === '/security/revoke') {
+        await readBody(request, 2048);
+        const revoked = await this.storage.transaction(async (transaction) => {
+          const { settings } = await this.security.configuration(transaction);
+          const sessions = this.currentSessions(await transaction.get('sessions'), settings);
+          const key = digest(readSessionToken(request));
+          if (!sessions[key]) {
+            throw new RequestError(401, '현재 로그인이 만료되었습니다. 다시 로그인해 주세요.');
+          }
+          await transaction.put('sessions', { [key]: sessions[key] });
+          return Object.keys(sessions).length - 1;
+        });
+        return json({ revoked });
+      }
       const body = request.method === 'GET' ? null : await readBody(request, 6 * 1024 * 1024);
       return json(await handleContent(path, request.method, body, this.env.GITHUB_TOKEN));
     } catch (error) {
@@ -245,7 +325,7 @@ export class AdminState {
         return json(
           { error: error.message },
           error.status,
-          error.status === 429 ? { 'Retry-After': '900' } : {},
+          error.status === 429 ? { 'Retry-After': String(error.retryAfter || 900) } : {},
         );
       }
       if ([409, 422].includes(error.status)) {
@@ -285,7 +365,7 @@ export class AdminState {
 }
 
 export default {
-  fetch(request, env) {
+  async fetch(request, env) {
     const url = new URL(request.url);
     if (url.pathname === '/api/visitor') {
       return handleVisitor(request, env);
@@ -299,6 +379,10 @@ export default {
     if (!url.pathname.startsWith('/api/')) {
       if (url.pathname === '/') {
         return Response.redirect(url.origin + '/admin/', 302);
+      }
+      if (isAdminPage(url.pathname) && request.method === 'GET') {
+        const id = env.ADMIN_STATE.idFromName('administrator');
+        await env.ADMIN_STATE.get(id).fetch(request);
       }
       if (url.pathname === '/admin' || url.pathname === '/admin/') {
         url.pathname = '/admin/index.html';

@@ -12,11 +12,13 @@
 
 [웹사이트 방문](https://lee.chanhyeong.kro.kr/)
 
+전용 관리자에서 **보안 · 접속 기록**으로 로그인 제한·자동 로그아웃·기록 보관 기간을 설정하고 접속·인증·저장 이력을 확인합니다. 설정과 기록은 공개 JSON 대신 인증 서버의 비공개 저장소에 보관합니다. 화면은 `js/admin-security.js`, 서버 처리는 `server/admin-auth/admin-security.js`에서 수정합니다.
+
 ## 기술 스택
 
 - **프런트엔드:** HTML5, CSS3, Vanilla JavaScript, SVG
 - **글 편집기:** Quill
-- **데이터 저장:** JSON, IndexedDB, Cloudflare Durable Objects(국가별 방문 집계)
+- **데이터 저장:** JSON, IndexedDB, Cloudflare Durable Objects(인증·보안 기록·국가별 방문 집계)
 - **콘텐츠 관리:** GitHub REST API
 - **관리자 인증·AI 챗봇·방문자 접속 정보:** Cloudflare Workers
 - **호스팅:** Cloudflare Pages, GitHub Pages, Cloudflare Workers(관리자)

@@ -15,6 +15,7 @@ from skills_browser_check import check_skills
 from mobile_layout_check import check_mobile_layout
 from visual_effects_browser_check import check_visual_effects
 from admin_auth_browser_check import check_admin_auth
+from admin_security_browser_check import check_admin_security
 from training_browser_check import check_training
 from section_order_browser_check import check_section_order
 from visitor_info_browser_check import check_visitor_info, ENDPOINT as VISITOR_ENDPOINT
@@ -156,6 +157,7 @@ try:
         assert admin.evaluate("localStorage.length === 0 && sessionStorage.length === 0")
 
         # Add a row, upload an image, preserve Unicode, and render untrusted text safely.
+        admin.get_by_role("button", name="학력", exact=True).click()
         admin.get_by_role("button", name="학력 추가", exact=True).click()
         admin.locator("#item-name").fill("검증용 <img src=x onerror=alert(1)>")
         admin.locator("#subtitle").fill("새 학교")
@@ -414,6 +416,7 @@ try:
         check_mobile_layout(browser, BASE, ARTIFACTS)
         check_visual_effects(browser, BASE, ARTIFACTS)
         check_admin_auth(browser, BASE, ROOT, ARTIFACTS)
+        check_admin_security(browser, BASE, ROOT, ARTIFACTS)
         check_training(browser, BASE, ROOT, ARTIFACTS)
         check_section_order(browser, BASE, ROOT, ARTIFACTS)
         check_visitor_info(browser, BASE, ARTIFACTS)

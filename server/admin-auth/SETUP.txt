@@ -26,8 +26,13 @@ build-assets.js: 관리자 화면에 필요한 공개 폴더만 .assets에 복�
 운영
 - 등록 계정은 wrangler.json의 ADMIN_USERNAME에서 설정합니다.
 - 비밀번호는 ADMIN_PASSWORD_HASH Secret을 바꿉니다. 기존 세션은 자동으로 무효화됩니다.
-- 세션은 최대 2시간, 미사용 30분이며 로그아웃하면 서버에서도 폐기됩니다.
-- IP별 15분 동안 5회, 전체 50회까지 로그인 시도를 허용합니다.
+- 로그인 후 '보안 · 접속 기록'에서 세션 시간·IP별 로그인 제한·기록 보관 기간을 설정합니다.
+- 기본값은 최대 2시간, 미사용 30분, IP별 15분 동안 5회입니다. 전체 시도는 집계 시간당 50회로 제한합니다.
+- 시간을 줄이면 기존 세션에도 적용되며 '다른 로그인 모두 종료'는 현재 세션을 제외하고 폐기합니다.
+- 전용 관리자 HTML 접속, 로그인 성공·실패·차단, 로그아웃, 저장 결과, 보안 설정 변경을 기록합니다.
+- 설정·기록은 ADMIN_STATE 비공개 저장소에만 보관하며 원문 IP·비밀번호·토큰·본문을 기록하지 않습니다.
+- 기록은 기본 30일, 최신 500건까지 조회합니다. 보관 기간 밖의 기록은 조회에서 제외하고 매일 알람으로 정리합니다.
+- GitHub 토큰으로 직접 처리한 인증·저장은 서버 기록에 포함되지 않습니다. 이전 미수집 기록은 복구하지 않습니다.
 - 세션당 API 요청은 분당 60회입니다. 데이터 충돌 시 강제 저장하지 않습니다.
 - 별도의 SQL 쿼리를 만들지 않습니다. 세션·시도 횟수는 Durable Object의 키·값 API로 관리합니다.
 - 서버 Secret이 없거나 서버에 연결되지 않으면 전용 화면의 비밀번호 로그인은 비활성화됩니다.
@@ -46,3 +51,5 @@ build-assets.js: 관리자 화면에 필요한 공개 폴더만 .assets에 복�
 https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
 https://developers.cloudflare.com/workers/runtime-apis/nodejs/crypto/
 https://developers.cloudflare.com/workers/configuration/secrets/
+https://developers.cloudflare.com/workers/static-assets/routing/worker-script/
+https://developers.cloudflare.com/durable-objects/api/alarms/

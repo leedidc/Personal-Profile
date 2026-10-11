@@ -37,6 +37,8 @@ test('자료 점검 기록은 인증 후 고정된 GitHub 경로에서 읽고 �
 function setup() {
   const data = new Map();
   const storage = {
+    getAlarm: async () => data.get('alarm') || null,
+    setAlarm: async (time) => data.set('alarm', time),
     get: async (key) => structuredClone(data.get(key)),
     put: async (key, value) => data.set(key, structuredClone(value)),
     transaction: async (callback) => callback(storage),
@@ -172,7 +174,8 @@ test('SQL 삽입 문자열·객체 입력은 인증을 우회하지 못하고 �
     body: { username: 'synthetic-admin', password: testPassword },
   });
   assert.equal(limited.status, 429);
-  assert.equal(limited.headers.get('Retry-After'), '900');
+  assert.ok(Number(limited.headers.get('Retry-After')) > 0);
+  assert.ok(Number(limited.headers.get('Retry-After')) <= 900);
   assert.equal(
     (await call(auth, '/login', { method: 'POST', body: { username: 'x'.repeat(3000) } })).status,
     413,
@@ -411,4 +414,243 @@ test('관리자 진입 경로와 API 경로를 분리하고 공개 자산으로 
   assert.deepEqual(paths, ['/admin/index.html']);
   assert.equal((await worker.fetch(new Request(origin + '/api/admin/portfolio'), env)).status, 401);
   assert.equal(paths.length, 1);
+});
+
+test('보안 설정과 기록은 세션 인증을 요구하며 쓰기에 CSRF·revision을 검증한다', async () => {
+  const { auth, data } = setup();
+  assert.equal((await call(auth, '/security')).status, 401);
+  assert.equal((await call(auth, '/security/revoke', { method: 'POST', body: {} })).status, 401);
+  const session = await login(auth);
+  const snapshot = await (await call(auth, '/security', session)).json();
+  assert.equal(snapshot.settings.sessionMinutes, 120);
+  assert.equal(snapshot.activeSessions, 1);
+  const body = {
+    revision: snapshot.revision,
+    settings: { ...snapshot.settings, loginAttempts: 3 },
+  };
+  assert.equal(
+    (await call(auth, '/security', { cookie: session.cookie, method: 'PUT', body })).status,
+    403,
+  );
+  assert.equal(data.get('security-settings'), undefined);
+  assert.equal((await call(auth, '/security', { ...session, method: 'PUT', body })).status, 200);
+  assert.equal((await call(auth, '/security', { ...session, method: 'PUT', body })).status, 409);
+  assert.equal(data.get('security-settings').settings.loginAttempts, 3);
+  for (const settings of [
+    { ...body.settings, loginAttempts: 999 },
+    { ...body.settings, loginAttempts: '3' },
+    { ...body.settings, sessionMinutes: 30, idleMinutes: 60 },
+    { ...body.settings, disableCsrf: true },
+    { ...body.settings, retentionDays: -1 },
+  ]) {
+    assert.equal(
+      (
+        await call(auth, '/security', {
+          ...session,
+          method: 'PUT',
+          body: { revision: 1, settings },
+        })
+      ).status,
+      400,
+    );
+  }
+  const after = await (await call(auth, '/security', session)).json();
+  assert.equal(after.revision, 1);
+  assert.ok(after.events.some((event) => event.kind === 'settings_changed'));
+  assert.equal(after.events.filter((event) => event.kind === 'settings_changed').length, 1);
+  const text = JSON.stringify(after);
+  for (const secret of [
+    testPassword,
+    hash,
+    'synthetic-github-token',
+    session.csrf,
+    session.cookie,
+  ]) {
+    assert.ok(!text.includes(secret));
+  }
+});
+
+test('설정한 로그인 제한·세션 시간과 다른 로그인 종료가 실제 인증에 적용된다', async () => {
+  const { auth, data } = setup();
+  const session = await login(auth);
+  const second = await login(auth);
+  const snapshot = await (await call(auth, '/security', session)).json();
+  const settings = {
+    ...snapshot.settings,
+    loginAttempts: 3,
+    loginWindowMinutes: 5,
+    sessionMinutes: 30,
+    idleMinutes: 5,
+  };
+  assert.equal(
+    (await call(auth, '/security', { ...session, method: 'PUT', body: { revision: 0, settings } }))
+      .status,
+    200,
+  );
+  const revoked = await call(auth, '/security/revoke', { ...session, method: 'POST', body: {} });
+  assert.deepEqual(await revoked.json(), { revoked: 1 });
+  assert.equal((await call(auth, '/session', second)).status, 401);
+  assert.equal((await call(auth, '/session', session)).status, 200);
+  const body = { username: 'synthetic-admin', password: 'synthetic-wrong-password' };
+  assert.equal((await call(auth, '/login', { method: 'POST', body })).status, 401);
+  const limited = await call(auth, '/login', { method: 'POST', body });
+  assert.equal(limited.status, 429);
+  assert.ok(Number(limited.headers.get('Retry-After')) <= 300);
+  assert.match((await limited.json()).error, /5분/);
+  const bucket = data.get('login-attempts');
+  bucket.start -= 301000;
+  const renewed = await call(auth, '/login', {
+    method: 'POST',
+    body: { username: 'synthetic-admin', password: testPassword },
+  });
+  assert.equal(renewed.status, 200);
+  assert.match(renewed.headers.get('Set-Cookie'), /Max-Age=1800/);
+  const sessions = data.get('sessions');
+  for (const value of Object.values(sessions)) {
+    value.lastSeen = Date.now() - 301000;
+  }
+  assert.equal((await call(auth, '/session', session)).status, 401);
+  assert.equal(
+    (await call(auth, '/session', { cookie: renewed.headers.get('Set-Cookie') })).status,
+    401,
+  );
+});
+
+test('접속·인증 결과를 기록하되 IP·입력값·URL 쿼리·원문 헤더는 저장하지 않는다', async () => {
+  const { auth, data } = setup();
+  const headers = {
+    'CF-Connecting-IP': '192.0.2.123',
+    'CF-IPCountry': 'KR',
+    'User-Agent': 'Chrome/123 synthetic-private-agent',
+  };
+  assert.equal(
+    (
+      await auth.fetch(
+        new Request(origin + '/admin/posts.html?secret=synthetic-private-query', { headers }),
+      )
+    ).status,
+    200,
+  );
+  assert.equal((await call(auth, '/session')).status, 401);
+  assert.equal(
+    data.get('security-events').length,
+    1,
+    '최초 세션 조회는 로그인 실패로 집계하지 않음',
+  );
+  assert.equal(
+    (
+      await call(auth, '/login', {
+        method: 'POST',
+        body: { username: 'synthetic-private-user', password: 'synthetic-private-password' },
+        headers,
+      })
+    ).status,
+    401,
+  );
+  await call(auth, '/login', {
+    method: 'POST',
+    body: { username: 'bad', password: 'bad' },
+    headers: { ...headers, 'CF-Connecting-IP': '2001:db8:abcd:1234:1234:5678:abcd:1234' },
+  });
+  const session = await login(auth);
+  const snapshot = await (await call(auth, '/security', session)).json();
+  assert.ok(
+    snapshot.events.some(
+      (event) => event.ip === '192.0.2.*' && event.country === 'KR' && event.browser === 'Chrome',
+    ),
+  );
+  assert.ok(snapshot.events.some((event) => event.ip === '2001:db8:…'));
+  assert.ok(snapshot.events.some((event) => event.kind === 'login_success'));
+  assert.equal(snapshot.events.filter((event) => event.kind === 'login_failure').length, 2);
+  assert.equal((await call(auth, '/logout', { ...session, method: 'POST', body: {} })).status, 200);
+  assert.equal(data.get('security-events').at(-1).kind, 'logout');
+  const stored = JSON.stringify(data.get('security-events'));
+  assert.doesNotMatch(
+    stored,
+    /192\.0\.2\.123|abcd:1234|synthetic-private|synthetic-password|Cookie|csrf/,
+  );
+});
+
+test('기존 로그인에 시간 제한을 적용해도 만료 시각이 반복해서 줄거나 만료 세션이 되살아나지 않는다', async () => {
+  const { auth, data } = setup();
+  const session = await login(auth);
+  const stored = Object.values(data.get('sessions'))[0];
+  delete stored.issuedAt;
+  const snapshot = await (await call(auth, '/security', session)).json();
+  const settings = { ...snapshot.settings, sessionMinutes: 30 };
+  assert.equal(
+    (await call(auth, '/security', { ...session, method: 'PUT', body: { revision: 0, settings } }))
+      .status,
+    200,
+  );
+  const first = await (await call(auth, '/session', session)).json();
+  const second = await (await call(auth, '/session', session)).json();
+  assert.equal(first.expires, second.expires);
+  const shortened = Object.values(data.get('sessions'))[0];
+  shortened.issuedAt -= 31 * 60000;
+  shortened.lastSeen = Date.now();
+  assert.equal((await call(auth, '/session', session)).status, 401);
+});
+
+test('보안 기록은 최대 건수·보관 기간을 지키고 접근 없이도 알람으로 정리된다', async () => {
+  const { auth, data } = setup();
+  const now = Date.now();
+  data.set(
+    'security-events',
+    Array.from({ length: 510 }, (_, i) => ({ time: now - 1000 - i, kind: 'page_access' })),
+  );
+  await auth.fetch(new Request(origin + '/admin/'));
+  assert.equal(data.get('security-events').length, 500);
+  assert.ok(data.get('alarm') > now);
+  data.set('security-events', [
+    { time: now - 31 * 86400000 },
+    { time: now - 8 * 86400000 },
+    { time: now },
+  ]);
+  await auth.alarm();
+  assert.equal(data.get('security-events').length, 2);
+  const session = await login(auth);
+  const snapshot = await (await call(auth, '/security', session)).json();
+  await call(auth, '/security', {
+    ...session,
+    method: 'PUT',
+    body: { revision: 0, settings: { ...snapshot.settings, retentionDays: 7 } },
+  });
+  assert.ok(data.get('security-events').every((event) => event.time > now - 7 * 86400000));
+  data.set('security-events', [{ time: now - 91 * 86400000 }]);
+  data.delete('alarm');
+  await auth.alarm();
+  assert.deepEqual(data.get('security-events'), []);
+  assert.equal(data.get('alarm'), undefined);
+});
+
+test('관리자 HTML의 서버 접속 기록과 API 공개 차단을 연결한다', async () => {
+  const { auth, env, data } = setup();
+  const assets = [];
+  const deployed = {
+    ...env,
+    ASSETS: {
+      fetch: async (request) => {
+        assets.push(new URL(request.url).pathname);
+        return new Response('synthetic admin');
+      },
+    },
+    ADMIN_STATE: { idFromName: () => 'administrator', get: () => auth },
+  };
+  for (const path of ['/admin', '/admin/', '/admin/index.html', '/admin/posts.html']) {
+    assert.equal((await worker.fetch(new Request(origin + path), deployed)).status, 200);
+  }
+  assert.equal(
+    data.get('security-events').filter((event) => event.kind === 'page_access').length,
+    4,
+  );
+  assert.equal(
+    (await worker.fetch(new Request(origin + '/api/admin/security'), deployed)).status,
+    401,
+  );
+  assert.equal(assets.length, 4);
+  const configuration = JSON.parse(
+    fs.readFileSync(new URL('../server/admin-auth/wrangler.json', import.meta.url)),
+  );
+  assert.ok(configuration.assets.run_worker_first.includes('/admin/*'));
 });

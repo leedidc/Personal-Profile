@@ -14,6 +14,7 @@
     <link rel="icon" href="../image/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="../css/site-common.css" />
     <link rel="stylesheet" href="../css/admin-common.css" />
+    <link rel="stylesheet" href="../css/admin-security.css" />
     <link rel="stylesheet" href="../css/award-research.css" />
     <link rel="stylesheet" href="../css/portfolio-skills.css" />
     <script src="../js/portfolio-config.js" defer></script>
@@ -28,6 +29,7 @@
     <script src="../js/admin-auth.js" defer></script>
     <script src="../js/portfolio-github.js" defer></script>
     <script src="../js/resource-update-admin.js" defer></script>
+    <script src="../js/admin-security.js" defer></script>
     <script src="../js/portfolio-editor.js" defer></script>
   </head>
   <body>
@@ -48,6 +50,7 @@
       <div class="admin-title">
         <h1>관리자<span class="unsaved" id="unsaved" hidden>저장하지 않은 변경사항</span></h1>
         <div class="admin-header-actions" id="publish-actions" hidden>
+          <button class="button" id="open-admin-security" type="button">보안 · 접속 기록</button>
           <button class="button" id="open-resource-monitor" type="button">자료실 점검</button>
           <button class="button" id="preview" type="button">미리보기</button>
           <button class="button primary" id="publish" type="button" disabled>사이트에 저장</button>
@@ -144,6 +147,134 @@
         <div class="editor-list" id="editor-list"></div>
       </section>
     </main>
+    <dialog id="admin-security-dialog" aria-labelledby="admin-security-title">
+      <div class="dialog-header">
+        <h2 id="admin-security-title">보안 · 접속 기록</h2>
+        <button class="button" type="button" data-close="admin-security-dialog">닫기</button>
+      </div>
+      <div class="dialog-body security-body">
+        <p id="admin-security-status" role="status"></p>
+        <a id="security-server-link" class="button" hidden>전용 관리자에서 로그인</a>
+        <div id="admin-security-content" hidden>
+          <div class="security-tabs" role="group" aria-label="보안 화면 선택">
+            <button class="button" type="button" data-security-tab="settings" aria-pressed="true">
+              보안 설정
+            </button>
+            <button class="button" type="button" data-security-tab="events" aria-pressed="false">
+              접속 기록
+            </button>
+          </div>
+          <section id="security-settings-panel" aria-label="보안 설정">
+            <ul class="security-protections" aria-label="항상 적용되는 보호 기능">
+              <li>HTTPS 관리자 연결</li>
+              <li>HttpOnly · Secure 쿠키</li>
+              <li>외부 사이트 요청 차단</li>
+              <li>비밀번호 해시 검증</li>
+            </ul>
+            <form id="security-settings-form">
+              <div class="form-grid">
+                <div class="field">
+                  <label for="security-session">최대 로그인 유지 시간</label>
+                  <select id="security-session" name="sessionMinutes">
+                    <option value="30">30분</option>
+                    <option value="60">1시간</option>
+                    <option value="120">2시간</option>
+                    <option value="240">4시간</option>
+                    <option value="480">8시간</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="security-idle">요청이 없을 때 자동 로그아웃</label>
+                  <select id="security-idle" name="idleMinutes">
+                    <option value="5">5분</option>
+                    <option value="15">15분</option>
+                    <option value="30">30분</option>
+                    <option value="60">1시간</option>
+                  </select>
+                  <small
+                    >편집 중 서버에 요청하지 않는 시간도 포함합니다. 편집 내용은 유지됩니다.</small
+                  >
+                </div>
+                <div class="field">
+                  <label for="security-attempts">동일 IP의 로그인 시도 제한</label>
+                  <select id="security-attempts" name="loginAttempts">
+                    <option value="3">3회</option>
+                    <option value="5">5회</option>
+                    <option value="10">10회</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="security-window">로그인 시도 집계 시간</label>
+                  <select id="security-window" name="loginWindowMinutes">
+                    <option value="5">5분</option>
+                    <option value="15">15분</option>
+                    <option value="30">30분</option>
+                    <option value="60">1시간</option>
+                  </select>
+                  <small>이 시간 안에 제한 횟수를 넘으면 남은 시간 동안 차단합니다.</small>
+                </div>
+                <div class="field">
+                  <label for="security-retention">기록 보관 기간</label>
+                  <select id="security-retention" name="retentionDays">
+                    <option value="7">7일</option>
+                    <option value="30">30일</option>
+                    <option value="90">90일</option>
+                  </select>
+                  <small>최신 500건까지 보관합니다. 기간을 줄이면 오래된 기록은 삭제됩니다.</small>
+                </div>
+              </div>
+              <p class="security-note">
+                전용 관리자 서버에 즉시 적용됩니다. 시간을 줄이면 기존 로그인에도 반영됩니다.
+              </p>
+              <div class="security-actions">
+                <button class="button primary" type="submit" id="security-save">
+                  보안 설정 저장
+                </button>
+                <button class="button" type="button" id="security-reload">다시 불러오기</button>
+              </div>
+            </form>
+            <div class="security-session-actions">
+              <p id="security-session-count"></p>
+              <button class="button" type="button" id="security-revoke">
+                다른 로그인 모두 종료
+              </button>
+            </div>
+          </section>
+          <section id="security-events-panel" aria-label="접속 기록" hidden>
+            <div class="security-event-toolbar">
+              <div class="field">
+                <label for="security-event-filter">기록 유형</label>
+                <select id="security-event-filter">
+                  <option value="all">전체 기록</option>
+                  <option value="page_access">관리자 화면 접속</option>
+                  <option value="login_success">로그인 성공</option>
+                  <option value="login_failure">로그인 실패</option>
+                  <option value="login_limited">로그인 시도 차단</option>
+                  <option value="request_blocked">관리 요청 거부</option>
+                  <option value="logout">로그아웃</option>
+                  <option value="content_saved">콘텐츠 저장</option>
+                  <option value="content_failed">콘텐츠 저장 실패</option>
+                  <option value="settings_changed">보안 설정 변경</option>
+                  <option value="sessions_revoked">다른 로그인 종료</option>
+                </select>
+              </div>
+              <button class="button" type="button" id="security-refresh">기록 새로고침</button>
+            </div>
+            <p id="security-events-summary" class="security-note"></p>
+            <ol id="security-events" class="security-events"></ol>
+            <div class="security-pagination">
+              <button class="button" type="button" id="security-previous">이전</button>
+              <span id="security-page" aria-live="polite"></span>
+              <button class="button" type="button" id="security-next">다음</button>
+            </div>
+          </section>
+          <p class="security-note">
+            전용 관리자 서버의 접속·인증·저장 기록입니다. GitHub 토큰으로 직접 처리한 로그인과
+            저장은 포함되지 않습니다. IP는 일부를 가리고, 비밀번호·토큰·글 내용은 기록하지 않습니다.
+          </p>
+        </div>
+      </div>
+    </dialog>
     <dialog id="resource-monitor-dialog" aria-labelledby="resource-monitor-title">
       <div class="dialog-header">
         <h2 id="resource-monitor-title">자료실 자동 점검</h2>

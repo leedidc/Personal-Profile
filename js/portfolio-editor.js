@@ -264,6 +264,7 @@
     }
     token = '';
     ResourceMonitor.clear();
+    AdminSecurityPanel.clear();
     sha = '';
     data = null;
     setDirty(false);
@@ -293,6 +294,11 @@
   getElement('open-resource-monitor').addEventListener('click', () => {
     if (token && !busy) {
       ResourceMonitor.open(token);
+    }
+  });
+  getElement('open-admin-security').addEventListener('click', () => {
+    if (token && !busy) {
+      AdminSecurityPanel.open(token);
     }
   });
 

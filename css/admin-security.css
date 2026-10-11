@@ -1,0 +1,112 @@
+#admin-security-dialog {
+  width: min(940px, calc(100% - 24px));
+}
+.security-body {
+  font-size: 13px;
+}
+#admin-security-status {
+  min-height: 22px;
+  margin-bottom: 12px;
+  color: var(--accent);
+  overflow-wrap: anywhere;
+}
+#admin-security-status[data-error='true'] {
+  color: #b34053;
+}
+.security-tabs,
+.security-actions,
+.security-pagination,
+.security-session-actions,
+.security-event-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.security-tabs {
+  margin-bottom: 20px;
+}
+.security-tabs [aria-pressed='true'] {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent-line);
+}
+.security-protections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 24px;
+}
+.security-protections li {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 12px;
+}
+.security-note {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+  margin-block: 16px;
+}
+.security-session-actions {
+  justify-content: space-between;
+  padding-block: 20px;
+  border-block: 1px solid var(--line);
+  margin-top: 24px;
+}
+.security-event-toolbar {
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.security-event-toolbar .field {
+  flex: 1;
+  max-width: 260px;
+}
+.security-events {
+  list-style: none;
+  padding: 0;
+}
+.security-event {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 5px 12px;
+  overflow-wrap: anywhere;
+}
+.security-event strong {
+  color: var(--ink);
+}
+.security-event[data-failed='true'] strong {
+  color: #b34053;
+}
+.security-event time,
+.security-event small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.security-event small {
+  grid-column: 1 / -1;
+}
+.security-pagination {
+  justify-content: center;
+  margin-top: 20px;
+}
+@media (max-width: 540px) {
+  .security-protections,
+  .security-event {
+    grid-template-columns: 1fr;
+  }
+  .security-event-toolbar {
+    align-items: stretch;
+  }
+  .security-event-toolbar .field {
+    max-width: none;
+    flex-basis: 100%;
+  }
+}
