@@ -1,15 +1,15 @@
 {
   "version": 1,
   "sectionOrder": [
-    "education",
     "experience",
+    "education",
     "certifications",
     "skills",
     "awards",
     "projects",
     "activities",
-    "languages",
-    "training"
+    "training",
+    "languages"
   ],
   "profile": {
     "name": "이찬형",
