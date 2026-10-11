@@ -6,6 +6,8 @@
 
 글 페이지의 공부 기록 연결 지도는 관리자가 저장한 분류와 게시글을 자동으로 연결합니다. 표시와 배치는 [js/study-map.js](js/study-map.js), 디자인은 [css/study-map.css](css/study-map.css)에서 수정합니다.
 
+관리자의 **섹션 관리**에서 섹션 추가·이름·공개·삭제·복원·순서를, **기능 설정**에서 글·자료실·챗봇·터미널·모션·방문 정보 등을 설정합니다. 설정과 내용은 기존 `data/portfolio.json`에 함께 저장됩니다. 관련 코드는 `js/section-manager.js`, `js/site-feature-editor.js`, `js/site-features.js`입니다.
+
 공식 자료는 [자동 점검 코드](scripts/check_resource_updates.py)와 [GitHub Actions](https://github.com/leedidc/Personal-Profile/actions/workflows/resource-updates.yml)로 매일 09:17(KST)에 확인합니다. 공개 자료실에는 기준일·점검일만 표시하고, 상세 기록은 로그인 후 **관리자 → 자료실 점검**에서 확인합니다.
 
 [웹사이트 방문](https://lee.chanhyeong.kro.kr/)

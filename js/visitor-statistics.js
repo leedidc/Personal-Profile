@@ -1,5 +1,13 @@
-(() => {
+(async () => {
   'use strict';
+  await SiteFeatures.ready;
+  if (!SiteFeatures.enabled('visitorStatistics')) {
+    const section = document.getElementById('site-insights');
+    if (section) {
+      section.hidden = true;
+    }
+    return;
+  }
   const panel = document.querySelector('.visitor-map-card');
   const sessionKey = 'portfolio-visit-at-v1';
   const interval = 30 * 60 * 1000;

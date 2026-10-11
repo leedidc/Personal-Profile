@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const { chatbot, sections } = PortfolioConfig;
+  const { chatbot } = PortfolioConfig;
 
   function createPortfolioContext(portfolio) {
     const context = {
@@ -23,7 +23,7 @@
       'category',
       'technologies',
     ];
-    for (const section of sections) {
+    for (const section of Portfolio.getSections(portfolio).filter(Portfolio.sectionVisible)) {
       if (section.key === 'skills') {
         const categories = PortfolioSkills.getCategories(portfolio);
         context.skills = (portfolio.skills || []).map((skill) => {

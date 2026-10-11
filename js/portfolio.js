@@ -28,16 +28,17 @@
 
   async function load() {
     try {
-      const response = await fetch('data/portfolio.json', { cache: 'no-cache' });
-      if (!response.ok) {
-        throw new Error();
-      }
-      const data = Portfolio.validatePortfolio(await response.json());
+      const data = Portfolio.validatePortfolio(await SiteFeatures.loadPortfolio());
       updatePageProfile(data.profile);
       Portfolio.renderPortfolio(root, data);
       PortfolioNavigation.initialize(data);
-      window.PortfolioChatbot?.initialize(data);
-      window.PortfolioTerminal?.initialize(data);
+      const publicData = Portfolio.publicPortfolio(data);
+      if (Portfolio.featureEnabled(data, 'chatbot')) {
+        window.PortfolioChatbot?.initialize(publicData);
+      }
+      if (Portfolio.featureEnabled(data, 'terminal')) {
+        window.PortfolioTerminal?.initialize(publicData);
+      }
       window.PortfolioEffects?.initialize();
       if (location.hash) {
         document.getElementById(location.hash.slice(1))?.scrollIntoView();

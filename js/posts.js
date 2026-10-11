@@ -1,5 +1,10 @@
-(() => {
+(async () => {
   'use strict';
+  await SiteFeatures.ready;
+  if (!SiteFeatures.enabled('posts')) {
+    SiteFeatures.closePage('글');
+    return;
+  }
   const { createElement, validateIndex, validateDocument, categoryName, renderPost } = Posts;
   const status = document.getElementById('posts-status');
   const reader = document.getElementById('post-content');
@@ -7,7 +12,7 @@
   const search = document.getElementById('post-search');
   const retry = document.getElementById('retry-posts');
   let index;
-  let view = 'map';
+  let view = SiteFeatures.enabled('studyMap') ? 'map' : 'list';
 
   async function readJson(path) {
     const response = await fetch(path, { cache: 'no-cache' });
@@ -83,7 +88,7 @@
           categoryFilter.add(new Option('미분류', ''));
         }
         document.getElementById('filters').hidden = false;
-        document.getElementById('posts-view-switch').hidden = false;
+        document.getElementById('posts-view-switch').hidden = !SiteFeatures.enabled('studyMap');
         document.getElementById('study-map').hidden = view !== 'map';
         renderList();
       }

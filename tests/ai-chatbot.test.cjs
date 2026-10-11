@@ -16,7 +16,12 @@ function loadService(fetch) {
     clearTimeout,
   });
   context.window = context;
-  for (const file of ['portfolio-config.js', 'portfolio-skills.js', 'ai-chatbot-service.js']) {
+  for (const file of [
+    'portfolio-config.js',
+    'portfolio-core.js',
+    'portfolio-skills.js',
+    'ai-chatbot-service.js',
+  ]) {
     vm.runInContext(fs.readFileSync(path.join(root, 'js', file), 'utf8'), context);
   }
   return context;

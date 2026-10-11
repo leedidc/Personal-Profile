@@ -1,13 +1,7 @@
 (() => {
   'use strict';
-  const {
-    sections,
-    createElement,
-    validatePortfolio,
-    createLogo,
-    getSafeUrl,
-    maskCredentialNumber,
-  } = Portfolio;
+  const { createElement, validatePortfolio, createLogo, getSafeUrl, maskCredentialNumber } =
+    Portfolio;
   const getElement = (id) => document.getElementById(id);
   // 토큰과 저장 전 변경사항은 현재 페이지의 메모리에만 유지합니다.
   let token = '';
@@ -89,19 +83,44 @@
   }
 
   function renderEditorList() {
+    const sections = Portfolio.getSections(data).filter((section) => !section.removed);
+    if (!sections.some((section) => section.key === sectionKey)) {
+      sectionKey = sections[0]?.key || '';
+    }
+    const tabs = getElement('editor-tabs');
+    for (const button of [...tabs.children]) {
+      if (!sections.some((section) => section.key === button.dataset.section)) {
+        button.remove();
+      }
+    }
+    for (const [index, section] of sections.entries()) {
+      let button = tabs.querySelector('[data-section="' + section.key + '"]');
+      if (!button) {
+        button = createElement('button');
+        button.type = 'button';
+        button.dataset.section = section.key;
+        button.addEventListener('click', () => {
+          sectionKey = section.key;
+          renderEditorList();
+        });
+      }
+      button.textContent = section.title;
+      button.setAttribute('aria-pressed', String(section.key === sectionKey));
+      if (tabs.children[index] !== button) {
+        tabs.insertBefore(button, tabs.children[index] || null);
+      }
+    }
     const section = sections.find((item) => item.key === sectionKey);
+    getElement('add-item').disabled = !section;
+    getElement('manage-skill-categories').hidden = sectionKey !== 'skills';
+    if (!section) {
+      getElement('section-title').textContent = '섹션을 추가하거나 복원해 주세요.';
+      getElement('editor-list').replaceChildren();
+      return;
+    }
     const rows = data[sectionKey] || [];
     getElement('section-title').textContent = section.title + ' · ' + rows.length;
     getElement('add-item').setAttribute('aria-label', section.title + ' 추가');
-    getElement('manage-skill-categories').hidden = sectionKey !== 'skills';
-    const tabs = getElement('editor-tabs');
-    for (const [index, section] of Portfolio.getSections(data).entries()) {
-      const button = tabs.querySelector('[data-section="' + section.key + '"]');
-      button.setAttribute('aria-pressed', String(button.dataset.section === sectionKey));
-      if (tabs.children[index] !== button) {
-        tabs.insertBefore(button, tabs.children[index]);
-      }
-    }
     const list = getElement('editor-list');
     list.replaceChildren();
     rows.forEach((row, index, rows) => {
@@ -171,16 +190,6 @@
     if (!rows.length) {
       list.append(createElement('p', 'empty-row', '등록된 항목이 없습니다.'));
     }
-  }
-  for (const section of sections) {
-    const button = createElement('button', '', section.title);
-    button.type = 'button';
-    button.dataset.section = section.key;
-    button.addEventListener('click', () => {
-      sectionKey = section.key;
-      renderEditorList();
-    });
-    getElement('editor-tabs').append(button);
   }
   const reload = createElement('button', 'button', '새로 불러오기');
   reload.id = 'reload';
@@ -288,12 +297,20 @@
   });
 
   getElement('edit-section-order').addEventListener('click', () => {
-    SectionOrderEditor.open(data, (order) => {
-      validatePortfolio({ ...data, sectionOrder: order });
-      data.sectionOrder = order;
+    SectionManager.open(data, (next) => {
+      validatePortfolio(next);
+      data = next;
       setDirty();
       renderEditorList();
-      showStatus('섹션 순서를 적용했습니다. 사이트에 저장하면 공개 화면에도 반영됩니다.');
+      showStatus('섹션 설정을 적용했습니다. 사이트에 저장하면 공개 화면에도 반영됩니다.');
+    });
+  });
+  getElement('edit-site-features').addEventListener('click', () => {
+    SiteFeatureEditor.open(data, (features) => {
+      validatePortfolio({ ...data, siteFeatures: features });
+      data.siteFeatures = features;
+      setDirty();
+      showStatus('기능 설정을 적용했습니다. 사이트에 저장하면 공개 화면에도 반영됩니다.');
     });
   });
 
@@ -326,9 +343,9 @@
     const form = getElement('item-form');
     form.reset();
     getElement('item-error').textContent = '';
-    const section = sections.find((item) => item.key === sectionKey);
+    const section = Portfolio.getSections(data).find((item) => item.key === sectionKey);
     getElement('item-title').textContent = section.title + (row ? ' 수정' : ' 추가');
-    const labels = editorLabels[sectionKey];
+    const labels = editorLabels[sectionKey] || ['항목 이름', '부제 · 소속', '요약'];
     ['name-label', 'subtitle-label', 'summary-label'].forEach((id, i) => {
       getElement(id).textContent = labels[i];
     });
@@ -479,7 +496,7 @@
         .filter(Boolean);
     }
     try {
-      const section = sections.find((item) => item.key === sectionKey);
+      const section = Portfolio.getSections(data).find((item) => item.key === sectionKey);
       if (sectionKey === 'awards') {
         const research = AwardResearchEditor.read();
         if (research) {

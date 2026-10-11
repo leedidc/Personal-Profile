@@ -60,12 +60,12 @@ def check_section_order(browser, base, root, artifacts):
     admin.keyboard.press('Enter')
     expect(tab).to_be_focused()
     expect(tab).to_have_attribute('aria-pressed', 'true')
-    admin.get_by_role('button', name='섹션 순서', exact=True).click()
+    admin.get_by_role('button', name='섹션 관리', exact=True).click()
     dialog = admin.locator('#section-order-dialog')
     admin.get_by_label('교육 이수현황 섹션 순서', exact=True).select_option('0')
     dialog.get_by_role('button', name='취소', exact=True).click()
     expect(admin.locator('#publish')).to_be_disabled()
-    admin.get_by_role('button', name='섹션 순서', exact=True).click()
+    admin.get_by_role('button', name='섹션 관리', exact=True).click()
     assert dialog.locator('.section-order-row').evaluate_all('(rows) => rows.map(row => row.dataset.section)') == original['sectionOrder']
 
     expected = list(original['sectionOrder'])

@@ -1,5 +1,10 @@
-(() => {
+(async () => {
   'use strict';
+  await SiteFeatures.ready;
+  if (!SiteFeatures.enabled('security')) {
+    document.getElementById('security-connection').hidden = true;
+    return;
+  }
   const dialog = document.getElementById('security-dialog');
   if (!dialog) {
     return;

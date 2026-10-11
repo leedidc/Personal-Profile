@@ -1,5 +1,10 @@
-(() => {
+(async () => {
   'use strict';
+  await SiteFeatures.ready;
+  if (!SiteFeatures.enabled('resources')) {
+    SiteFeatures.closePage('자료실');
+    return;
+  }
 
   const status = document.getElementById('resources-status');
   const list = document.getElementById('resource-list');

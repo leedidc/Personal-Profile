@@ -21,7 +21,8 @@
     <script src="../js/portfolio-skills.js" defer></script>
     <script src="../js/skills-editor.js" defer></script>
     <script src="../js/skill-categories-editor.js" defer></script>
-    <script src="../js/section-order-editor.js" defer></script>
+    <script src="../js/section-manager.js" defer></script>
+    <script src="../js/site-feature-editor.js" defer></script>
     <script src="../js/award-research.js" defer></script>
     <script src="../js/award-research-editor.js" defer></script>
     <script src="../js/admin-auth.js" defer></script>
@@ -125,7 +126,8 @@
         <div class="editor-toolbar">
           <div class="editor-tabs" id="editor-tabs" role="group" aria-label="편집할 항목"></div>
           <div class="editor-heading-actions">
-            <button class="button small" id="edit-section-order" type="button">섹션 순서</button>
+            <button class="button small" id="edit-section-order" type="button">섹션 관리</button>
+            <button class="button small" id="edit-site-features" type="button">기능 설정</button>
             <button class="button small" id="edit-profile" type="button">프로필 수정</button>
           </div>
         </div>
@@ -390,7 +392,7 @@
     <dialog id="section-order-dialog" aria-labelledby="section-order-title">
       <form id="section-order-form">
         <div class="dialog-header">
-          <h2 id="section-order-title">섹션 순서</h2>
+          <h2 id="section-order-title">섹션 관리</h2>
           <button
             class="button icon"
             type="button"
@@ -402,14 +404,55 @@
         </div>
         <div class="dialog-body">
           <p class="editor-help">
-            순서를 선택하거나 ↑·↓ 버튼으로 이동하세요. 상단 메뉴와 본문에 함께 반영됩니다.
+            이름·공개 여부·순서를 바꾸면 상단 메뉴와 본문에 함께 반영됩니다. 삭제한 섹션은 내용이
+            보관되어 복원할 수 있습니다.
           </p>
+          <div class="section-add-controls">
+            <label for="new-section-title">새 섹션 이름</label>
+            <input
+              id="new-section-title"
+              type="text"
+              maxlength="60"
+              placeholder="예: 발표 · 기고"
+            />
+            <button class="button" id="add-section" type="button">+ 섹션 추가</button>
+          </div>
           <div id="section-order-list"></div>
+          <div id="removed-sections" hidden>
+            <h3>삭제한 섹션</h3>
+            <div id="removed-section-list"></div>
+          </div>
           <p id="section-order-error" class="dialog-error" role="alert"></p>
         </div>
         <div class="dialog-actions">
           <button class="button" type="button" data-close="section-order-dialog">취소</button>
           <button class="button primary" type="submit">적용</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="site-feature-dialog" aria-labelledby="site-feature-title">
+      <form id="site-feature-form">
+        <div class="dialog-header">
+          <h2 id="site-feature-title">기능 설정</h2>
+          <button
+            class="button icon"
+            type="button"
+            data-close="site-feature-dialog"
+            aria-label="닫기"
+          >
+            ×
+          </button>
+        </div>
+        <div class="dialog-body">
+          <p class="editor-help">
+            사용할 기능을 선택한 뒤 적용하고 ‘사이트에 저장’을 누르세요. 글·자료실을 끄면 해당
+            페이지도 닫히며, 방문 지도를 끄면 방문 집계도 중단됩니다.
+          </p>
+          <div id="site-feature-list"></div>
+        </div>
+        <div class="dialog-actions">
+          <button class="button" type="button" data-close="site-feature-dialog">취소</button
+          ><button class="button primary" type="submit">적용</button>
         </div>
       </form>
     </dialog>

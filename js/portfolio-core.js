@@ -3,11 +3,105 @@
   const { sections } = PortfolioConfig;
   const credentialNumberPrefixLength = 12;
 
-  function validateSectionOrder(order) {
+  function sectionDefinitions(data = {}) {
+    const custom = data.customSections ?? [];
+    if (!Array.isArray(custom) || custom.length > 30) {
+      throw new Error('추가 섹션은 최대 30개까지 만들 수 있습니다.');
+    }
+    const keys = new Set();
+    for (const section of custom) {
+      if (
+        !section ||
+        typeof section.key !== 'string' ||
+        !/^custom-[a-z0-9-]{1,60}$/.test(section.key) ||
+        keys.has(section.key) ||
+        typeof section.title !== 'string' ||
+        !section.title.trim() ||
+        section.title.length > 60
+      ) {
+        throw new Error('추가 섹션의 이름과 ID를 확인해 주세요.');
+      }
+      keys.add(section.key);
+    }
+    return [
+      ...sections,
+      ...custom.map(({ key, title }) => ({
+        key,
+        title,
+        columns: ['항목', '기간', '내용'],
+        custom: true,
+      })),
+    ];
+  }
+
+  function validateSiteSettings(data) {
+    const definitions = sectionDefinitions(data);
+    if (data.sectionOptions !== undefined) {
+      if (
+        !data.sectionOptions ||
+        typeof data.sectionOptions !== 'object' ||
+        Array.isArray(data.sectionOptions)
+      ) {
+        throw new Error('섹션 설정을 확인해 주세요.');
+      }
+      for (const [key, options] of Object.entries(data.sectionOptions)) {
+        if (
+          !definitions.some((section) => section.key === key) ||
+          !options ||
+          typeof options !== 'object' ||
+          Array.isArray(options) ||
+          Object.keys(options).some((field) => !['title', 'visible', 'removed'].includes(field)) ||
+          (options.title !== undefined &&
+            (typeof options.title !== 'string' ||
+              !options.title.trim() ||
+              options.title.length > 60)) ||
+          ['visible', 'removed'].some(
+            (field) => options[field] !== undefined && typeof options[field] !== 'boolean',
+          )
+        ) {
+          throw new Error('섹션 이름과 공개 여부를 확인해 주세요.');
+        }
+      }
+    }
+    if (data.siteFeatures !== undefined) {
+      if (
+        !data.siteFeatures ||
+        typeof data.siteFeatures !== 'object' ||
+        Array.isArray(data.siteFeatures) ||
+        Object.entries(data.siteFeatures).some(
+          ([key, value]) =>
+            !PortfolioConfig.siteFeatures.some((feature) => feature.key === key) ||
+            typeof value !== 'boolean',
+        )
+      ) {
+        throw new Error('사이트 기능 설정을 확인해 주세요.');
+      }
+    }
+  }
+
+  function featureEnabled(data, key) {
+    return data?.siteFeatures?.[key] !== false;
+  }
+
+  function sectionVisible(section) {
+    return section.visible !== false && !section.removed;
+  }
+
+  function publicPortfolio(data) {
+    const result = structuredClone(data);
+    for (const section of getSections(data)) {
+      if (!sectionVisible(section)) {
+        result[section.key] = [];
+      }
+    }
+    return result;
+  }
+
+  function validateSectionOrder(order, data = {}) {
     if (order === undefined) {
       return;
     }
-    const keys = new Set(sections.map((section) => section.key));
+    const keys = new Set(sectionDefinitions(data).map((section) => section.key));
     if (
       !Array.isArray(order) ||
       order.length > keys.size ||
@@ -19,13 +113,14 @@
   }
 
   function getSections(data) {
-    validateSectionOrder(data.sectionOrder);
+    const definitions = sectionDefinitions(data);
+    validateSectionOrder(data.sectionOrder, data);
     const order = data.sectionOrder || [];
     // 이전 데이터에 순서가 없거나 새 섹션이 생기면 기본 목록에서 보완합니다.
     return [
-      ...order.map((key) => sections.find((section) => section.key === key)),
-      ...sections.filter((section) => !order.includes(section.key)),
-    ];
+      ...order.map((key) => definitions.find((section) => section.key === key)),
+      ...definitions.filter((section) => !order.includes(section.key)),
+    ].map((section) => ({ ...section, ...data.sectionOptions?.[section.key] }));
   }
 
   function maskCredentialNumber(value) {
@@ -98,7 +193,8 @@
     if (!data || data.version !== 1 || !data.profile || typeof data.profile !== 'object') {
       throw new Error('포트폴리오 데이터 형식이 올바르지 않습니다.');
     }
-    validateSectionOrder(data.sectionOrder);
+    validateSiteSettings(data);
+    validateSectionOrder(data.sectionOrder, data);
     for (const key of ['name', 'englishName', 'email', 'github', 'linkedin']) {
       if (typeof data.profile[key] !== 'string' || data.profile[key].length > 500) {
         throw new Error('프로필 내용을 확인해 주세요.');
@@ -133,7 +229,7 @@
     }
     const skillCategories = PortfolioSkills.validateCategories(PortfolioSkills.getCategories(data));
     const ids = new Set();
-    for (const section of sections) {
+    for (const section of sectionDefinitions(data)) {
       const rows = section.optional && data[section.key] === undefined ? [] : data[section.key];
       if (!Array.isArray(rows) || rows.length > 500) {
         throw new Error(section.title + ' 목록을 확인해 주세요.');
@@ -515,6 +611,9 @@
     validatePortfolio(data);
     root.replaceChildren();
     getSections(data).forEach((section) => {
+      if (!sectionVisible(section)) {
+        return;
+      }
       const rows = data[section.key] || [];
       if (section.optional && !rows.length) {
         return;
@@ -559,6 +658,10 @@
   globalThis.Portfolio = {
     sections,
     getSections,
+    validateSiteSettings,
+    featureEnabled,
+    sectionVisible,
+    publicPortfolio,
     validateSectionOrder,
     createElement,
     getSafeUrl,

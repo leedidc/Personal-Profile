@@ -5,6 +5,9 @@
     const nav = document.querySelector('.portfolio-header nav');
     nav.replaceChildren();
     for (const section of Portfolio.getSections(data)) {
+      if (!Portfolio.sectionVisible(section)) {
+        continue;
+      }
       const link = Portfolio.createElement('a', '', section.title);
       link.href = '#' + section.key;
       link.hidden = Boolean(section.optional && !data[section.key]?.length);
@@ -12,9 +15,11 @@
     }
     const posts = Portfolio.createElement('a', '', '글');
     posts.href = 'posts/';
+    posts.hidden = !Portfolio.featureEnabled(data, 'posts');
     nav.append(posts);
     const resources = Portfolio.createElement('a', '', '자료실');
     resources.href = 'resources/';
+    resources.hidden = !Portfolio.featureEnabled(data, 'resources');
     nav.append(resources);
 
     const sections = [...document.querySelectorAll('#portfolio .resume-section')];

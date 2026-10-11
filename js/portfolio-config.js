@@ -116,6 +116,26 @@
     { value: 'cloud-data', label: '클라우드 · 데이터' },
   ];
   const skillLevels = ['상', '중', '하', '미정'];
+  const siteFeatures = [
+    { key: 'posts', label: '글 페이지', description: '글 메뉴와 공개 글 열기' },
+    { key: 'studyMap', label: '공부 기록 연결 지도', description: '글 페이지의 주제별 연결 지도' },
+    { key: 'resources', label: '자료실', description: '자료실 메뉴와 공식 자료 목록' },
+    { key: 'chatbot', label: 'AI 안내 챗봇', description: '포트폴리오 질문과 답변' },
+    { key: 'terminal', label: '터미널', description: '명령어로 포트폴리오 탐색' },
+    { key: 'intro', label: '자물쇠 인트로', description: '첫 화면의 잠금 해제 애니메이션' },
+    { key: 'motion', label: '화면 모션', description: '인트로·방패·연결선·스크롤 전환 효과' },
+    { key: 'security', label: '보안 연결 시각화', description: '연결 흐름도와 방패 표시' },
+    {
+      key: 'visitorInfo',
+      label: '방문자 접속 정보',
+      description: '방문자 자신의 시간·IP·국가 표시',
+    },
+    {
+      key: 'visitorStatistics',
+      label: '국가별 방문 지도',
+      description: '국가별 방문 집계와 지도 표시',
+    },
+  ];
 
   globalThis.PortfolioConfig = {
     sections,
@@ -128,5 +148,6 @@
     skillCategories,
     skillGroups,
     skillLevels,
+    siteFeatures,
   };
 })();

@@ -1,5 +1,9 @@
-(() => {
+(async () => {
   'use strict';
+  await SiteFeatures.ready;
+  if (!SiteFeatures.enabled('visitorInfo')) {
+    return;
+  }
 
   const panel = document.getElementById('visitor-info');
   if (!panel) {

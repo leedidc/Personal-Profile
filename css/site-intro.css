@@ -192,3 +192,6 @@ html.intro-playing {
     display: none;
   }
 }
+html.intro-pending body {
+  visibility: hidden;
+}

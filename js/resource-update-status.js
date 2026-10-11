@@ -1,5 +1,9 @@
-(() => {
+(async () => {
   'use strict';
+  await SiteFeatures.ready;
+  if (!SiteFeatures.enabled('resources')) {
+    return;
+  }
   const status = document.getElementById('resource-monitor-status');
   const format = new Intl.DateTimeFormat('ko-KR', {
     dateStyle: 'short',

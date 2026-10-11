@@ -59,7 +59,8 @@
     let visible = false;
 
     function updateMotion() {
-      const animating = !reducedMotion.matches && visible && !document.hidden;
+      const animating =
+        SiteFeatures.enabled('motion') && !reducedMotion.matches && visible && !document.hidden;
       visual.classList.toggle('is-animating', animating);
       if (!animating) {
         resetTilt();
@@ -165,9 +166,13 @@
       return;
     }
     initialized = true;
-    initializeNetwork();
+    if (SiteFeatures.enabled('security')) {
+      initializeNetwork();
+    }
     initializeNavigationIndicator();
-    initializeSectionMotion();
+    if (SiteFeatures.enabled('motion')) {
+      initializeSectionMotion();
+    }
     initializeReadingProgress();
   }
   window.PortfolioEffects = { initialize };

@@ -165,7 +165,13 @@
       'posts',
       {
         description: '공부한 내용과 게시글',
-        run: (entry) => addLink(entry, '글 목록 열기 ↗', 'posts/'),
+        run: (entry) => {
+          if (Portfolio.featureEnabled(portfolio, 'posts')) {
+            addLink(entry, '글 목록 열기 ↗', 'posts/');
+          } else {
+            addText(entry, '현재 운영하지 않는 페이지입니다.', 'is-muted');
+          }
+        },
       },
     ],
     ['clear', { description: '화면과 명령 기록 지우기', run: clearTerminal }],

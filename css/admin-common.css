@@ -464,3 +464,68 @@ dialog::backdrop {
   display: block;
   margin-top: 3px;
 }
+.section-setting-identity {
+  display: grid;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+.section-name-input,
+.section-add-controls input {
+  min-height: 42px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--control-line);
+  border-radius: 6px;
+  color: var(--ink);
+  background: var(--white);
+}
+.setting-checkbox,
+.feature-setting {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.setting-checkbox input,
+.feature-setting input {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+}
+.section-add-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.section-add-controls label {
+  grid-column: 1 / -1;
+}
+#removed-sections {
+  margin-top: 24px;
+}
+#removed-sections h3 {
+  font-size: 14px;
+}
+.feature-setting {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+}
+.feature-setting strong,
+.feature-setting small {
+  display: block;
+}
+.feature-setting small {
+  margin-top: 3px;
+  color: var(--muted);
+}
+@media (max-width: 600px) {
+  .section-order-row {
+    flex-wrap: wrap;
+  }
+  .section-setting-identity {
+    flex-basis: 100%;
+  }
+}
