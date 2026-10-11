@@ -13,7 +13,9 @@
     <link rel="icon" href="../image/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="../css/site-common.css" />
     <link rel="stylesheet" href="../css/posts.css" />
+    <link rel="stylesheet" href="../css/study-map.css" />
     <script src="../js/posts-core.js" defer></script>
+    <script src="../js/study-map.js" defer></script>
     <script src="../js/portfolio-config.js" defer></script>
     <script src="../js/visitor-statistics.js" defer></script>
     <script src="../js/posts.js" defer></script>
@@ -37,6 +39,25 @@
         <h1>글</h1>
         <p>공부한 내용과 경험을 차곡차곡 기록합니다.</p>
       </header>
+      <div
+        class="posts-view-switch"
+        id="posts-view-switch"
+        role="group"
+        aria-label="글 보기 방식"
+        hidden
+      >
+        <button type="button" id="show-study-map" aria-pressed="true" aria-controls="study-map">
+          연결 지도
+        </button>
+        <button
+          type="button"
+          id="show-post-list"
+          aria-pressed="false"
+          aria-controls="posts-table-wrap"
+        >
+          글 목록
+        </button>
+      </div>
       <form class="posts-filters" role="search" id="filters" hidden>
         <div>
           <label for="category-filter">분류</label
@@ -50,6 +71,48 @@
         </div>
       </form>
       <p id="posts-status" class="posts-status" role="status">글을 불러오는 중입니다.</p>
+      <section class="study-map" id="study-map" aria-labelledby="study-map-title" hidden>
+        <header class="study-map-header">
+          <div>
+            <p class="study-map-kicker">CONNECTED NOTES</p>
+            <h2 id="study-map-title">공부 기록 연결 지도</h2>
+          </div>
+          <p id="study-map-summary"></p>
+        </header>
+        <div class="study-map-layout">
+          <div class="study-map-visual">
+            <div class="study-map-toolbar">
+              <button class="study-map-back" id="study-map-back" type="button" hidden>
+                ← 전체 주제
+              </button>
+            </div>
+            <div class="study-map-canvas" id="study-map-canvas">
+              <svg
+                class="study-map-connections"
+                id="study-map-connections"
+                aria-hidden="true"
+              ></svg>
+              <div class="study-map-root" id="study-map-root"></div>
+              <div id="study-map-nodes" role="group" aria-label="연결된 주제와 글"></div>
+            </div>
+            <div class="study-map-pagination" id="study-map-pagination" hidden>
+              <button id="study-map-previous" type="button" aria-label="이전 연결 보기">←</button>
+              <span id="study-map-page" aria-live="polite"></span>
+              <button id="study-map-next" type="button" aria-label="다음 연결 보기">→</button>
+            </div>
+            <p class="study-map-hint">주제를 누르면 연결된 글이 펼쳐집니다.</p>
+          </div>
+          <aside
+            class="study-map-detail"
+            id="study-map-detail"
+            aria-labelledby="study-map-heading"
+            aria-live="polite"
+          >
+            <h3 id="study-map-heading">최근 공부 글</h3>
+            <ul class="study-map-results" id="study-map-results"></ul>
+          </aside>
+        </div>
+      </section>
       <div class="posts-table-wrap" id="posts-table-wrap" hidden>
         <table class="posts-table">
           <caption class="sr-only">

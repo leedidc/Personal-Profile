@@ -6,7 +6,7 @@ def check_mobile_layout(browser, base, artifacts):
     page = context.new_page()
     errors = []
     page.on('pageerror', lambda error: errors.append(str(error)))
-    routes = [('/', '#skills'), ('/posts/', '#posts-list'), ('/admin/', '#login-form'), ('/admin/posts.html', '#login-form')]
+    routes = [('/', '#skills'), ('/posts/', '#study-map'), ('/admin/', '#login-form'), ('/admin/posts.html', '#login-form')]
     posts = context.request.get(base + '/data/posts/index.json').json()['posts']
     if posts:
         routes.insert(2, ('/posts/view.html?id=' + posts[0]['id'], '.post-body'))

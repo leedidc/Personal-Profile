@@ -7,6 +7,7 @@
   const search = document.getElementById('post-search');
   const retry = document.getElementById('retry-posts');
   let index;
+  let view = 'map';
 
   async function readJson(path) {
     const response = await fetch(path, { cache: 'no-cache' });
@@ -43,7 +44,8 @@
       row.append(title, category, date);
       body.append(row);
     }
-    document.getElementById('posts-table-wrap').hidden = !visible.length;
+    document.getElementById('posts-table-wrap').hidden = view !== 'list' || !visible.length;
+    StudyMap.render(index, visible, categoryFilter.value);
     status.textContent = visible.length
       ? visible.length + '개의 글'
       : index.posts.length
@@ -81,12 +83,34 @@
           categoryFilter.add(new Option('미분류', ''));
         }
         document.getElementById('filters').hidden = false;
+        document.getElementById('posts-view-switch').hidden = false;
+        document.getElementById('study-map').hidden = view !== 'map';
         renderList();
       }
     } catch (error) {
       status.textContent = error.message;
       retry.hidden = false;
     }
+  }
+  window.StudyMap?.init((categoryId) => {
+    categoryFilter.value = categoryId;
+    renderList();
+  });
+  for (const [id, nextView] of [
+    ['show-study-map', 'map'],
+    ['show-post-list', 'list'],
+  ]) {
+    document.getElementById(id)?.addEventListener('click', () => {
+      view = nextView;
+      document.getElementById('study-map').hidden = view !== 'map';
+      document
+        .getElementById('show-study-map')
+        .setAttribute('aria-pressed', String(view === 'map'));
+      document
+        .getElementById('show-post-list')
+        .setAttribute('aria-pressed', String(view === 'list'));
+      renderList();
+    });
   }
   categoryFilter?.addEventListener('change', renderList);
   search?.addEventListener('input', renderList);

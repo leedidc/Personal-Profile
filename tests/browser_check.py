@@ -22,6 +22,7 @@ from site_insights_browser_check import check_site_insights
 from site_intro_browser_check import check_site_intro
 from terminal_browser_check import check_terminal
 from resource_library_browser_check import check_resource_library
+from study_map_browser_check import check_study_map
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACTS = ROOT / ".test-artifacts"
@@ -405,6 +406,7 @@ try:
         expect(denied.locator("#editor-panel")).to_be_hidden()
 
         check_posts(browser, BASE, ROOT, ARTIFACTS)
+        check_study_map(browser, BASE, ROOT, ARTIFACTS)
         check_chatbot(browser, BASE, ARTIFACTS)
         check_skills(browser, BASE, ROOT, ARTIFACTS)
         check_mobile_layout(browser, BASE, ARTIFACTS)

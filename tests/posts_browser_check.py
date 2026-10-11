@@ -177,6 +177,7 @@ def check_posts(browser, base, root, artifacts):
     expect(public.locator("#posts-list tr")).to_have_count(original_count + 1)
     public.locator("#category-filter").select_option(category)
     expect(public.locator("#posts-list tr")).to_have_count(1)
+    public.locator("#show-post-list").click()
     public.locator("#posts-list a").first.click()
     expect(public.locator(".post-body strong")).to_have_text("중요한 개념")
     expect(public.locator(".post-body img")).to_have_count(1)

@@ -73,7 +73,7 @@ def check_site_insights(browser, base, artifacts):
     expect(page.locator('#visitor-total')).to_have_text('18')
     assert state['visits'] == 1
     page.goto(base + '/posts/')
-    expect(page.locator('#posts-list')).to_be_visible()
+    expect(page.locator('#study-map')).to_be_visible()
     assert state['visits'] == 1
     page.evaluate("sessionStorage.setItem('portfolio-visit-at-v1', String(Date.now() - 31 * 60 * 1000))")
     page.reload()
