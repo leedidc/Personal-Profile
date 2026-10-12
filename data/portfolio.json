@@ -192,10 +192,10 @@
     {
       "id": "skill-burp",
       "name": "Burp Suite",
+      "description": "웹 프록시 기반 요청 테스트",
       "category": "engineering",
       "group": "security-analysis",
-      "level": "하",
-      "description": "웹 보안 테스트"
+      "level": "하"
     },
     {
       "id": "skill-siem",
@@ -661,21 +661,21 @@
   "projects": [
     {
       "id": "project-pii",
+      "logo": "image/extension.jpg",
+      "details": [
+        "웹 서비스 회원가입 시 일괄 동의로 인한 불필요한 선택적 개인정보 제공을 방지하고, 개인정보 수집·이용 동의 내용을 자동으로 분석하여 수집되는 개인정보 항목을 식별함으로써 사용자가 서비스별 개인정보 제공 현황을 쉽게 확인하고 관리할 수 있도록 지원하는 크롬 확장 프로그램 개발"
+      ],
       "name": "개인정보 확장 프로그램",
       "subtitle": "캡스톤 디자인",
-      "logo": "image/extension.jpg",
       "period": "2024.03 – 2024.07",
       "status": "",
+      "summary": "개인정보 제공 현황 관리 크롬 확장 프로그램",
       "category": "personal",
-      "summary": "웹 서비스 회원가입 과정의 개인정보 탐지·모니터링",
-      "details": [
-        "웹 서비스에 제출하는 개인정보를 확인하고 관리하는 Chrome 확장 프로그램 개발"
-      ],
+      "link": "",
       "technologies": [
         "JavaScript",
         "Chrome Extension"
-      ],
-      "link": ""
+      ]
     },
     {
       "id": "project-cve",
@@ -808,17 +808,18 @@
   "awards": [
     {
       "id": "award-mois-2026",
-      "name": "행정안전부 장관상",
-      "subtitle": "2026 한국정보보호학회 동계학술대회",
       "logo": "image/mois.png",
+      "details": [
+        "(Proceeding) 공공기관의 효율적인 국가망보안체계(N²SF) 도입을 위한 의사결정 프레임워크"
+      ],
+      "name": "행정안전부 장관상",
+      "subtitle": "2026 한국정보보호학회 동계학술대회 (CISC-W'26)",
       "period": "2026.10",
       "status": "",
       "summary": "행정안전부",
-      "details": [
-        "공공기관의 효율적인 국가망보안체계(N²SF) 도입을 위한 의사결정 프레임워크"
-      ],
       "research": {
         "title": "공공기관의 효율적인 국가망보안체계(N²SF) 도입을 위한 의사결정 프레임워크",
+        "link": "",
         "slides": [
           {
             "title": "연구 배경 · 공공기관의 N²SF 도입",
@@ -837,17 +838,18 @@
     },
     {
       "id": "award-kiisc-2026",
-      "name": "한국정보보호학회장상",
-      "subtitle": "2026 한국정보보호학회 동계학술대회",
       "logo": "image/kiisc.png",
+      "details": [
+        "(Proceeding) 국가 망 보안체계 정보서비스 모델 3의 등급 라벨 생애주기 통제 부재와 경계 중심 대응 아키텍처"
+      ],
+      "name": "한국정보보호학회장상",
+      "subtitle": "2026 한국정보보호학회 동계학술대회 (CISC-W'26)",
       "period": "2026.10",
       "status": "",
       "summary": "한국정보보호학회",
-      "details": [
-        "국가 망 보안체계 정보서비스 모델 3의 등급 라벨 생애주기 통제 부재와 경계 중심 대응 아키텍처"
-      ],
       "research": {
         "title": "국가 망 보안체계 정보서비스 모델 3의 등급 라벨 생애주기 통제 부재와 경계 중심 대응 아키텍처",
+        "link": "",
         "slides": [
           {
             "title": "연구 주제 · 등급 라벨과 보안 경계",
@@ -866,18 +868,19 @@
     },
     {
       "id": "award-db-2025",
+      "logo": "image/db-foundation.png",
+      "details": [
+        "AI 기반 사이버 위협에 대응한 사이버 보험 변화의 필요성과 구현 전략을 주제로 논문 작성",
+        "Microsoft STRIDE 사이버 공격 위협 모델링 및 CVSS를 활용해 AI 사이버 공격 지표를 정량화하고 보험 보장 항목과 비용을 연계 분석하여 개선 방안 제시"
+      ],
       "name": "입선상",
       "subtitle": "2025 DB보험금융공모전",
-      "logo": "image/db-foundation.png",
       "period": "2025.06",
       "status": "논문 부문",
       "summary": "DB김준기문화재단",
-      "details": [
-        "AI 기반 사이버 위협에 대응한 사이버 보험 변화의 필요성과 구현 전략을 주제로 논문 작성",
-        "사이버 공격 위협 모델링을 활용해 보험 보장 항목과 실제 보안 사고 비용을 연계 분석하고 개선 방안 제시"
-      ],
       "research": {
         "title": "AI 기반 사이버 위협에 대응한 사이버 보험 변화의 필요성과 구현 전략",
+        "link": "",
         "slides": [
           {
             "title": "연구 주제 · 보안과 보험의 연결",
@@ -900,18 +903,19 @@
     },
     {
       "id": "award-kisia-2024",
-      "name": "우수상",
-      "subtitle": "2024 정보보호 정책제안 공모전",
       "logo": "image/kisia.png",
+      "details": [
+        "웹 기반 IoT 보안 통합정보 조회시스템 도입 정책 제안",
+        "(IoT 기기의 취약성에 대응해 사용자에게 기기 보안 정보를 공개하는 정부 운영 플랫폼)"
+      ],
+      "name": "한국정보보호학회장상(우수상)",
+      "subtitle": "2024 정보보호 정책제안 공모전",
       "period": "2024.12",
       "status": "",
       "summary": "한국정보보호산업협회",
-      "details": [
-        "웹 기반 IoT 보안 통합정보조회 시스템 제안",
-        "IoT 기기의 다양성과 취약성에 대응해 보안을 강화하는 정책 기획서 제시"
-      ],
       "research": {
         "title": "웹 기반 IoT 보안 통합정보조회 시스템 제안",
+        "link": "",
         "slides": [
           {
             "title": "문제 인식 · 다양한 IoT 기기와 취약성",
