@@ -333,40 +333,39 @@
   "training": [
     {
       "id": "training-network-forensics-2024",
+      "logo": "issuer/kisa.png",
+      "details": [
+        "와이어샤크를 통한 네트워크 패킷 분석, TCP/IP 프로토콜의 동작 원리에 대한 이해, Snort Rule 기반 네트워크 공격 차단 실습 등"
+      ],
       "name": "한국인터넷진흥원",
       "subtitle": "침해사고 대응을 위한 네트워크 데이터 분석 및 포렌식",
-      "logo": "issuer/kisa.png",
       "period": "2024.09.27",
       "status": "이수",
-      "summary": "4시간",
-      "details": [
-        "와이어샤크를 통한 네트워크 패킷 분석 및 Snort 규칙 기반 공격 대응 방법 실습"
-      ]
+      "summary": "4시간"
     },
     {
       "id": "training-privacy-impact-2025",
+      "logo": "issuer/kisa.png",
+      "details": [
+        "개인정보보호법, 개인정보 안전성 확보조치 기준, 개인정보영향평가(PIA) 수행방법론, 개인정보영향평가 실무에 대한 이해"
+      ],
       "name": "한국인터넷진흥원",
       "subtitle": "2025년 개인정보 영향평가 전문교육",
-      "logo": "issuer/kisa.png",
       "period": "2025.05.12 – 2025.05.16",
       "status": "이수",
-      "summary": "38시간",
-      "details": [
-        "개인정보보호법, 개인정보 안전성 확보조치 기준, 개인정보영향평가 수행방법론에 대한 이해"
-      ]
+      "summary": "38시간"
     },
     {
       "id": "training-crypto-module-2026",
+      "logo": "image/kosyas.jpg",
+      "details": [
+        "암호 알고리즘(AES, DES, RSA 등) 및 키 교환 방식에 대한 이해, 국가정보원 암호모듈 검증지침 및 KCMVP 절차에 대한 이해"
+      ],
       "name": "한국시스템보증",
       "subtitle": "2026년 암호모듈 전문교육 기초과정",
-      "logo": "image/kosyas.jpg",
       "period": "2026.06.29 – 2026.06.30",
       "status": "이수",
-      "summary": "12시간",
-      "details": [
-        "과학기술정보통신부 및 한국인터넷진흥원 주관",
-        "암호 알고리즘에 대한 이해, 암호모듈 검증지침 및 KCMVP 절차에 대한 이해"
-      ]
+      "summary": "12시간"
     }
   ],
   "experience": [
