@@ -679,48 +679,46 @@
     },
     {
       "id": "project-cve",
-      "name": "CVE 관리시스템",
-      "subtitle": "한국전자통신연구원",
       "logo": "image/etri.jpg",
-      "period": "",
-      "status": "",
-      "category": "company",
-      "summary": "Critical 취약점 대응·조치 현황 관리 자동화",
       "details": [
-        "NVD·KISA RSS를 활용한 취약점 정보 수집 및 대응 현황 관리",
-        "DMZ 정보시스템·주요 기관 서버 등을 대상으로 약 100건의 CVE·CCE 기반 취약점 진단 및 조치 관리"
+        "NVD·KISA RSS·CVSS API를 활용한 취약점 정보 수집 및 대응 현황 관리",
+        "IP 대역별 CVE 점검 현황을 실시간으로 확인 및 증빙 관리"
       ],
+      "name": "CVE 조치현황 관리시스템",
+      "subtitle": "한국전자통신연구원",
+      "period": "2026.09 - 2026.10",
+      "status": "",
+      "summary": "Critical 취약점 조치 현황 관리 자동화 시스템",
+      "category": "company",
+      "link": "",
       "technologies": [
         "Python",
         "FastAPI",
         "SQLite",
         "JavaScript",
         "Uvicorn"
-      ],
-      "link": ""
+      ]
     },
     {
       "id": "project-assets",
+      "logo": "image/etri.jpg",
+      "details": [
+        "서버·업무용 단말기·복합기·보안USB 등 정보자산의 사용자별 조회, 보안점검 결과 입력 및 부서별 이행현황·미조치 자산을 실시간으로 확인할 수 있는 웹 기반 정보자산 보안점검 시스템 개발"
+      ],
       "name": "정보자산 보안점검 시스템",
       "subtitle": "한국전자통신연구원",
-      "logo": "image/etri.jpg",
-      "period": "",
+      "period": "2026.07-",
       "status": "",
+      "summary": "정보자산 보안점검 관리 시스템",
       "category": "company",
-      "summary": "약 8,000개 정보자산의 보안점검·관리 업무 전산화",
-      "details": [
-        "서버·업무용 단말기·복합기·보안USB의 보안설정 및 관리 현황 점검",
-        "수기·Excel 기반 점검을 시스템으로 전환해 자산 누락과 관리 미흡 개선",
-        "점검기간 약 60% 이상 단축 및 점검 누락 약 90% 이상 감소"
-      ],
+      "link": "",
       "technologies": [
         "Python",
         "FastAPI",
         "PostgreSQL",
         "JavaScript",
         "Locust"
-      ],
-      "link": ""
+      ]
     }
   ],
   "activities": [
