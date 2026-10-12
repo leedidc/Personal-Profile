@@ -372,21 +372,22 @@
   "experience": [
     {
       "id": "exp-etri",
+      "logo": "image/etri.jpg",
+      "details": [
+        "전사 정보보호 관리체계 운영 및 내부 정보보호 규정·기준 약 60건 개정 검토",
+        "SIEM, 방화벽, IPS, WIPS, WAF, EDR, DLP, 백신 등 약 10종의 보안솔루션 운영·정책 관리",
+        "약 8,000개 정보자산의 보안설정·관리 현황 점검 및 정보자산 보안점검 시스템 개발",
+        "DMZ 대역 CVE·CCE 기반 취약점 관리 및 CVE 관리시스템 개발",
+        "SIEM·방화벽·IPS 로그 기반 연간 200건 이상 침해사고·보안 이벤트 분석·대응",
+        "연 2~3회 외부 정보보호 감사 대응 및 10개 주요 보안영역 점검·증빙·후속조치 관리",
+        "AI 컴퓨팅센터 TFT 참여, AI·GPU 공동 활용 솔루션 PoC 및 GPU 관리규정 수립 등"
+      ],
       "name": "한국전자통신연구원",
       "subtitle": "Electronics and Telecommunications Research Institute",
-      "logo": "image/etri.jpg",
       "period": "2026.01 – 현재",
       "status": "재직",
       "summary": "정보전략부 정보보안실 · 기술원",
-      "details": [
-        "전사 정보보호 관리체계 운영 및 내부 정보보호 규정·기준 약 60건 개정 검토",
-        "SIEM, 방화벽, IPS, WIPS, WAF, EDR, DLP, 백신 등 약 10종의 보안솔루션 운영·정책 관리·유지보수 및 PoC 수행",
-        "약 8,000개 정보자산의 보안설정·관리 현황 점검 및 정보자산 보안점검 시스템 개발",
-        "CVE·CCE 기반 취약점 약 100건 진단·조치 관리 및 CVE 관리시스템 개발",
-        "SIEM·방화벽·IPS 로그 기반 연간 200건 이상 침해사고·보안 이벤트 분석·대응",
-        "연 2~3회 외부 정보보호 감사 대응 및 10개 주요 보안영역 점검·증빙·후속조치 관리",
-        "AI 컴퓨팅센터 TFT 참여, AI·GPU 공동 활용 솔루션 PoC 및 Docker·Kubernetes 환경 보안통제 검토"
-      ]
+      "summaryEnglish": ""
     },
     {
       "id": "exp-ibk",
@@ -404,31 +405,33 @@
     },
     {
       "id": "exp-kdb",
+      "logo": "image/kdb.png",
+      "details": [
+        "임직원 정보보안 교육자료 제작 및 딥보이스·다크웹 등 최신 위협 사례를 반영한 인식 제고 활동 지원",
+        "해킹메일·재해복구·DDoS 대응 훈련 지원",
+        "국내외 사이버 위협·침해사고 동향 조사 및 모니터링",
+        "임직원 대상 정보보호 세미나 준비 및 운영 지원"
+      ],
       "name": "한국산업은행",
       "subtitle": "Korea Development Bank",
-      "logo": "image/kdb.png",
       "period": "2024.05.27 – 2024.08.30",
       "status": "인턴",
       "summary": "정보보호부 · 침해대응팀",
-      "details": [
-        "임직원 정보보안 교육자료 제작 및 딥보이스·다크웹 등 최신 위협 사례를 반영한 인식 제고 활동 지원",
-        "해킹메일·재해복구·DDoS 대응 훈련 준비·운영·결과 정리 지원",
-        "국내외 사이버 위협·침해사고 동향 조사 및 모니터링",
-        "임직원 대상 정보보호 세미나 준비 및 운영 지원"
-      ]
+      "summaryEnglish": ""
     },
     {
       "id": "exp-didc",
+      "logo": "image/didc.jpg",
+      "details": [
+        "사이버 침해사고 대응 및 보안솔루션(FW, IPS, WAF, SIEM 등) 운영",
+        "DDoS·APT 등 사이버 침해사고 대응 및 침해지표 모니터링"
+      ],
       "name": "국방통합데이터센터",
       "subtitle": "Defense Integrated Data Center",
-      "logo": "image/didc.jpg",
       "period": "2022.11 – 2024.03",
       "status": "군 복무",
-      "summary": "보안관제센터 · 정보보호병",
-      "details": [
-        "정보시스템 체계 관제 및 보안솔루션 운영",
-        "DDoS·APT 등 침해사고 대응 및 보안 모니터링"
-      ]
+      "summary": "통합관제실 · 정보보호병",
+      "summaryEnglish": ""
     }
   ],
   "certifications": [
